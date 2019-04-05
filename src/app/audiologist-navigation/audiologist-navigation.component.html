@@ -34,7 +34,7 @@
 
         <div class="row"><label class="sec-label">TESTS</label></div>
         <div class="row"><button class="main-btn" (click)="showRecommendedTests()">Recommended</button></div>
-        <!-- <div class="row"><button class="main-btn" (click)="showSuggestedTests()">Suggested</button></div> -->
+         <div class="row"><button class="main-btn" (click)="showSuggestedTests()">Suggested</button></div>
         <div class="row"><label class="sec-label">SUMMARY SECTION</label></div>
         <div class="row"><button class="main-btn" (click)="showSummary()">Summary</button></div>
 
@@ -50,7 +50,7 @@
             </div>
          </div>
           <kendo-pdf-export #pdf paperSize="A4" margin="2cm" [scale]="scale">
-            <!-- <app-summary class="{{summary ? 'main-right-container' : 'main-right-container-hidden'}}"></app-summary> -->
+            <!--<app-summary class="{{summary ? 'main-right-container' : 'main-right-container-hidden'}}"></app-summary> -->
             <audiogram class="{{recommendedTests ? 'main-right-container': 'main-right-container-hidden'}}"></audiogram>
             <otoscopy class="{{recommendedTests ? 'main-right-container': 'main-right-container-hidden'}}"></otoscopy>
             <tympanometry class="{{recommendedTests ? 'main-right-container' : 'main-right-container-hidden'}}"></tympanometry>
