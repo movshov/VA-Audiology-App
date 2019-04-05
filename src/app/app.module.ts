@@ -70,6 +70,7 @@ import { RelaxationComponent } from './relaxation/relaxation.component';
 import { SleepComponent } from './sleep/sleep.component';
 import { SoundComponent } from './sound/sound.component';
 import { FaqComponent } from './faq/faq.component';
+import { AudiologistSummaryComponent } from './audiologist-summary/audiologist-summary.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -116,7 +117,8 @@ type StoreType = {
     RelaxationComponent,
     SleepComponent,
     SoundComponent,
-    FaqComponent
+    FaqComponent,
+    AudiologistSummaryComponent
   ],
   exports: [
     MatSliderModule,
