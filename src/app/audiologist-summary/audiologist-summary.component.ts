@@ -75,6 +75,7 @@ export class AudiologistSummaryComponent implements OnInit {
   }
   private sumTHS(array, start, length): number {
     let sum: number = 0;
+    length += start;
     for(let i = start; i < length; i++) {
       sum += this.getTHSvalue(array, i);
     }
@@ -82,6 +83,7 @@ export class AudiologistSummaryComponent implements OnInit {
   }
   private getTHSvalue(array, i): number {
     let thsAnswers = new ThsAnswerStrings();
+    console.log(i + ": " + array[i].choice);
     switch(array[i].choice) {
       case thsAnswers.NO: return 0;
       case thsAnswers.SMALL_YES: return 1;
