@@ -13,6 +13,7 @@ export class ThsStateflowService {
   // the answer to the last question, the patient may be asked to fill out a short text box
   // with some info so it wil change the state based on that
   public moveStateForward(state: number, choice: string): number {
+    console.log("state: " + state);
     if (state === 9) {
       if (choice[0] !== '0') {
         this.dataService.saveData(9, choice);
@@ -22,7 +23,7 @@ export class ThsStateflowService {
         return 11;
       }
     } else {
-      this.dataService.saveData(state, choice);
+      this.dataService.saveData(state + 1, choice);
       return state + 1;
     }
   }
