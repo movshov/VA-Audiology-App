@@ -9,7 +9,7 @@
   <!-- Type -->
   <div class="subhead" align="left">TYPE</div>
   <mat-radio-group class = "radio">
-    <mat-radio-button *ngFor="let type of testTypes" [value]="type">
+    <mat-radio-button *ngFor="let type of testTypes" [value]="type" (change)="typeChange($event)">
       {{type}}
     </mat-radio-button>
   </mat-radio-group>
@@ -17,15 +17,15 @@
   <div class="hline"><hr></div>
 
   <!-- Template for showing all the serverity options -->
-  <ng-template #severity let-side="side">
+  <ng-template #severity let-side="side" let-name="name">
     <mat-card class="mat-elevation-z1"
               [style.background]="side=='left' ? 'rgba(98,159,195, 0.1)':'rgba(195,98,98, 0.08)'">
     <mat-card-header>
       <mat-card-subtitle>SERVERITY</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <mat-radio-group class="card-radio">
-        <mat-radio-button *ngFor="let severity of severities" [value]="severity">
+      <mat-radio-group [name]="name" class="card-radio">
+        <mat-radio-button *ngFor="let severity of severities" [value]="severity" (change)="severityChange($event)">
           {{severity}}
         </mat-radio-button>
       </mat-radio-group>
@@ -54,12 +54,12 @@
     <div class="subhead" align="left">LEFT EAR</div>
     <div class="col-sm-6">
       <div class="toolbar" align="center">High Frequency</div>
-      <ng-container *ngTemplateOutlet="severity;context:{side:'left'}"></ng-container>
+      <ng-container *ngTemplateOutlet="severity;context:{side:'left',name:'leftHigh'}"></ng-container>
       <ng-container *ngTemplateOutlet="configs;context:{side:'left'}"></ng-container>
     </div>
     <div class="col-sm-6">
       <div class="toolbar" align="center">Low Frequency</div>
-      <ng-container *ngTemplateOutlet="severity;context:{side:'left'}"></ng-container>
+      <ng-container *ngTemplateOutlet="severity;context:{side:'left',name:'leftLow'}"></ng-container>
       <ng-container *ngTemplateOutlet="configs;context:{side:'left'}"></ng-container>
     </div>
   </div>
@@ -70,12 +70,12 @@
     <div class="subhead" align="left">RIGHT EAR</div>
     <div class="col-sm-6">
       <div class="toolbar" align="center">High Frequency</div>
-      <ng-container *ngTemplateOutlet="severity;context:{side:'right'}"></ng-container>
+      <ng-container *ngTemplateOutlet="severity;context:{side:'right',name:'rightHigh'}"></ng-container>
       <ng-container *ngTemplateOutlet="configs;context:{side:'right'}"></ng-container>
     </div>
     <div class="col-sm-6">
       <div class="toolbar" align="center">Low Frequency</div>
-      <ng-container *ngTemplateOutlet="severity;context:{side:'right'}"></ng-container>
+      <ng-container *ngTemplateOutlet="severity;context:{side:'right',name:'rightLow'}"></ng-container>
       <ng-container *ngTemplateOutlet="configs;context:{side:'right'}"></ng-container>
     </div>
   </div>

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Utilities } from '../common/utlilities';
+import { EventEmitter } from '@angular/core';
+import { MatRadioChange } from '@angular/material';
 
 /*
 Audiogram Test Component for the audiologist view:
@@ -48,4 +50,26 @@ export class AudiogramComponent implements OnInit {
 
   public ngOnInit() { }
 
+  public typeChange(event: MatRadioChange) {
+    console.log("Clicked: " + event.value + " : " + event.source);
+    Utilities.setSessionStorage('audiogramType', event.value);
+  }
+  public severityChange(event: MatRadioChange) {
+    console.log("event.value: " + event.value);
+    console.log(event.source.name);
+    switch(event.source.name) {
+      case 'leftHigh':
+        Utilities.setSessionStorage('leftHighSev', event.value);
+        break;
+      case 'leftLow':
+        Utilities.setSessionStorage('leftLowSev', event.value);
+        break;
+      case 'rightHigh':
+        Utilities.setSessionStorage('rightHighSev', event.value);
+        break;
+      case 'rightLow':
+        Utilities.setSessionStorage('rightLowSev', event.value);
+        break;
+    }
+  }
 }
