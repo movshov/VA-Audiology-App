@@ -18,6 +18,10 @@ export class AudiologistSummaryComponent implements OnInit {
   public overallTFI: number; public intrusive: number; public sense: number; public cognitive: number;
   public sleep: number; public auditory: number; public relaxation: number; public quality: number; public emotional: number;
 
+  public audtype: string; public leftHighSeverity: string; public leftHighConfig: string; public leftLowSeverity: string;
+  public leftLowCOnfig: string; public rightHighSeverity: string; public rightHighConfig: string;
+  public rightLowSeverity: string; public rightLowConfig: string;
+
   /**
    *
    * @param thsDataService the data service for ths questionare
@@ -32,6 +36,7 @@ export class AudiologistSummaryComponent implements OnInit {
     this.tfiDataService.onInit();
     this.setTFI();
     this.patientID = Utilities.getSessionStorage('patient-id');
+    this.updateAudiogramTestResults();
   }
 
   ngOnInit() {
@@ -122,6 +127,12 @@ export class AudiologistSummaryComponent implements OnInit {
     score /= length;
     score *= 10;
     return score;
+  }
+
+  private updateAudiogramTestResults() {
+    if(Utilities.getSessionStorage('audiogramType')) {
+      this.audtype = Utilities.getSessionStorage('audiogramType');
+    }
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { Utilities } from '../common/utlilities';
 import { EventEmitter } from '@angular/core';
 import { MatRadioChange } from '@angular/material';
+import { TestsDataService } from '../services/tests-data.service';
 
 /*
 Audiogram Test Component for the audiologist view:
@@ -17,6 +18,8 @@ This component does not save information to any data services/databases
 export class AudiogramComponent implements OnInit {
 
   public patientID: string = Utilities.getSessionStorage('patient-id');
+
+  constructor(private dataService: TestsDataService){}
 
   // Text for test type radio buttons in the template
   public testTypes = [
@@ -52,23 +55,21 @@ export class AudiogramComponent implements OnInit {
 
   public typeChange(event: MatRadioChange) {
     console.log("Clicked: " + event.value + " : " + event.source);
-    Utilities.setSessionStorage('audiogramType', event.value);
+    this.dataService.saveData('audiogramType', event.value);
   }
   public severityChange(event: MatRadioChange) {
-    console.log("event.value: " + event.value);
-    console.log(event.source.name);
     switch(event.source.name) {
       case 'leftHigh':
-        Utilities.setSessionStorage('leftHighSev', event.value);
+        this.dataService.saveData('leftHighSev', event.value);
         break;
       case 'leftLow':
-        Utilities.setSessionStorage('leftLowSev', event.value);
+        this.dataService.saveData('leftLowSev', event.value);
         break;
       case 'rightHigh':
-        Utilities.setSessionStorage('rightHighSev', event.value);
+        this.dataService.saveData('rightHighSev', event.value);
         break;
       case 'rightLow':
-        Utilities.setSessionStorage('rightLowSev', event.value);
+        this.dataService.saveData('rightLowSev', event.value);
         break;
     }
   }
