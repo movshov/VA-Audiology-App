@@ -1,0 +1,41 @@
+.left {
+    float: left;
+    margin: 0 16px 16px;
+}
+
+.fullWidth {
+    margin: auto;
+    width: 100%;
+}
+
+.margins {
+    margin: 0 16px 16px;
+}
+
+.title {
+    background-color: lightblue;
+    padding: 10px;
+    width: 100%;
+    margin-top: 0;
+    text-align: center;
+}
+
+.leftEar {
+    background-color: rgb(199, 219, 231);
+    border: 1px black solid;
+    box-shadow: 2px 2px 5px 1px #333;
+}
+.leftTitle {
+    background-color: rgb(25, 85, 153);
+    color: white;
+}
+
+.rightEar {
+    background-color: rgb(240, 224, 224);
+    border: 1px black solid;
+    box-shadow: 2px 2px 5px 1px #333;
+}
+.rightTitle {
+    background-color: rgb(153, 25, 25);
+    color: white;
+}
