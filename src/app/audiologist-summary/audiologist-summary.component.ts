@@ -16,6 +16,7 @@ export class AudiologistSummaryComponent implements OnInit {
   public thsA;
   public thsB;
   public thsC;
+  public thsCtxt;
   public thsCex;
   public tfi;
 
@@ -70,6 +71,7 @@ export class AudiologistSummaryComponent implements OnInit {
     this.thsA = this.sumTHS(answers, 0, 4);
     this.thsB = this.sumTHS(answers, 4, 4);
     this.thsC = this.getTHSvalue(answers, 8);
+    this.thsCtxt = answers[8].choice;
     this.thsCex = this.thsC > 0 ? answers[9].choice : "";
     console.log(answers);
   }
