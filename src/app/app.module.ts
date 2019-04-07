@@ -71,6 +71,7 @@ import { SleepComponent } from './sleep/sleep.component';
 import { SoundComponent } from './sound/sound.component';
 import { FaqComponent } from './faq/faq.component';
 import { AudiologistSummaryComponent } from './audiologist-summary/audiologist-summary.component';
+import { TestsDataService } from './services/tests-data.service';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -157,7 +158,8 @@ type StoreType = {
     TfiDataService,
     ThsStateflowService,
     ThsDataService,
-    RouterGuards
+    RouterGuards,
+    TestsDataService
   ]
 })
 export class AppModule {

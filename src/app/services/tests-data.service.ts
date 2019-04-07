@@ -1,12 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Utilities } from '../common/utlilities';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { stringify } from 'querystring';
 
 // Holds test results entered
 @Injectable()
 export class TestsDataService {
   public data: Array <{name: string, value: string}> = [];
+  observableData: BehaviorSubject<{ name: string; value: string; }[]>;
 
-  constructor() { }
+  constructor() {
+    this.observableData = new BehaviorSubject<{name: string, value: string}[]>(this.data);
+  }
 
   public onInit() {
     if(JSON.parse(Utilities.getSessionStorage('tests-data'))) {
@@ -23,6 +30,7 @@ export class TestsDataService {
     }
     this.data.push({name, value});
     this.updateSessionStorage();
+    this.observableData.next(this.data);
   }
 
   public updateSessionStorage(): void {

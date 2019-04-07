@@ -4,6 +4,8 @@ import { ThsDataService } from '../services/ths-data.service';
 import { TsScreenerDataService } from '../services/ts-screener-data.service';
 import { TfiDataService } from '../services/tfi-data.service';
 import { TsScreenerAnswerStrings, ThsAnswerStrings } from '../common/custom-resource-strings';
+import { TestsDataService } from '../services/tests-data.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'audiologist-summary',
@@ -22,30 +24,37 @@ export class AudiologistSummaryComponent implements OnInit {
   public leftLowCOnfig: string; public rightHighSeverity: string; public rightHighConfig: string;
   public rightLowSeverity: string; public rightLowConfig: string;
 
+  private subscription: Subscription;
+
   /**
    *
    * @param thsDataService the data service for ths questionare
    * @param tsDataService the data service for ts questionare
    * @param tfiDataService the date service for tfi questionare
    */
-  constructor(public thsDataService: ThsDataService, public tsDataService: TsScreenerDataService, public tfiDataService: TfiDataService) {
+  constructor(public thsDataService: ThsDataService, public tsDataService: TsScreenerDataService, public tfiDataService: TfiDataService, 
+    public testsDataService: TestsDataService) {
     this.tsDataService.onInit();
     this.setTS();
     this.thsDataService.onInit();
     this.setTHS();
     this.tfiDataService.onInit();
     this.setTFI();
+    this.testsDataService.onInit();
     this.patientID = Utilities.getSessionStorage('patient-id');
-    this.updateAudiogramTestResults();
   }
 
   ngOnInit() {
+    this.subscription = this.testsDataService.observableData.subscribe(data => this.updateAudiogramTestResults(data));
   }
 
   public setTS() {
     let answers = this.tsDataService.dataRecord;
     let tsAnswers = new TsScreenerAnswerStrings();
     let index = 0;
+    if(answers.length < 1) {
+      return;
+    }
     if (answers[index++].choice === tsAnswers.NO) {
       this.ts = "No Tinnitus";
       return;
@@ -71,6 +80,9 @@ export class AudiologistSummaryComponent implements OnInit {
 
   public setTHS() {
     let answers = this.thsDataService.dataRecord;
+    if(answers.length < 1) {
+      return;
+    }
     this.thsA = this.sumTHS(answers, 0, 4);
     this.thsB = this.sumTHS(answers, 4, 4);
     this.thsC = this.getTHSvalue(answers, 8);
@@ -88,7 +100,9 @@ export class AudiologistSummaryComponent implements OnInit {
   }
   private getTHSvalue(array, i): number {
     let thsAnswers = new ThsAnswerStrings();
-    console.log(i + ": " + array[i].choice);
+    if(array.length < 1) {
+      return;
+    }
     switch (array[i].choice) {
       case thsAnswers.NO: return 0;
       case thsAnswers.SMALL_YES: return 1;
@@ -103,7 +117,7 @@ export class AudiologistSummaryComponent implements OnInit {
     let answers = this.tfiDataService.dataRecord;
     // Calculate overall TFI score
     this.overallTFI = 0;
-    for(let i = 0; i < answers.length; i++) {
+    for (let i = 0; i < answers.length; i++) {
       this.overallTFI += answers[i].choice;
     }
     this.overallTFI /= 25;
@@ -119,9 +133,12 @@ export class AudiologistSummaryComponent implements OnInit {
     this.quality = this.calcTFIsub(answers, 18, 4);
     this.emotional = this.calcTFIsub(answers, 22, 3);
   }
-  private calcTFIsub(array: {state: number;choice: number;}[], start: number, length: number): number {
+  private calcTFIsub(array: { state: number; choice: number; }[], start: number, length: number): number {
     let score: number = 0;
-    for(let i = start; i < start + length; i++) {
+    if(array.length < 1) {
+      return;
+    }
+    for (let i = start; i < start + length; i++) {
       score += array[i].choice
     }
     score /= length;
@@ -129,9 +146,17 @@ export class AudiologistSummaryComponent implements OnInit {
     return score;
   }
 
-  private updateAudiogramTestResults() {
-    if(Utilities.getSessionStorage('audiogramType')) {
-      this.audtype = Utilities.getSessionStorage('audiogramType');
+  private updateAudiogramTestResults(data: Array <{name: string, value: string}>) {
+    let answers = data;
+    if(answers.length < 1) {
+      return;
+    }
+    console.log(answers[0].value);
+    if(answers.length > 0) {
+      let index: number = answers.findIndex((x) => x.name === 'audiogramType');
+      if(index !== -1) {
+        this.audtype = answers[index].value;
+      }
     }
   }
 
