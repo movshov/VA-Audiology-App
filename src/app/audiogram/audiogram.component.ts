@@ -1,7 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { Utilities } from '../common/utlilities';
 import { EventEmitter } from '@angular/core';
-import { MatRadioChange } from '@angular/material';
+import { MatRadioChange, MatCheckboxChange } from '@angular/material';
 import { TestsDataService } from '../services/tests-data.service';
 
 /*
@@ -59,18 +59,21 @@ export class AudiogramComponent implements OnInit {
   }
   public severityChange(event: MatRadioChange) {
     switch(event.source.name) {
-      case 'leftHigh':
+      case 'leftHighSev':
         this.dataService.saveData('leftHighSev', event.value);
         break;
-      case 'leftLow':
+      case 'leftLowSev':
         this.dataService.saveData('leftLowSev', event.value);
         break;
-      case 'rightHigh':
+      case 'rightHighSev':
         this.dataService.saveData('rightHighSev', event.value);
         break;
-      case 'rightLow':
+      case 'rightLowSev':
         this.dataService.saveData('rightLowSev', event.value);
         break;
     }
+  }
+  public configChange(event: MatCheckboxChange) {
+    this.dataService.saveData(event.source.name, event.checked);
   }
 }

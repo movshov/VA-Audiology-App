@@ -21,8 +21,8 @@ export class AudiologistSummaryComponent implements OnInit {
   public sleep: number; public auditory: number; public relaxation: number; public quality: number; public emotional: number;
 
   public audtype: string; public leftHighSeverity: string; public leftHighConfig: string; public leftLowSeverity: string;
-  public leftLowCOnfig: string; public rightHighSeverity: string; public rightHighConfig: string;
-  public rightLowSeverity: string; public rightLowConfig: string;
+  public leftLowConfig: string; public rightHighSeverity: string; public rightHighConfig: string;
+  public rightLowSeverity: string; public rightLowConfig: string; public ototype: string; public tymptype: string;
 
   private subscription: Subscription;
 
@@ -32,7 +32,7 @@ export class AudiologistSummaryComponent implements OnInit {
    * @param tsDataService the data service for ts questionare
    * @param tfiDataService the date service for tfi questionare
    */
-  constructor(public thsDataService: ThsDataService, public tsDataService: TsScreenerDataService, public tfiDataService: TfiDataService, 
+  constructor(public thsDataService: ThsDataService, public tsDataService: TsScreenerDataService, public tfiDataService: TfiDataService,
     public testsDataService: TestsDataService) {
     this.tsDataService.onInit();
     this.setTS();
@@ -41,18 +41,19 @@ export class AudiologistSummaryComponent implements OnInit {
     this.tfiDataService.onInit();
     this.setTFI();
     this.testsDataService.onInit();
+    this.updateTestResults(this.testsDataService.data);
     this.patientID = Utilities.getSessionStorage('patient-id');
   }
 
   ngOnInit() {
-    this.subscription = this.testsDataService.observableData.subscribe(data => this.updateAudiogramTestResults(data));
+    this.subscription = this.testsDataService.observableData.subscribe(data => this.updateTestResults(data));
   }
 
   public setTS() {
     let answers = this.tsDataService.dataRecord;
     let tsAnswers = new TsScreenerAnswerStrings();
     let index = 0;
-    if(answers.length < 1) {
+    if (answers.length < 1) {
       return;
     }
     if (answers[index++].choice === tsAnswers.NO) {
@@ -80,7 +81,7 @@ export class AudiologistSummaryComponent implements OnInit {
 
   public setTHS() {
     let answers = this.thsDataService.dataRecord;
-    if(answers.length < 1) {
+    if (answers.length < 1) {
       return;
     }
     this.thsA = this.sumTHS(answers, 0, 4);
@@ -100,7 +101,7 @@ export class AudiologistSummaryComponent implements OnInit {
   }
   private getTHSvalue(array, i): number {
     let thsAnswers = new ThsAnswerStrings();
-    if(array.length < 1) {
+    if (array.length < 1) {
       return;
     }
     switch (array[i].choice) {
@@ -135,7 +136,7 @@ export class AudiologistSummaryComponent implements OnInit {
   }
   private calcTFIsub(array: { state: number; choice: number; }[], start: number, length: number): number {
     let score: number = 0;
-    if(array.length < 1) {
+    if (array.length < 1) {
       return;
     }
     for (let i = start; i < start + length; i++) {
@@ -146,18 +147,85 @@ export class AudiologistSummaryComponent implements OnInit {
     return score;
   }
 
-  private updateAudiogramTestResults(data: Array <{name: string, value: string}>) {
-    let answers = data;
-    if(answers.length < 1) {
+  private updateTestResults(data: Array<{ name: string, value: string }>) {
+    this.updateAudiogramResults(data);
+    if(data.length < 1) {
       return;
     }
-    console.log(answers[0].value);
-    if(answers.length > 0) {
-      let index: number = answers.findIndex((x) => x.name === 'audiogramType');
+    // get otoscopy type
+    let index: number = data.findIndex((x) => x.name === 'otoscopyType');
+    if(index !== -1) {
+      this.ototype = data[index].value;
+    }
+    // get tympanometry type
+    index = data.findIndex((x) => x.name === 'tympanometryType');
+    if(index !== -1) {
+      this.tymptype = data[index].value;
+    }
+  }
+  private updateAudiogramResults(answers: Array<{ name: string, value: string }>) {
+    if (answers.length < 1) {
+      return;
+    }
+    // get audiogram type
+    let index: number = answers.findIndex((x) => x.name === 'audiogramType');
+    if (index !== -1) {
+      this.audtype = answers[index].value;
+    }
+    // get Left Ear High Frequency Severity
+    index = answers.findIndex((x) => x.name === 'leftHighSev');
+    if (index !== -1) {
+      this.leftHighSeverity = answers[index].value;
+    }
+    // get Left Ear Low Frequency Severity
+    index = answers.findIndex((x) => x.name === 'leftLowSev');
+    if (index !== -1) {
+      this.leftLowSeverity = answers[index].value;
+    }
+    // get Right Ear High Frequency Severity
+    index = answers.findIndex((x) => x.name === 'rightHighSev');
+    if (index !== -1) {
+      this.rightHighSeverity = answers[index].value;
+    }
+    // get Right Ear Low Frequency Severity
+    index = answers.findIndex((x) => x.name === 'rightLowSev');
+    if (index !== -1) {
+      this.rightLowSeverity = answers[index].value;
+    }
+    // get Left Ear High Frequency Configuration
+    this.leftHighConfig = this.createConfigList('leftHighConfig', answers);
+    // get Left Ear Low Frequency Configuration
+    this.leftLowConfig = this.createConfigList('leftLowConfig', answers);
+    // get Right Ear High Frequency Configuration
+    this.rightHighConfig = this.createConfigList('rightHighConfig', answers);
+    // get Right Ear Low Frequency Configuration
+    this.rightLowConfig = this.createConfigList('rightLowConfig', answers);
+  }
+  private createConfigList(prefix: string, data: Array<{ name: string, value: string }>): string {
+    let configurations = [
+      'Symmetric',
+      'Asymmetric',
+      'Progressive',
+      'Sudden',
+      'Flat',
+      'Rising',
+      'Cookie Bite',
+      'Precipitous',
+      'Noise-Notch',
+      'Corner'
+    ];
+    let list: string = "";
+    for(let config in configurations) {
+      let index = data.findIndex((x) => x.name === (prefix + configurations[config]));
       if(index !== -1) {
-        this.audtype = answers[index].value;
+        if(data[index].value) {
+          list += configurations[config] + ", ";
+        }
       }
     }
+    console.log("list: " + list);
+    list = list.slice(0, -2);
+    return list;
   }
 
 }

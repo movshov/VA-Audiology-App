@@ -9,7 +9,7 @@ import { stringify } from 'querystring';
 @Injectable()
 export class TestsDataService {
   public data: Array <{name: string, value: string}> = [];
-  observableData: BehaviorSubject<{ name: string; value: string; }[]>;
+  observableData: BehaviorSubject<{ name: string; value: any; }[]>;
 
   constructor() {
     this.observableData = new BehaviorSubject<{name: string, value: string}[]>(this.data);
@@ -21,7 +21,7 @@ export class TestsDataService {
     }
   }
 
-  public saveData(name: string, value: string): void {
+  public saveData(name: string, value: any): void {
     if(this.data.length > 0) {
       let index: number = this.data.findIndex((x) => x.name === name);
       if(index !== -1) {
