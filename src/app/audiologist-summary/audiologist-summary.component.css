@@ -1,6 +1,5 @@
 .left {
     float: left;
-    margin: 0 16px 16px;
 }
 
 .fullWidth {
@@ -42,4 +41,13 @@
 .fifty {
     width: 46%;
     margin: 2%;
+}
+
+@media only screen and (max-width: 1100px) {
+    .fifty {
+        width: 100%;
+    }
+    .fifty > h4.title {
+        width: 96%;
+    }
 }
