@@ -31,6 +31,10 @@ export class SummaryComponent implements OnInit {
     console.log('landing page');
   }
 
+  public surveySubmitOnClick() {
+    alert('Survey submitted!');
+  }
+
   /**
    * all the summary items that will be displayed in the summary report
    */
