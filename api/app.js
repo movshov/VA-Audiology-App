@@ -20,6 +20,8 @@ app.use(
 )
 
 // GET endpoint for the root
+app.get('/users', require('./users.js'))
+
 app.get('/', require('./index.js'))
 
 // Set app to listen on a given port
