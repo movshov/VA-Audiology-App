@@ -1,6 +1,6 @@
 <div style="text-align: center;">
   <label class="title">
-    Summary for patient ID: {{patientID}}
+    Summary for patient ID: {{htmlVars.get('patientID')}}
   </label>
 </div>
 
@@ -8,57 +8,57 @@
   <div class="left fifty">
     <div>
       <h2>Tinnitus Screener</h2>
-      <p>Type: {{ts}}</p>
+      <p>Type: {{htmlVars.get('ts')}}</p>
     </div>
 
     <div>
       <h2>Tinnitus and Hearing Survey</h2>
-      <p>Section A. Tinnitus: {{thsA}}</p>
-      <p>Section B. Hearing: {{thsB}}</p>
-      <p>Sounds are too loud or uncomfortable: {{thsCtxt}}</p>
-      <p *ngIf="thsC > 0">Examples: {{thsCex}}</p>
+      <p>Section A. Tinnitus: {{htmlVars.get('thsA')}}</p>
+      <p>Section B. Hearing: {{htmlVars.get('thsB')}}</p>
+      <p>Sounds are too loud or uncomfortable: {{htmlVars.get('thsCtxt')}}</p>
+      <p *ngIf="htmlVars.get('thsC') > 0">Examples: {{htmlVars.get('thsCex')}}</p>
     </div>
   </div>
 
   <div class="left fifty">
     <div>
       <h2>Tinnitus Functional Index</h2>
-      <p>Overall TFI score: {{overallTFI}}</p>
+      <p>Overall TFI score: {{htmlVars.get('overallTFI')}}</p>
     </div>
 
     <div>
       <table>
         <tr>
           <td>I (INTRUSIVE)</td>
-          <td>{{intrusive}}</td>
+          <td>{{htmlVars.get('intrusive')}}</td>
         </tr>
         <tr>
           <td>Sc (SENSE OF CONTROL)</td>
-          <td>{{sense}}</td>
+          <td>{{htmlVars.get('sense')}}</td>
         </tr>
         <tr>
           <td>C (COGNITIVE)</td>
-          <td>{{cognitive}}</td>
+          <td>{{htmlVars.get('cognitive')}}</td>
         </tr>
         <tr>
           <td>Sl (SLEEP)</td>
-          <td>{{sleep}}</td>
+          <td>{{htmlVars.get('sleep')}}</td>
         </tr>
         <tr>
           <td>A (AUDITORY)</td>
-          <td>{{auditory}}</td>
+          <td>{{htmlVars.get('auditory')}}</td>
         </tr>
         <tr>
           <td>R (RELAXATION)</td>
-          <td>{{relaxation}}</td>
+          <td>{{htmlVars.get('relaxation')}}</td>
         </tr>
         <tr>
           <td>Q (QUALITY OF LIFE)</td>
-          <td>{{quality}}</td>
+          <td>{{htmlVars.get('quality')}}</td>
         </tr>
         <tr>
           <td>E (EMOTIONAL)</td>
-          <td>{{emotional}}</td>
+          <td>{{htmlVars.get('emotional')}}</td>
         </tr>
       </table>
     </div>
@@ -74,7 +74,7 @@
 <div class="margins row">
   <div>
     <h2>Audiogram</h2>
-    <p>Type: {{audtype}}</p>
+    <p>Type: {{htmlVars.get('audtype')}}</p>
   </div>
 
   <div class="leftEar left fifty">
@@ -82,13 +82,13 @@
     <div>
       <div class="left fifty">
         <h4 class="title leftTitle">High Frequency</h4>
-        <p>Severity: {{leftHighSeverity}}</p>
-        <p>Configuration: {{leftHighConfig}}</p>
+        <p>Severity: {{htmlVars.get('leftHighSeverity')}}</p>
+        <p>Configuration: {{htmlVars.get('leftHighConfig')}}</p>
       </div>
       <div class="left fifty">
         <h4 class="title leftTitle">Low Frequency</h4>
-        <p>Severity: {{leftLowSeverity}}</p>
-        <p>Configuration: {{leftLowConfig}}</p>
+        <p>Severity: {{htmlVars.get('leftLowSeverity')}}</p>
+        <p>Configuration: {{htmlVars.get('leftLowConfig')}}</p>
       </div>
     </div>
   </div>
@@ -98,13 +98,13 @@
     <div>
       <div class="left fifty">
         <h4 class="title rightTitle">High Frequency</h4>
-        <p>Severity: {{rightHighSeverity}}</p>
-        <p>Configuration: {{rightHighConfig}}</p>
+        <p>Severity: {{htmlVars.get('rightHighSeverity')}}</p>
+        <p>Configuration: {{htmlVars.get('rightHighConfig')}}</p>
       </div>
       <div class="left fifty">
         <h4 class="title rightTitle">Low Frequency</h4>
-        <p>Severity: {{rightLowSeverity}}</p>
-        <p>Configuration: {{rightLowConfig}}</p>
+        <p>Severity: {{htmlVars.get('rightLowSeverity')}}</p>
+        <p>Configuration: {{htmlVars.get('rightLowConfig')}}</p>
       </div>
     </div>
   </div>
@@ -113,11 +113,11 @@
 <div class="margins row">
   <div class="left fifty">
     <h2>Otoscopy</h2>
-    <p>Type: {{ototype}}</p>
+    <p>Type: {{htmlVars.get('ototype')}}</p>
   </div>
 
   <div class="left fifty">
       <h2>Tympanometry</h2>
-      <p>Type: {{tymptype}}</p>
+      <p>Type: {{htmlVars.get('tymptype')}}</p>
     </div>
 </div>

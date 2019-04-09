@@ -54,24 +54,13 @@ export class AudiogramComponent implements OnInit {
   public ngOnInit() { }
 
   public typeChange(event: MatRadioChange) {
-    console.log("Clicked: " + event.value + " : " + event.source);
     this.dataService.saveData('audiogramType', event.value);
   }
   public severityChange(event: MatRadioChange) {
-    switch(event.source.name) {
-      case 'leftHighSev':
-        this.dataService.saveData('leftHighSev', event.value);
-        break;
-      case 'leftLowSev':
-        this.dataService.saveData('leftLowSev', event.value);
-        break;
-      case 'rightHighSev':
-        this.dataService.saveData('rightHighSev', event.value);
-        break;
-      case 'rightLowSev':
-        this.dataService.saveData('rightLowSev', event.value);
-        break;
-    }
+    let sevs: Array<string> = ['leftHighSev', 'leftLowSev', 'rightHighSev', 'rightLowSev'];
+    let index: number = sevs.indexOf(event.source.name);
+    if(index < 0) {return;}
+    this.dataService.saveData(sevs[index], event.value);
   }
   public configChange(event: MatCheckboxChange) {
     this.dataService.saveData(event.source.name, event.checked);
