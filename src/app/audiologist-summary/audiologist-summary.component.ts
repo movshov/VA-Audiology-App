@@ -41,7 +41,10 @@ export class AudiologistSummaryComponent implements OnInit {
     this.subscription = this.testsDataService.observableData.subscribe(data => this.updateTestResults(data));
   }
 
-  public setTS() {
+  //////////////
+  // PRIVATES //
+  //////////////
+  private setTS() {
     let answers = this.tsDataService.dataRecord;
     let tsAnswers = new TsScreenerAnswerStrings();
     let index = 0;
@@ -50,7 +53,7 @@ export class AudiologistSummaryComponent implements OnInit {
       return;
     }
     if (answers[index].choice === tsAnswers.NO) {
-      this.htmlVars.set('ts','No Tinnitus');
+      this.htmlVars.set('ts', 'No Tinnitus');
       return;
     }
     index++;
@@ -58,42 +61,42 @@ export class AudiologistSummaryComponent implements OnInit {
     tsTxt = (answers[index].choice === tsAnswers.NO) ? 'Acute' : 'Chronic';
     index++;
     if (answers[index].choice !== tsAnswers.SOMETIMES_OCCASIONALLY) {
-      this.htmlVars.set('ts',tsTxt + ' Constant Tinnitus');
+      this.htmlVars.set('ts', tsTxt + ' Constant Tinnitus');
       return;
     }
     index++;
     if (answers[index].choice === tsAnswers.YES_ALWAYS) {
-      this.htmlVars.set('ts',tsTxt + ' Temporary Tinnitus');
+      this.htmlVars.set('ts', tsTxt + ' Temporary Tinnitus');
       return;
     }
     index++;
     // The answer to question 4 may stop, lead to question 5, or lead to question 6.
     if (answers[3].choice === tsAnswers.YES_SOMETIMES) {
       if (answers[index].choice === tsAnswers.NO) {
-        this.htmlVars.set('ts',tsTxt + ' Temporary Tinnitus');
+        this.htmlVars.set('ts', tsTxt + ' Temporary Tinnitus');
         return;
       }
       index++;
     }
     tsTxt += (answers[index].choice === tsAnswers.DAILY_OR_WEEKLY_BASIS) ? ' Intermittent Tinnitus' : ' Occasional Tinnitus';
-    this.htmlVars.set('ts',tsTxt);
+    this.htmlVars.set('ts', tsTxt);
   }
 
-  public setTHS() {
+  private setTHS() {
     let answers = this.thsDataService.dataRecord;
     if (answers.length < 1) {
       return;
     }
-    this.htmlVars.set('thsA',this.sumTHS(answers, 0, 4));
-    this.htmlVars.set('thsB',this.sumTHS(answers, 4, 4));
-    let tmp = this.getTHSvalue(answers, 8);
-    this.htmlVars.set('thsC',tmp);
-    this.htmlVars.set('thsCtxt',answers[8].choice);
+    this.htmlVars.set('thsA', this.sumTHS(answers, 0, 4));
+    this.htmlVars.set('thsB', this.sumTHS(answers, 4, 4));
+    let tmp = this.getTHSvalue(answers[8]);
+    this.htmlVars.set('thsC', tmp);
+    this.htmlVars.set('thsCtxt', answers[8].choice);
     tmp = tmp > 0 ? answers[9].choice : '';
-    this.htmlVars.set('thsCex',tmp);
+    this.htmlVars.set('thsCex', tmp);
   }
 
-  public setTFI() {
+  private setTFI() {
     let answers = this.tfiDataService.dataRecord;
     // Calculate overall TFI score
     let overall = 0;
@@ -105,37 +108,30 @@ export class AudiologistSummaryComponent implements OnInit {
     this.htmlVars.set('overallTFI', overall);
 
     // Calculate subscores
-    this.htmlVars.set('intrusive',this.calcTFIsub(answers, 0, 3));
-    this.htmlVars.set('sense',this.calcTFIsub(answers, 3, 3));
-    this.htmlVars.set('cognitive',this.calcTFIsub(answers, 6, 3));
-    this.htmlVars.set('sleep',this.calcTFIsub(answers, 9, 3));
-    this.htmlVars.set('auditory',this.calcTFIsub(answers, 12, 3));
-    this.htmlVars.set('relaxation',this.calcTFIsub(answers, 15, 3));
-    this.htmlVars.set('quality',this.calcTFIsub(answers, 18, 4));
-    this.htmlVars.set('emotional',this.calcTFIsub(answers, 22, 3));
+    this.htmlVars.set('intrusive', this.calcTFIsub(answers, 0, 3));
+    this.htmlVars.set('sense', this.calcTFIsub(answers, 3, 3));
+    this.htmlVars.set('cognitive', this.calcTFIsub(answers, 6, 3));
+    this.htmlVars.set('sleep', this.calcTFIsub(answers, 9, 3));
+    this.htmlVars.set('auditory', this.calcTFIsub(answers, 12, 3));
+    this.htmlVars.set('relaxation', this.calcTFIsub(answers, 15, 3));
+    this.htmlVars.set('quality', this.calcTFIsub(answers, 18, 4));
+    this.htmlVars.set('emotional', this.calcTFIsub(answers, 22, 3));
   }
 
-  //////////////
-  // PRIVATES //
-  //////////////
-  private sumTHS(array, start, length): number {
+  private sumTHS(array: { state: any; choice: any; }[], start: number, length: number): number {
     let sum: number = 0;
     let end = start + length;
     for (let i = start; i < end; i++) {
-      sum += this.getTHSvalue(array, i);
+      sum += this.getTHSvalue(array[i]);
     }
     return sum;
   }
-  private getTHSvalue(array, i): number {
-    if (array.length < 1) {
-      return;
-    }
-
+  private getTHSvalue(element: { state: number; choice: string; }): number {
     let thsAnswers = new ThsAnswerStrings();
     let ans: Array<string> = [
-      thsAnswers.NO,thsAnswers.SMALL_YES,thsAnswers.MODERATE_YES,thsAnswers.BIG_YES,thsAnswers.VERY_BIG_YES
+      thsAnswers.NO, thsAnswers.SMALL_YES, thsAnswers.MODERATE_YES, thsAnswers.BIG_YES, thsAnswers.VERY_BIG_YES
     ];
-    return ans.indexOf(array[i].choice);
+    return ans.indexOf(element.choice);
   }
   private calcTFIsub(array: { state: number; choice: number; }[], start: number, length: number): number {
     let score: number = 0;
@@ -181,13 +177,13 @@ export class AudiologistSummaryComponent implements OnInit {
     }
 
     // get Left Ear High Frequency Configuration
-    this.htmlVars.set('leftHighConfig',this.createConfigList('leftHighConfig', answers));
+    this.htmlVars.set('leftHighConfig', this.createConfigList('leftHighConfig', answers));
     // get Left Ear Low Frequency Configuration
-    this.htmlVars.set('leftLowConfig',this.createConfigList('leftLowConfig', answers));
+    this.htmlVars.set('leftLowConfig', this.createConfigList('leftLowConfig', answers));
     // get Right Ear High Frequency Configuration
-    this.htmlVars.set('rightHighConfig',this.createConfigList('rightHighConfig', answers));
+    this.htmlVars.set('rightHighConfig', this.createConfigList('rightHighConfig', answers));
     // get Right Ear Low Frequency Configuration
-    this.htmlVars.set('rightLowConfig',this.createConfigList('rightLowConfig', answers));
+    this.htmlVars.set('rightLowConfig', this.createConfigList('rightLowConfig', answers));
   }
   private createConfigList(prefix: string, data: Array<{ name: string, value: string }>): string {
     let configurations = [
@@ -203,48 +199,46 @@ export class AudiologistSummaryComponent implements OnInit {
       'Corner'
     ];
     let list: string = '';
-    for (let config in configurations) {
-      if (configurations.hasOwnProperty(config)) {
-        let index = data.findIndex((x) => x.name === (prefix + configurations[config]));
-        if (index !== -1) {
-          if (data[index].value) {
-            list += configurations[config] + ', ';
-          }
+    configurations.forEach(config => {
+      let index = data.findIndex((x) => x.name === (prefix + config));
+      if (index !== -1) {
+        if (data[index].value) {
+          list += config + ', ';
         }
       }
-    }
+    });
     list = list.slice(0, -2);
     return list;
   }
 
   private createHTMLvars() {
     this.htmlVars.set('patientID', Utilities.getSessionStorage('patient-id'));
-    this.htmlVars.set('ts','');
-    this.htmlVars.set('thsA',0);
-    this.htmlVars.set('thsB',0);
-    this.htmlVars.set('thsC',0);
-    this.htmlVars.set('thsCtxt','');
-    this.htmlVars.set('thsCex','');
-    this.htmlVars.set('overallTFI',0);
-    this.htmlVars.set('intrusive',0);
-    this.htmlVars.set('sense',0);
-    this.htmlVars.set('cognitive',0);
-    this.htmlVars.set('sleep',0);
-    this.htmlVars.set('auditory',0);
-    this.htmlVars.set('relaxation',0);
-    this.htmlVars.set('quality',0);
-    this.htmlVars.set('emotional',0);
-    this.htmlVars.set('audtype','');
-    this.htmlVars.set('leftHighSeverity','');
-    this.htmlVars.set('leftHighConfig','');
-    this.htmlVars.set('leftLowSeverity','');
-    this.htmlVars.set('leftLowConfig','');
-    this.htmlVars.set('rightHighSeverity','');
-    this.htmlVars.set('rightHighConfig','');
-    this.htmlVars.set('rightLowSeverity','');
-    this.htmlVars.set('rightLowConfig','');
-    this.htmlVars.set('ototype','');
-    this.htmlVars.set('tymptype','');
+    this.htmlVars.set('ts', '');
+    this.htmlVars.set('thsA', 0);
+    this.htmlVars.set('thsB', 0);
+    this.htmlVars.set('thsC', 0);
+    this.htmlVars.set('thsCtxt', '');
+    this.htmlVars.set('thsCex', '');
+    this.htmlVars.set('overallTFI', 0);
+    this.htmlVars.set('intrusive', 0);
+    this.htmlVars.set('sense', 0);
+    this.htmlVars.set('cognitive', 0);
+    this.htmlVars.set('sleep', 0);
+    this.htmlVars.set('auditory', 0);
+    this.htmlVars.set('relaxation', 0);
+    this.htmlVars.set('quality', 0);
+    this.htmlVars.set('emotional', 0);
+    this.htmlVars.set('audtype', '');
+    this.htmlVars.set('leftHighSeverity', '');
+    this.htmlVars.set('leftHighConfig', '');
+    this.htmlVars.set('leftLowSeverity', '');
+    this.htmlVars.set('leftLowConfig', '');
+    this.htmlVars.set('rightHighSeverity', '');
+    this.htmlVars.set('rightHighConfig', '');
+    this.htmlVars.set('rightLowSeverity', '');
+    this.htmlVars.set('rightLowConfig', '');
+    this.htmlVars.set('ototype', '');
+    this.htmlVars.set('tymptype', '');
   }
 
 }

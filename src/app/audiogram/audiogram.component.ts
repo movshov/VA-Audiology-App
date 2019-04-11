@@ -58,9 +58,9 @@ export class AudiogramComponent implements OnInit {
   }
   public severityChange(event: MatRadioChange) {
     let sevs: Array<string> = ['leftHighSev', 'leftLowSev', 'rightHighSev', 'rightLowSev'];
-    let index: number = sevs.indexOf(event.source.name);
-    if(index < 0) {return;}
-    this.dataService.saveData(sevs[index], event.value);
+    if(sevs.includes(event.source.name)) {
+      this.dataService.saveData(sevs[sevs.indexOf(event.source.name)], event.value);
+    }
   }
   public configChange(event: MatCheckboxChange) {
     this.dataService.saveData(event.source.name, event.checked);
