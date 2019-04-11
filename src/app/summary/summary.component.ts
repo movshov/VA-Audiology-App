@@ -11,6 +11,7 @@ import { HighlightDelayBarrier } from 'blocking-proxy/built/lib/highlight_delay_
 import { TfiDataService } from '../services/tfi-data.service';
 import { Utilities } from '../common/utlilities';
 import { Router } from '@angular/router';
+import { SubmitSurveyHandler } from '../../client_api/survey.submit';
 
 @Component({
   selector: 'app-summary',
@@ -32,7 +33,8 @@ export class SummaryComponent implements OnInit {
   }
 
   public surveySubmitOnClick() {
-    alert('Survey submitted!');
+    let submitSurveyHandler = new SubmitSurveyHandler();
+    submitSurveyHandler.doSubmitSurvey();
   }
 
   /**
