@@ -1,3 +1,6 @@
+// Import getAppointments
+const appointment = require('./getAppointment.ts')
+
 // Authentication function: return true if authorized; otherwise throw an exception
 function alwaysPermitted(request) {
   return true;
@@ -21,11 +24,11 @@ function defaultErrorHandler(request, response, ex) {
 //   perform: Performs the user's request, and returns any requested data (or null)
 //   handleErrors: Sends a response based on a thrown exception
 //   authenticate: If the request is not authorized, throws an exception
-function handler(perform, handleErrors = defaultErrorHandler, authenticate = alwaysPermitted) {
+function handler(perform = appointment, handleErrors = defaultErrorHandler, authenticate = alwaysPermitted) {
   return function(request, response, next) {
     try {
       authenticate(request);
-      const data = perform(request);
+      const data = perform(request,response);
       response.status(200).json({
         "status": "success",
         "data": data
