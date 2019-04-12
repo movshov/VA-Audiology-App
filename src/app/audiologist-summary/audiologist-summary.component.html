@@ -13,10 +13,10 @@
 
     <div>
       <h2>Tinnitus and Hearing Survey</h2>
-      <p>Section A. Tinnitus: {{htmlVars.get('thsA')}}</p>
-      <p>Section B. Hearing: {{htmlVars.get('thsB')}}</p>
-      <p>Sounds are too loud or uncomfortable: {{htmlVars.get('thsCtxt')}}</p>
-      <p *ngIf="htmlVars.get('thsC') > 0">Examples: {{htmlVars.get('thsCex')}}</p>
+      <p>Section A. Tinnitus: {{thsScoreVars.get('thsA')}}</p>
+      <p>Section B. Hearing: {{thsScoreVars.get('thsB')}}</p>
+      <p>Sounds are too loud or uncomfortable: {{thsTxtVars.get('thsCtxt')}}</p>
+      <p *ngIf="thsScoreVars.get('thsC') > 0">Examples: {{thsTxtVars.get('thsCex')}}</p>
     </div>
   </div>
 

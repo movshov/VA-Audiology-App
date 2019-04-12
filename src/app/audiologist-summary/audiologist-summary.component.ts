@@ -19,12 +19,11 @@ const testCheckBoxNames: string[] = ['leftHighConfig', 'leftLowConfig', 'rightHi
 export class AudiologistSummaryComponent implements OnInit {
   public patientID: string = Utilities.getSessionStorage('patient-id');
   public ts: string = '';
-
   public tfiVars: Map<string, number> = new Map();
   public testRadioVars: Map<string, string> = new Map();
   public testCheckBoxVars: Map<string, string> = new Map();
-
-  public htmlVars: Map<string, any> = new Map();
+  public thsScoreVars: Map<string, number> = new Map();
+  public thsTxtVars: Map<string, string> = new Map();
 
   private subscription: Subscription;
 
@@ -37,7 +36,6 @@ export class AudiologistSummaryComponent implements OnInit {
    */
   constructor(public thsDataService: ThsDataService, public tsDataService: TsScreenerDataService, public tfiDataService: TfiDataService,
     public testsDataService: TestsDataService) {
-    this.createHTMLvars();
     this.tsDataService.onInit();
     this.setTS();
     this.thsDataService.onInit();
@@ -96,13 +94,13 @@ export class AudiologistSummaryComponent implements OnInit {
     if (answers.length < 1) {
       return;
     }
-    this.htmlVars.set('thsA', this.sumTHS(answers, 0, 4));
-    this.htmlVars.set('thsB', this.sumTHS(answers, 4, 4));
-    let tmp = this.getTHSvalue(answers[8]);
-    this.htmlVars.set('thsC', tmp);
-    this.htmlVars.set('thsCtxt', answers[8].choice);
-    tmp = tmp > 0 ? answers[9].choice : '';
-    this.htmlVars.set('thsCex', tmp);
+    this.thsScoreVars.set('thsA', this.sumTHS(answers, 0, 4));
+    this.thsScoreVars.set('thsB', this.sumTHS(answers, 4, 4));
+    let tnum: number = this.getTHSvalue(answers[8]);
+    this.thsScoreVars.set('thsC', tnum);
+    this.thsTxtVars.set('thsCtxt', answers[8].choice);
+    let tstr = tnum > 0 ? answers[9].choice : '';
+    this.thsTxtVars.set('thsCex', tstr);
   }
 
   private setTFI() {
@@ -114,17 +112,16 @@ export class AudiologistSummaryComponent implements OnInit {
     }
     overall /= 25;
     overall *= 10;
-    this.tfiVars.set('overallTFI', overall);
+    this.tfiVars.set(tfiNames[0], overall);
 
     // Calculate subscores
-    this.tfiVars.set('intrusive', this.calcTFIsub(answers, 0, 3));
-    this.tfiVars.set('sense', this.calcTFIsub(answers, 3, 3));
-    this.tfiVars.set('cognitive', this.calcTFIsub(answers, 6, 3));
-    this.tfiVars.set('sleep', this.calcTFIsub(answers, 9, 3));
-    this.tfiVars.set('auditory', this.calcTFIsub(answers, 12, 3));
-    this.tfiVars.set('relaxation', this.calcTFIsub(answers, 15, 3));
-    this.tfiVars.set('quality', this.calcTFIsub(answers, 18, 4));
-    this.tfiVars.set('emotional', this.calcTFIsub(answers, 22, 3));
+    let start = 0;
+    let length;
+    for(let i = 1; i < 9; i++) {
+      length = (7 === i) ? 4 : 3;
+      this.tfiVars.set(tfiNames[i], this.calcTFIsub(answers, start, length));
+      start += length;
+    }
   }
 
   private sumTHS(array: { state: any; choice: any; }[], start: number, length: number): number {
@@ -195,16 +192,6 @@ export class AudiologistSummaryComponent implements OnInit {
     });
     list = list.slice(0, -2);
     return list;
-  }
-
-  private createHTMLvars() {
-    this.htmlVars.set('thsA', 0);
-    this.htmlVars.set('thsB', 0);
-    this.htmlVars.set('thsC', 0);
-    this.htmlVars.set('thsCtxt', '');
-    this.htmlVars.set('thsCex', '');
-
-
   }
 
 }
