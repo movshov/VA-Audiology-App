@@ -1,6 +1,6 @@
 <div style="text-align: center;">
   <label class="title">
-    Summary for patient ID: {{htmlVars.get('patientID')}}
+    Summary for patient ID: {{patientID}}
   </label>
 </div>
 
@@ -8,7 +8,7 @@
   <div class="left fifty">
     <div>
       <h2>Tinnitus Screener</h2>
-      <p>Type: {{htmlVars.get('ts')}}</p>
+      <p>Type: {{ts}}</p>
     </div>
 
     <div>
@@ -23,42 +23,42 @@
   <div class="left fifty">
     <div>
       <h2>Tinnitus Functional Index</h2>
-      <p>Overall TFI score: {{htmlVars.get('overallTFI')}}</p>
+      <p>Overall TFI score: {{tfiVars.get('overallTFI')}}</p>
     </div>
 
     <div>
       <table>
         <tr>
           <td>I (INTRUSIVE)</td>
-          <td>{{htmlVars.get('intrusive')}}</td>
+          <td>{{tfiVars.get('intrusive')}}</td>
         </tr>
         <tr>
           <td>Sc (SENSE OF CONTROL)</td>
-          <td>{{htmlVars.get('sense')}}</td>
+          <td>{{tfiVars.get('sense')}}</td>
         </tr>
         <tr>
           <td>C (COGNITIVE)</td>
-          <td>{{htmlVars.get('cognitive')}}</td>
+          <td>{{tfiVars.get('cognitive')}}</td>
         </tr>
         <tr>
           <td>Sl (SLEEP)</td>
-          <td>{{htmlVars.get('sleep')}}</td>
+          <td>{{tfiVars.get('sleep')}}</td>
         </tr>
         <tr>
           <td>A (AUDITORY)</td>
-          <td>{{htmlVars.get('auditory')}}</td>
+          <td>{{tfiVars.get('auditory')}}</td>
         </tr>
         <tr>
           <td>R (RELAXATION)</td>
-          <td>{{htmlVars.get('relaxation')}}</td>
+          <td>{{tfiVars.get('relaxation')}}</td>
         </tr>
         <tr>
           <td>Q (QUALITY OF LIFE)</td>
-          <td>{{htmlVars.get('quality')}}</td>
+          <td>{{tfiVars.get('quality')}}</td>
         </tr>
         <tr>
           <td>E (EMOTIONAL)</td>
-          <td>{{htmlVars.get('emotional')}}</td>
+          <td>{{tfiVars.get('emotional')}}</td>
         </tr>
       </table>
     </div>
@@ -74,7 +74,7 @@
 <div class="margins row">
   <div>
     <h2>Audiogram</h2>
-    <p>Type: {{htmlVars.get('audtype')}}</p>
+    <p>Type: {{testRadioVars.get('audiogramType')}}</p>
   </div>
 
   <div class="leftEar left fifty">
@@ -82,13 +82,13 @@
     <div>
       <div class="left fifty">
         <h4 class="title leftTitle">High Frequency</h4>
-        <p>Severity: {{htmlVars.get('leftHighSeverity')}}</p>
-        <p>Configuration: {{htmlVars.get('leftHighConfig')}}</p>
+        <p>Severity: {{testRadioVars.get('leftHighSev')}}</p>
+        <p>Configuration: {{testCheckBoxVars.get('leftHighConfig')}}</p>
       </div>
       <div class="left fifty">
         <h4 class="title leftTitle">Low Frequency</h4>
-        <p>Severity: {{htmlVars.get('leftLowSeverity')}}</p>
-        <p>Configuration: {{htmlVars.get('leftLowConfig')}}</p>
+        <p>Severity: {{testRadioVars.get('leftLowSev')}}</p>
+        <p>Configuration: {{testCheckBoxVars.get('leftLowConfig')}}</p>
       </div>
     </div>
   </div>
@@ -98,13 +98,13 @@
     <div>
       <div class="left fifty">
         <h4 class="title rightTitle">High Frequency</h4>
-        <p>Severity: {{htmlVars.get('rightHighSeverity')}}</p>
-        <p>Configuration: {{htmlVars.get('rightHighConfig')}}</p>
+        <p>Severity: {{testRadioVars.get('rightHighSev')}}</p>
+        <p>Configuration: {{testCheckBoxVars.get('rightHighConfig')}}</p>
       </div>
       <div class="left fifty">
         <h4 class="title rightTitle">Low Frequency</h4>
-        <p>Severity: {{htmlVars.get('rightLowSeverity')}}</p>
-        <p>Configuration: {{htmlVars.get('rightLowConfig')}}</p>
+        <p>Severity: {{testRadioVars.get('rightLowSev')}}</p>
+        <p>Configuration: {{testCheckBoxVars.get('rightLowConfig')}}</p>
       </div>
     </div>
   </div>
@@ -113,11 +113,11 @@
 <div class="margins row">
   <div class="left fifty">
     <h2>Otoscopy</h2>
-    <p>Type: {{htmlVars.get('ototype')}}</p>
+    <p>Type: {{testRadioVars.get('otoscopyType')}}</p>
   </div>
 
   <div class="left fifty">
       <h2>Tympanometry</h2>
-      <p>Type: {{htmlVars.get('tymptype')}}</p>
+      <p>Type: {{testRadioVars.get('tympanometryType')}}</p>
     </div>
 </div>

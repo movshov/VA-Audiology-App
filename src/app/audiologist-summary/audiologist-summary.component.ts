@@ -7,12 +7,23 @@ import { TsScreenerAnswerStrings, ThsAnswerStrings } from '../common/custom-reso
 import { TestsDataService } from '../services/tests-data.service';
 import { Subscription } from 'rxjs/Subscription';
 
+const tfiNames: string[] = ['overallTFI', 'intrusive', 'sense', 'cognitive', 'sleep', 'auditory', 'relaxation', 'quality', 'emotional'];
+const testRadioNames: string[] = ['audiogramType', 'leftHighSev', 'leftLowSev', 'rightHighSev', 'rightLowSev', 'otoscopyType', 'tympanometryType'];
+const testCheckBoxNames: string[] = ['leftHighConfig', 'leftLowConfig', 'rightHighConfig', 'rightLowConfig'];
+
 @Component({
   selector: 'audiologist-summary',
   templateUrl: './audiologist-summary.component.html',
   styleUrls: ['./audiologist-summary.component.css']
 })
 export class AudiologistSummaryComponent implements OnInit {
+  public patientID: string = Utilities.getSessionStorage('patient-id');
+  public ts: string = '';
+
+  public tfiVars: Map<string, number> = new Map();
+  public testRadioVars: Map<string, string> = new Map();
+  public testCheckBoxVars: Map<string, string> = new Map();
+
   public htmlVars: Map<string, any> = new Map();
 
   private subscription: Subscription;
@@ -48,38 +59,36 @@ export class AudiologistSummaryComponent implements OnInit {
     let answers = this.tsDataService.dataRecord;
     let tsAnswers = new TsScreenerAnswerStrings();
     let index = 0;
-    let tsTxt = '';
     if (answers.length < 1) {
       return;
     }
     if (answers[index].choice === tsAnswers.NO) {
-      this.htmlVars.set('ts', 'No Tinnitus');
+      this.ts = 'No Tinnitus';
       return;
     }
     index++;
 
-    tsTxt = (answers[index].choice === tsAnswers.NO) ? 'Acute' : 'Chronic';
+    this.ts = (answers[index].choice === tsAnswers.NO) ? 'Acute' : 'Chronic';
     index++;
     if (answers[index].choice !== tsAnswers.SOMETIMES_OCCASIONALLY) {
-      this.htmlVars.set('ts', tsTxt + ' Constant Tinnitus');
+      this.ts += ' Constant Tinnitus';
       return;
     }
     index++;
     if (answers[index].choice === tsAnswers.YES_ALWAYS) {
-      this.htmlVars.set('ts', tsTxt + ' Temporary Tinnitus');
+      this.ts += ' Temporary Tinnitus';
       return;
     }
     index++;
     // The answer to question 4 may stop, lead to question 5, or lead to question 6.
     if (answers[3].choice === tsAnswers.YES_SOMETIMES) {
       if (answers[index].choice === tsAnswers.NO) {
-        this.htmlVars.set('ts', tsTxt + ' Temporary Tinnitus');
+        this.ts += ' Temporary Tinnitus';
         return;
       }
       index++;
     }
-    tsTxt += (answers[index].choice === tsAnswers.DAILY_OR_WEEKLY_BASIS) ? ' Intermittent Tinnitus' : ' Occasional Tinnitus';
-    this.htmlVars.set('ts', tsTxt);
+    this.ts += (answers[index].choice === tsAnswers.DAILY_OR_WEEKLY_BASIS) ? ' Intermittent Tinnitus' : ' Occasional Tinnitus';
   }
 
   private setTHS() {
@@ -105,17 +114,17 @@ export class AudiologistSummaryComponent implements OnInit {
     }
     overall /= 25;
     overall *= 10;
-    this.htmlVars.set('overallTFI', overall);
+    this.tfiVars.set('overallTFI', overall);
 
     // Calculate subscores
-    this.htmlVars.set('intrusive', this.calcTFIsub(answers, 0, 3));
-    this.htmlVars.set('sense', this.calcTFIsub(answers, 3, 3));
-    this.htmlVars.set('cognitive', this.calcTFIsub(answers, 6, 3));
-    this.htmlVars.set('sleep', this.calcTFIsub(answers, 9, 3));
-    this.htmlVars.set('auditory', this.calcTFIsub(answers, 12, 3));
-    this.htmlVars.set('relaxation', this.calcTFIsub(answers, 15, 3));
-    this.htmlVars.set('quality', this.calcTFIsub(answers, 18, 4));
-    this.htmlVars.set('emotional', this.calcTFIsub(answers, 22, 3));
+    this.tfiVars.set('intrusive', this.calcTFIsub(answers, 0, 3));
+    this.tfiVars.set('sense', this.calcTFIsub(answers, 3, 3));
+    this.tfiVars.set('cognitive', this.calcTFIsub(answers, 6, 3));
+    this.tfiVars.set('sleep', this.calcTFIsub(answers, 9, 3));
+    this.tfiVars.set('auditory', this.calcTFIsub(answers, 12, 3));
+    this.tfiVars.set('relaxation', this.calcTFIsub(answers, 15, 3));
+    this.tfiVars.set('quality', this.calcTFIsub(answers, 18, 4));
+    this.tfiVars.set('emotional', this.calcTFIsub(answers, 22, 3));
   }
 
   private sumTHS(array: { state: any; choice: any; }[], start: number, length: number): number {
@@ -147,44 +156,24 @@ export class AudiologistSummaryComponent implements OnInit {
   }
 
   private updateTestResults(data: Array<{ name: string, value: string }>) {
-    this.updateAudiogramResults(data);
     if (data.length < 1) {
       return;
     }
-    // get otoscopy type
-    let index: number = data.findIndex((x) => x.name === 'otoscopyType');
-    if (index !== -1) {
-      this.htmlVars.set('ototype', data[index].value);
-    }
-    // get tympanometry type
-    index = data.findIndex((x) => x.name === 'tympanometryType');
-    if (index !== -1) {
-      this.htmlVars.set('tymptype', data[index].value);
-    }
-  }
-  private updateAudiogramResults(answers: Array<{ name: string, value: string }>) {
-    if (answers.length < 1) {
-      return;
-    }
-    let fields: string[] = ['audtype', 'leftHighSeverity', 'leftLowSeverity', 'rightHighSeverity', 'rightLowSeverity'];
-    let radBtns: string[] = ['audiogramType', 'leftHighSev', 'leftLowSev', 'rightHighSev', 'rightLowSev'];
-    let index: number;
-    for (let i = 0; i < 5; i++) {
-      index = answers.findIndex((x) => x.name === radBtns[i]);
-      if (index !== -1) {
-        this.htmlVars.set(fields[i], answers[index].value);
+    for (let dat in data) {
+      if (data.hasOwnProperty(dat)) {
+        if(testRadioNames.includes(data[dat].name)) {
+          this.testRadioVars.set(data[dat].name, data[dat].value);
+        }
       }
     }
 
-    // get Left Ear High Frequency Configuration
-    this.htmlVars.set('leftHighConfig', this.createConfigList('leftHighConfig', answers));
-    // get Left Ear Low Frequency Configuration
-    this.htmlVars.set('leftLowConfig', this.createConfigList('leftLowConfig', answers));
-    // get Right Ear High Frequency Configuration
-    this.htmlVars.set('rightHighConfig', this.createConfigList('rightHighConfig', answers));
-    // get Right Ear Low Frequency Configuration
-    this.htmlVars.set('rightLowConfig', this.createConfigList('rightLowConfig', answers));
+    for(let box in testCheckBoxNames) {
+      if(testCheckBoxNames.hasOwnProperty(box)) {
+        this.testCheckBoxVars.set(testCheckBoxNames[box], this.createConfigList(testCheckBoxNames[box], data));
+      }
+    }
   }
+
   private createConfigList(prefix: string, data: Array<{ name: string, value: string }>): string {
     let configurations = [
       'Symmetric',
@@ -200,11 +189,8 @@ export class AudiologistSummaryComponent implements OnInit {
     ];
     let list: string = '';
     configurations.forEach(config => {
-      let index = data.findIndex((x) => x.name === (prefix + config));
-      if (index !== -1) {
-        if (data[index].value) {
-          list += config + ', ';
-        }
+      if (data.some(x => (x.name === (prefix + config)) && (x.value === 'true'))) {
+        list += config + ', ';
       }
     });
     list = list.slice(0, -2);
@@ -212,33 +198,13 @@ export class AudiologistSummaryComponent implements OnInit {
   }
 
   private createHTMLvars() {
-    this.htmlVars.set('patientID', Utilities.getSessionStorage('patient-id'));
-    this.htmlVars.set('ts', '');
     this.htmlVars.set('thsA', 0);
     this.htmlVars.set('thsB', 0);
     this.htmlVars.set('thsC', 0);
     this.htmlVars.set('thsCtxt', '');
     this.htmlVars.set('thsCex', '');
-    this.htmlVars.set('overallTFI', 0);
-    this.htmlVars.set('intrusive', 0);
-    this.htmlVars.set('sense', 0);
-    this.htmlVars.set('cognitive', 0);
-    this.htmlVars.set('sleep', 0);
-    this.htmlVars.set('auditory', 0);
-    this.htmlVars.set('relaxation', 0);
-    this.htmlVars.set('quality', 0);
-    this.htmlVars.set('emotional', 0);
-    this.htmlVars.set('audtype', '');
-    this.htmlVars.set('leftHighSeverity', '');
-    this.htmlVars.set('leftHighConfig', '');
-    this.htmlVars.set('leftLowSeverity', '');
-    this.htmlVars.set('leftLowConfig', '');
-    this.htmlVars.set('rightHighSeverity', '');
-    this.htmlVars.set('rightHighConfig', '');
-    this.htmlVars.set('rightLowSeverity', '');
-    this.htmlVars.set('rightLowConfig', '');
-    this.htmlVars.set('ototype', '');
-    this.htmlVars.set('tymptype', '');
+
+
   }
 
 }

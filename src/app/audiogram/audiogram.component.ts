@@ -63,6 +63,6 @@ export class AudiogramComponent implements OnInit {
     }
   }
   public configChange(event: MatCheckboxChange) {
-    this.dataService.saveData(event.source.name, event.checked);
+    this.dataService.saveData(event.source.name, event.checked.toString());
   }
 }
