@@ -23,7 +23,7 @@ app.use(
 app.get('/', require('./index.ts'))
 
 // GET endpoint for getting patient Appointment by ID
-app.get('/appointment/:id',require('./getAppointment.ts'))
+app.get('/appointment/:id',require('./index.ts'))
 
 // Set app to listen on a given port
 app.listen(port, () => {
