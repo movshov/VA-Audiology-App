@@ -17,6 +17,10 @@ export class SubmitSurveyHandler {
     console.log('----------------------------------------');
   }
 
+  createJsonForSurveyTS() : string {
+    return "Hello!";
+  }
+
   submitSurveyComponentTS() : void {
     console.log('TS SURVEY RESULTS');
     console.log(Utilities.getSessionStorage('ts-dataRecord'));
