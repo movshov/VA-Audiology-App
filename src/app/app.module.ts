@@ -74,6 +74,10 @@ import { AudiologistSummaryComponent } from './audiologist-summary/audiologist-s
 import { TestsDataService } from './services/tests-data.service';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { CustomerSearchComponent } from './customer-search/customer-search.component';
+import { HttpClientModule } from '@angular/common/http';
+
+//API Services
+import { AppointmentsService } from './services/appointments.service';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -137,6 +141,7 @@ type StoreType = {
    */
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
@@ -163,7 +168,8 @@ type StoreType = {
     ThsStateflowService,
     ThsDataService,
     RouterGuards,
-    TestsDataService
+    TestsDataService,
+    AppointmentsService
   ]
 })
 export class AppModule {
