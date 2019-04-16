@@ -1,4 +1,4 @@
-const handler = require('./handler.ts');
+//const handler = require('./handler.ts');
 
 const Pool = require('pg').Pool
 const pool = new Pool({
@@ -10,8 +10,6 @@ const pool = new Pool({
 })
 
 module.exports = handler((request : any) => {
-
-  return request
 
   // Take data from request and build sql call from it
   const {

@@ -1,28 +1,29 @@
 // Authentication function: return true if authorized; otherwise throw an exception
-function alwaysPermitted(request) {
+function alwaysPermitted(request : any) {
   return true;
 }
 //todo move this to authenticate.js
 class AuthenticationFailureError extends Error {
-  constructor(...params) {
+  constructor(...params : any) {
     super(...params);
   }
 }
 //todo move this to errors.js
 //todo handle a lot more errors, with unique messages and statuses
-function defaultErrorHandler(request, response, ex) {
+function defaultErrorHandler(request : any, response : any, ex : any) {
   response.status(500).json({
     "status": "error",
     "message": "Unknown error: " + ex.toString()
   });
 }
+
 // Factory for API handlers
 // Accepts three function, and returns a function that handles the API call
 //   perform: Performs the user's request, and returns any requested data (or null)
 //   handleErrors: Sends a response based on a thrown exception
 //   authenticate: If the request is not authorized, throws an exception
-function handler(perform, handleErrors = defaultErrorHandler, authenticate = alwaysPermitted) {
-  return function(request, response, next) {
+function handler(perform : any, handleErrors = defaultErrorHandler, authenticate = alwaysPermitted) {
+  return function(request : JSON, response : any, next : any) {
     try {
       authenticate(request);
       const data = perform(request);
