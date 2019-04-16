@@ -7,10 +7,4 @@ module.exports = handler((request) => {
     return db.each('SELECT id, code, name FROM appointments', [], row => {
         row.code = parseInt(row.code);
     })
-        .then(data => {
-            // data = array of events, with 'code' converted into integer
-        })
-        .catch(error => {
-            // error
-        });
 });
