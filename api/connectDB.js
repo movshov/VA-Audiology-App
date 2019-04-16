@@ -11,7 +11,7 @@ const client = new Client({
 client.connect();
 
 module.exports = {
-    query: (text, params, callback) => {
-        return client.query(text, params, callback)
+    query: async (text, params) => {
+        return client.query(text, params)
     }
 }

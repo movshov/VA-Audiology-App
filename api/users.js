@@ -1,5 +1,4 @@
 const handler = require('./handler.js');
-const { Pool, Client } = require('pg');
 const db = require('./connectDB.js');
 
 //File structure analogous to an HTTP server: (URL looking for the file: 'localhost:3000/users')

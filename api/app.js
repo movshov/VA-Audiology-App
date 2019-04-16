@@ -20,6 +20,21 @@ app.use(
 )
 
 // GET endpoint for the root
+const db = require('./connectDB.js');
+
+const factory = require('./users.js')
+
+const asyncMiddleware = fn =>
+  (req, res, next) => {
+    Promise.resolve(fn(req, res, next))
+      .catch(next);
+  };
+
+app.get('/THEusers', asyncMiddleware(async (req, res, next) => {
+    const user = await db.query('SELECT * FROM patient', null);
+    res.json(user.rows);
+}))
+
 app.get('/users', require('./users.js'))
 
 app.get('/', require('./index.js'))
