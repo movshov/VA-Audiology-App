@@ -1,16 +1,19 @@
 const handler = require('./handler.js');
-var pgp = require('pg-promise')(/*options*/)
-var db = pgp('postgres://username:password@host:port/database')
+const { Pool, Client } = require('pg');
+const db = require('./connectDB.js');
 
-module.exports = handler((request) => {
-    //Placeholder for SQL code (Currently blocked)
-    return db.each('SELECT id, code, name FROM appointments', [], row => {
-        row.code = parseInt(row.code);
+//File structure analogous to an HTTP server: (URL looking for the file: 'localhost:3000/users')
+module.exports = handler((request, response) => {
+    const text = 'SELECT * FROM patient'
+    db.query(text, null, (err, res) => {
+        if (err) {
+            console.log(err.stack)
+        } else {   
+            console.log("Hello1?");       
+            response.status(200).json({
+                "status": "success",
+                "data": res.rows
+            })
+        }
     })
-        .then(data => {
-            // data = array of events, with 'code' converted into integer
-        })
-        .catch(error => {
-            // error
-        });
-});
+})

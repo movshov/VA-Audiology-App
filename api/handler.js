@@ -25,16 +25,12 @@ function handler(perform, handleErrors = defaultErrorHandler, authenticate = alw
   return function(request, response, next) {
     try {
       authenticate(request);
-      const data = perform(request);
-      response.status(200).json({
-        "status": "success",
-        "data": data
-      });
+      perform(request, response);
     } catch (ex) {
       //currently this doesn't handle errors differently for authenticated users than unauthenticated ones; we may want to ultimately hide some information from unauthenticated users
       return handleErrors(request, response, ex);
     }
   }
-}
+};
 
 module.exports = handler;
