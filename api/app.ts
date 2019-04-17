@@ -24,7 +24,8 @@ import indexEndpoint from './index'
 app.get('/', indexEndpoint)
 
 // GET endpoint for submiting surveys
-app.post('/appointment/survey', require('./survey.ts'))
+import surveyEndpoint from './survey'
+app.post('/appointment/survey', surveyEndpoint)
 
 // Set app to listen on a given port
 app.listen(port, () => {
