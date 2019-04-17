@@ -73,6 +73,8 @@ import { FaqComponent } from './faq/faq.component';
 import { AudiologistSummaryComponent } from './audiologist-summary/audiologist-summary.component';
 import { TestsDataService } from './services/tests-data.service';
 
+import { SurveySubmitHandler } from './services/submit-survey/api-survey.submit.service';
+
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
@@ -159,7 +161,8 @@ type StoreType = {
     ThsStateflowService,
     ThsDataService,
     RouterGuards,
-    TestsDataService
+    TestsDataService,
+    SurveySubmitHandler
   ]
 })
 export class AppModule {
