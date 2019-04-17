@@ -22,8 +22,9 @@ function defaultErrorHandler(request : any, response : any, ex : any) {
 //   perform: Performs the user's request, and returns any requested data (or null)
 //   handleErrors: Sends a response based on a thrown exception
 //   authenticate: If the request is not authorized, throws an exception
-function handler(perform : any, handleErrors = defaultErrorHandler, authenticate = alwaysPermitted) {
-  return function(request : JSON, response : any, next : any) {
+
+export default function handler(perform, handleErrors = defaultErrorHandler, authenticate = alwaysPermitted) {
+  return function(request, response, next) {
     try {
       authenticate(request);
       const data = perform(request);
@@ -37,5 +38,3 @@ function handler(perform : any, handleErrors = defaultErrorHandler, authenticate
     }
   }
 }
-
-module.exports = handler;

@@ -1,5 +1,5 @@
-//const handler = require('./handler.ts');
+import handler from './handler';
 
-module.exports = handler((request : any) => {
+export default handler((request) => {
   return 'Hello, world!';
 });

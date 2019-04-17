@@ -1,4 +1,4 @@
-//const handler = require('./handler.ts');
+import handler from './handler';
 
 const Pool = require('pg').Pool
 const pool = new Pool({
@@ -9,7 +9,7 @@ const pool = new Pool({
   port: 5432,
 })
 
-module.exports = handler((request : any) => {
+export default handler((request : any) => {
 
   // Take data from request and build sql call from it
   // TODO: Condenence this to something not ugly

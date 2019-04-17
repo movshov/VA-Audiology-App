@@ -20,7 +20,8 @@ app.use(
 )
 
 // GET endpoint for the root
-app.get('/', require('./index.ts'))
+import indexEndpoint from './index'
+app.get('/', indexEndpoint)
 
 // GET endpoint for submiting surveys
 app.post('/appointment/survey', require('./survey.ts'))
