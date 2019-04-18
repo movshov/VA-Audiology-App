@@ -19,13 +19,13 @@ app.use(
     })
 )
 
-// GET endpoint for the root
-import indexEndpoint from './index'
-app.get('/', indexEndpoint)
-
 // GET endpoint for submiting surveys
 import surveyEndpoint from './survey'
 app.post('/appointment/survey', surveyEndpoint)
+
+// GET endpoint for the root
+import indexEndpoint from './index'
+app.get('/', indexEndpoint)
 
 // Set app to listen on a given port
 app.listen(port, () => {
