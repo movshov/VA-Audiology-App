@@ -5,11 +5,23 @@ const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'VA_Trial',
-  password: '8b %^#7608acL2bA9X1 808cb26eUb',
+  password: 'Derp',
   port: 5432,
 })
 
 export default handler((request : any) => {
+  
+  console.log("Whole Request\n\n")
+  console.log(request)
+  console.log("\n\nEnd Whole Request") 
+
+  console.log("Request Body\n\n")
+  console.log(request.body)
+  console.log("\n\nEnd Request Body")
+
+  console.log("Request Data\n\n")
+  console.log(request.data)
+  console.log("\n\nEnd Request Data")  
 
   // Take data from request and build sql call from it
   // TODO: Condenence this to something not ugly
@@ -30,7 +42,7 @@ export default handler((request : any) => {
   var tfisurvey_sql = "INSERT INTO tfisurvey (tfisurveyid, patientid, completiondate, completiontime, tfi_i, tfi_sc, tfi_c, tfi_si, tfi_a, tfi_r, tfi_q, tfi_e, tfi_overallscore) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)"
 
   // Insert data into tfisurvey
-  pool.query(tfisurvey_sql, [tfisurveyid, patientid, completiondate, completiontime, tfi_i, tfi_sc, tfi_c, tfi_si, tfi_a, tfi_r, tfi_q, tfi_e, tfi_overallscore,] , (error : any, results : any) => {
+  pool.query(tfisurvey_sql, [tfisurveyid, 7, "25-MAY-2018", "2018-05-26 14:47:57.62", 7, 7, 7, 7, 7, 7, 7, 7, 7,] , (error : any, results : any) => {
     if (error) {
       throw error
     }
