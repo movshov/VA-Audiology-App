@@ -16,11 +16,11 @@ export class CustomerSearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  // Parses the JSON and puts it into an array to create the table of appointments
+  // Gets JSON from queryDB() puts it into an array to create the table of appointments
   // sorts by date, most recent first.
   public patientSearch() {
     this.searchBtn = false;
-    let appts = JSON.parse(this.queryDB());
+    let appts = this.queryDB();
     this.resultsTable = [];
     this.currentPage = 0;
     for(let appt in appts) {
@@ -36,7 +36,7 @@ export class CustomerSearchComponent implements OnInit {
     })
     this.searchBtn = true;
   }
-  // This function will actually load the selected appointment into sessionStorage and tell
+  // CHANGE this function to actually load the selected appointment into sessionStorage and tell
   // audiologist-navigation to change state
   public loadAppt(appt) {
     console.log('appt: ' + appt.date);
@@ -55,10 +55,11 @@ export class CustomerSearchComponent implements OnInit {
     }
   }
 
-  // This function will be changed to call the service that talks to the DB
-  private queryDB(): string {
+  // CHANGE this function to call the service that talks to the DB
+  // Should still return a JSON Object
+  private queryDB(): Object {
     let appts: string = '{';
-    let numResults = Math.floor(Math.random() * 1000);
+    let numResults = Math.floor(Math.random() * 100);
     for (let i = 0; i < numResults; i++) {
       let tmp = '';
       if (i > 0) { tmp = ',' };
@@ -70,9 +71,9 @@ export class CustomerSearchComponent implements OnInit {
       appts += tmp;
     }
     appts += '}';
-    return appts;
+    return JSON.parse(appts);
   }
-  // This will be removed, only used to get random date for testing.
+  // REMOVE, only used to get random date for testing.
   private randomDate(): string {
     let month = Math.floor(Math.random() * 12) + 1;
     let day = Math.floor(Math.random() * 28) + 1;
