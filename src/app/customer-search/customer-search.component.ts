@@ -1,4 +1,8 @@
 import { Component, OnInit, Injector, ComponentFactoryResolver, ApplicationRef } from '@angular/core';
+import { TestsDataService } from '../services/tests-data.service';
+import { TsScreenerDataService } from '../services/ts-screener-data.service';
+import { ThsDataService } from '../services/ths-data.service';
+import { TfiDataService } from '../services/tfi-data.service';
 
 @Component({
   selector: 'customer-search',
@@ -11,7 +15,9 @@ export class CustomerSearchComponent implements OnInit {
   public resultsTable = [];
   public currentPage: number = 0;
 
-  constructor() { }
+  constructor(
+    private testDataService: TestsDataService, private tsDataService: TsScreenerDataService, private thsDataService: ThsDataService, private tfiDataService: TfiDataService)
+    { }
 
   ngOnInit() {
   }
@@ -36,6 +42,8 @@ export class CustomerSearchComponent implements OnInit {
   // CHANGE this function to actually load the selected appointment into sessionStorage and tell
   // audiologist-navigation to change state
   public loadAppt(appt: Object) {
+    if(appt === {}) { return;}
+    // for each dataService saveData
     console.log('appt: ' + appt['date']);
   }
   // pagination functions
