@@ -60,7 +60,7 @@ export class CustomerSearchComponent implements OnInit {
     }
   }
 
-  // CHANGE this function to call the service that talks to the DB
+  // CHANGE this function to call the API service that talks to the DB
   // Should still return an Object[]
   private queryDB(): Object[] {
     let appts: Object[] = [];
