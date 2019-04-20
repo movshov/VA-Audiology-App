@@ -25,8 +25,8 @@
     </tbody>
   </table>
   <div class="center">
-    <button [disabled]="currentPage === 0"><</button>
-    <button [disabled]="resultsTable.length <= (currentPage + 1) * 10">></button>
+    <button [disabled]="currentPage === 0" (click)="prevPage()"><</button>
+    <button [disabled]="resultsTable.length <= (currentPage + 1) * 10" (click)="nextPage()">></button>
   </div>
   <ng-template #notFound>
     <p>Patient ID not found.</p>

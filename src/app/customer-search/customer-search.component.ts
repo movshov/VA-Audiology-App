@@ -41,11 +41,22 @@ export class CustomerSearchComponent implements OnInit {
   public loadAppt(appt) {
     console.log('appt: ' + appt.date);
   }
+  // pagination functions
+  public prevPage() {
+    if(this.currentPage > 0) {
+      this.currentPage--;
+    }
+  }
+  public nextPage() {
+    if((this.currentPage + 1) * 10 < this.resultsTable.length) {
+      this.currentPage++;
+    }
+  }
 
   // This function will be changed to call the service that talks to the DB
   private queryDB(): string {
     let appts: string = '{';
-    let numResults = Math.floor(Math.random() * 33);
+    let numResults = Math.floor(Math.random() * 1000);
     for (let i = 0; i < numResults; i++) {
       let tmp = '';
       if (i > 0) { tmp = ',' };
@@ -63,7 +74,7 @@ export class CustomerSearchComponent implements OnInit {
   private randomDate(): string {
     let month = Math.floor(Math.random() * 12) + 1;
     let day = Math.floor(Math.random() * 28) + 1;
-    let year = Math.floor(Math.random() * 2) + 2018;
+    let year = Math.floor(Math.random() * 4) + 2016;
     return month + '/' + day + '/' + year;
   }
 
