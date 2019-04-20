@@ -7,7 +7,7 @@ import { Component, OnInit, Injector, ComponentFactoryResolver, ApplicationRef }
 })
 export class CustomerSearchComponent implements OnInit {
   public idSearch: string;
-  public searchBtn: boolean = true;
+  public searchBtn: boolean = true; // Search button is disabled while querying DB
   public resultsTable = [];
   public currentPage: number = 0;
 
@@ -20,12 +20,9 @@ export class CustomerSearchComponent implements OnInit {
   // sorts by date, most recent first.
   public patientSearch() {
     this.searchBtn = false;
-    let appts = this.queryDB();
-    this.resultsTable = [];
+    let appts: Object[] = this.queryDB();
     this.currentPage = 0;
-    for(let appt in appts) {
-      this.resultsTable.push(appts[appt]);
-    }
+    this.resultsTable = appts.map(x => Object.assign({}, x));
     this.resultsTable.sort((a,b) => {
       let date1 = new Date(a.date);
       let date2 = new Date(b.date);
@@ -33,13 +30,13 @@ export class CustomerSearchComponent implements OnInit {
         return 1;
       }
       return -1;
-    })
+    });
     this.searchBtn = true;
   }
   // CHANGE this function to actually load the selected appointment into sessionStorage and tell
   // audiologist-navigation to change state
-  public loadAppt(appt) {
-    console.log('appt: ' + appt.date);
+  public loadAppt(appt: Object) {
+    console.log('appt: ' + appt['date']);
   }
   // pagination functions
   public prevPage(amt: number) {
@@ -56,22 +53,18 @@ export class CustomerSearchComponent implements OnInit {
   }
 
   // CHANGE this function to call the service that talks to the DB
-  // Should still return a JSON Object
-  private queryDB(): Object {
-    let appts: string = '{';
-    let numResults = Math.floor(Math.random() * 100);
+  // Should still return an Object[]
+  private queryDB(): Object[] {
+    let appts: Object[] = [];
+    let numResults = Math.floor(Math.random() * 12);
+    console.log(numResults);
     for (let i = 0; i < numResults; i++) {
-      let tmp = '';
-      if (i > 0) { tmp = ',' };
-      tmp += '"' + i + '"' + ':' + JSON.stringify({
-        id: this.idSearch,
-        date: this.randomDate(),
-        apptID: Math.floor(Math.random() * 9999)
-      });
-      appts += tmp;
+      let tmp:Object = {};
+      tmp['id'] = this.idSearch;
+      tmp['date'] = this.randomDate();
+      appts.push(tmp);
     }
-    appts += '}';
-    return JSON.parse(appts);
+    return appts;
   }
   // REMOVE, only used to get random date for testing.
   private randomDate(): string {
