@@ -42,14 +42,16 @@ export class CustomerSearchComponent implements OnInit {
     console.log('appt: ' + appt.date);
   }
   // pagination functions
-  public prevPage() {
-    if(this.currentPage > 0) {
+  public prevPage(amt: number) {
+    while(this.currentPage > 0 && amt > 0) {
       this.currentPage--;
+      amt--;
     }
   }
-  public nextPage() {
-    if((this.currentPage + 1) * 10 < this.resultsTable.length) {
+  public nextPage(amt: number) {
+    while((this.currentPage + 1) * 10 < this.resultsTable.length && amt > 0) {
       this.currentPage++;
+      amt--;
     }
   }
 
