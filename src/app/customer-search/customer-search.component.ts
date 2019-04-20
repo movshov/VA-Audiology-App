@@ -64,7 +64,7 @@ export class CustomerSearchComponent implements OnInit {
   // Should still return an Object[]
   private queryDB(): Object[] {
     let appts: Object[] = [];
-    let numResults = Math.floor(Math.random() * 12);
+    let numResults = Math.floor(Math.random() * 22);
     console.log(numResults);
     for (let i = 0; i < numResults; i++) {
       let tmp:Object = {};

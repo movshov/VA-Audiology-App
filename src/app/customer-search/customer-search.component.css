@@ -59,3 +59,8 @@ button:disabled {
     width: 100%;
     background-color: #81c981;
 }
+
+.pagination {
+    padding: 3px 10px;
+    margin: 15px 5px;
+}
