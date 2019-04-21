@@ -73,9 +73,8 @@ import { FaqComponent } from './faq/faq.component';
 import { AudiologistSummaryComponent } from './audiologist-summary/audiologist-summary.component';
 import { TestsDataService } from './services/tests-data.service';
 import { HttpClientModule } from '@angular/common/http';
-
-//API Services
-import { AppointmentsService } from './services/appointments.service';
+// API Service
+import { ServerApiService } from './services/ServerApi.service';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -165,7 +164,7 @@ type StoreType = {
     ThsDataService,
     RouterGuards,
     TestsDataService,
-    AppointmentsService
+    ServerApiService
   ]
 })
 export class AppModule {
