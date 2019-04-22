@@ -50,10 +50,11 @@
             </div>
          </div>
           <kendo-pdf-export #pdf paperSize="A4" margin="2cm" [scale]="scale">
-            <audiologist-summary class="{{summary ? 'main-right-container' : 'main-right-container-hidden'}}"></audiologist-summary>
+            <!-- <audiologist-summary class="{{summary ? 'main-right-container' : 'main-right-container-hidden'}}"></audiologist-summary>
             <audiogram class="{{recommendedTests ? 'main-right-container': 'main-right-container-hidden'}}"></audiogram>
             <otoscopy class="{{recommendedTests ? 'main-right-container': 'main-right-container-hidden'}}"></otoscopy>
-            <tympanometry class="{{recommendedTests ? 'main-right-container' : 'main-right-container-hidden'}}"></tympanometry>
+            <tympanometry class="{{recommendedTests ? 'main-right-container' : 'main-right-container-hidden'}}"></tympanometry> -->
+            <my-account></my-account>
           </kendo-pdf-export>
 
           <!-- <div class="{{suggestedTests ? 'main-right-container' : 'main-right-container-hidden'}}">Suggested Tests</div> -->

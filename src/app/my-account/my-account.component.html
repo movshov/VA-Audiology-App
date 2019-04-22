@@ -1,3 +1,20 @@
-<p>
-  my-account works!
-</p>
+<div class="center">
+  <h1>My Account</h1>
+  <form style="width: 75%; display: inline-block">
+    <div class="group blue">
+      <label for="oldPassword" class="group-start">Old Password:</label>
+      <input ([(ngModel)]="oldPass") type="password" id="oldPassword" class="group-end" name="oldPassword" placeholder="Old Password...">
+    </div>
+    
+    <div class="group blue">
+      <label for="newPassword1" class="group-start">New Password:</label>
+      <input [(ngModel)]="newPass" type="password" id="newPassword1" class="group-end" name="newPassword1" placeholder="New Password...">
+    </div>
+    
+    <div class="group blue">
+      <label for="newPassword2" class="group-start">Verify New Password:</label>
+      <input [(ngModel)]="verifyPass" type="password" id="newPassword2" class="group-end" name="newPassword2"
+        placeholder="Verify New Password..">
+    </div>
+  </form>
+</div>

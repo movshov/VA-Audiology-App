@@ -1,0 +1,43 @@
+.center {
+    text-align: center;
+}
+
+.group {
+    font-size: 0;
+    border-width: 1px 1px 1px 1px;
+    border-color: #ccc;
+    border-radius: 5px;
+    border-style: solid;
+    display: block;
+    padding: 3px;
+    width: 100%;
+}
+.group-start, .group-end {
+    box-sizing: border-box;
+    padding: 5px 3px;
+    font-size: 18px;
+    border: none;
+    vertical-align: middle;
+    margin: 0;
+    display: inline-block;
+}
+.group-start {
+    text-align: right;
+    width: 25%;
+}
+.group-end {
+    width: 75%;
+}
+
+.blue {
+    background-color: #3344dd;
+    color: white;
+}
+.green {
+    background-color: #16a525;
+    color: white;
+}
+.red {
+    background-color: #ad0000;
+    color: white;
+}
