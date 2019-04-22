@@ -13,7 +13,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpileOnly ./app.ts",
+    "debug": "ts-node-dev --respawn --transpileOnly ./app.ts",
     "tsc": "tsc",
     "server": "node ./build/app.js",
     "dev": "npm run tsc && npm run server",
