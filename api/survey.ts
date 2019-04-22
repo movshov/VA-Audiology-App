@@ -49,7 +49,7 @@ export default handler((request : any) => {
   // Insert data into thssurvey
   var thssurvey_sql = "INSERT INTO thssurvey (thssurveyid, patientid, completiondate, completiontime, ths_sectiona, ths_sectionb, ths_sectionc) VALUES ($1, $2, $3, $4, $5, $6, $7)"
 
-  pool.query(tfisurvey_sql, [thssurveyid, patientid, completiondate, completiontime, ths_sectiona, ths_sectionb, ths_sectionc] , (error : any, results : any) => {
+  pool.query(thssurvey_sql, [thssurveyid, patientid, completiondate, completiontime, ths_sectiona, ths_sectionb, ths_sectionc] , (error : any, results : any) => {
     if (error) {
       throw error
     }
@@ -58,7 +58,7 @@ export default handler((request : any) => {
   // Insert data into tssurvey
   var tssurvey_sql = "INSERT INTO tssurvey (tssurveyid, patientid, completiondate, completiontime, ts_type) VALUES ($1, $2, $3, $4, $5)"
 
-  pool.query(tfisurvey_sql, [thssurveyid, patientid, completiondate, completiontime, ths_sectiona, ths_sectionb, ths_sectionc] , (error : any, results : any) => {
+  pool.query(tssurvey_sql, [tssurveyid, patientid, completiondate, completiontime, ts_type] , (error : any, results : any) => {
     if (error) {
       throw error
     }
