@@ -74,7 +74,7 @@ import { AudiologistSummaryComponent } from './audiologist-summary/audiologist-s
 import { TestsDataService } from './services/tests-data.service';
 import { HttpClientModule } from '@angular/common/http';
 // API Service
-import { ServerApiService } from './services/ServerApi.service';
+import { ServerApiService } from './services/server-api.service';
 
 // Application wide providers
 const APP_PROVIDERS = [

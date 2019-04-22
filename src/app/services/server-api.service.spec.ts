@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ServerApiService } from './ServerApi.service';
+import { ServerApiService } from './server-api.service';
 
 describe('AppointmentsService', () => {
   beforeEach(() => {
