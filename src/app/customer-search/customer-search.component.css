@@ -64,3 +64,13 @@ button:disabled {
     padding: 3px 10px;
     margin: 15px 5px;
 }
+
+.warning {
+    color: red;
+    animation-name: warning;
+    animation-duration: 1s;
+}
+@keyframes warning {
+    from {color: white;}
+    to {color: red;}
+}

@@ -4,6 +4,7 @@
       <input [(ngModel)]="idSearch" class="group-start" name="searchid" type="text" placeholder="Patient ID"><!--
   --><button [disabled]="!searchBtn" class="group-end" type="submit"><i class="fa fa-search"></i></button>
     </form>
+    <div *ngIf="invalidID" class="warning">Invalid ID</div>
   </div>
 </div>
 
