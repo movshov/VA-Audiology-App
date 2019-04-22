@@ -19,7 +19,7 @@ app.use(
     })
 )
 
-// GET endpoint for submiting surveys
+// POST endpoint for submiting surveys
 import surveyEndpoint from './survey'
 app.post('/appointment/survey', surveyEndpoint)
 

@@ -1,16 +1,13 @@
 import handler from './handler';
+import db from './db';
 
-const Pool = require('pg').Pool
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'VA_Trial',
-  password: '{{ redacted }}',
-  port: 5432,
-})
+export default handler(async (request : any) => {
 
-export default handler((request : any) => {
+  let connection = db();
+  const client = await connection.connect()
+
   // Take data from request and build sql call from it
+  // TODO: Move this data structure to it's own class
   const {
     //Sharded Values
     patientid,
@@ -37,32 +34,26 @@ export default handler((request : any) => {
     ts_type
   } = request.body
 
-  // Insert data into tfisurvey
   var tfisurvey_sql = "INSERT INTO tfisurvey (tfisurveyid, patientid, completiondate, completiontime, tfi_i, tfi_sc, tfi_c, tfi_si, tfi_a, tfi_r, tfi_q, tfi_e, tfi_overallscore) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)"
+  var tfisurvey_values = [tfisurveyid, patientid, completiondate, completiontime, tfi_i, tfi_sc, tfi_c, tfi_si, tfi_a, tfi_r, tfi_q, tfi_e, tfi_overallscore]
   
-  pool.query(tfisurvey_sql, [tfisurveyid, patientid, completiondate, completiontime, tfi_i, tfi_sc, tfi_c, tfi_si, tfi_a, tfi_r, tfi_q, tfi_e, tfi_overallscore] , (error : any, results : any) => {
-    if (error) {
-      throw error
-    }
-  })
-
-  // Insert data into thssurvey
   var thssurvey_sql = "INSERT INTO thssurvey (thssurveyid, patientid, completiondate, completiontime, ths_sectiona, ths_sectionb, ths_sectionc) VALUES ($1, $2, $3, $4, $5, $6, $7)"
-
-  pool.query(thssurvey_sql, [thssurveyid, patientid, completiondate, completiontime, ths_sectiona, ths_sectionb, ths_sectionc] , (error : any, results : any) => {
-    if (error) {
-      throw error
-    }
-  })
-
-  // Insert data into tssurvey
+  var thssurvey_values = [thssurveyid, patientid, completiondate, completiontime, ths_sectiona, ths_sectionb, ths_sectionc]
+  
   var tssurvey_sql = "INSERT INTO tssurvey (tssurveyid, patientid, completiondate, completiontime, ts_type) VALUES ($1, $2, $3, $4, $5)"
+  var tssurvey_values = [tssurveyid, patientid, completiondate, completiontime, ts_type]
 
-  pool.query(tssurvey_sql, [tssurveyid, patientid, completiondate, completiontime, ts_type] , (error : any, results : any) => {
-    if (error) {
-      throw error
-    }
-  })
-
-  return 'Survey sucessfully submitted';
+  try {
+    await client.query('BEGIN')
+    await connection.query(tfisurvey_sql, tfisurvey_values)
+    await connection.query(thssurvey_sql, thssurvey_values)
+    await connection.query(tssurvey_sql, tssurvey_values)
+    await connection.query('COMMIT')
+  } catch (error) {
+    await client.query('ROLLBACK')
+    throw error
+  } finally {
+    client.release()
+    return "Survey.ts finished."
+  }
 });
