@@ -27,6 +27,7 @@
 }
 .group-end {
     width: 75%;
+    color: black;
 }
 
 .blue {
@@ -40,4 +41,12 @@
 .red {
     background-color: #ad0000;
     color: white;
+}
+.yellow {
+    background-color: #f3f300;
+    color: black;
+}
+
+.left-align {
+    text-align: left;
 }

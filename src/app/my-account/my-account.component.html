@@ -1,19 +1,45 @@
 <div class="center">
   <h1>My Account</h1>
   <form style="width: 75%; display: inline-block">
-    <div class="group blue">
+    <div [ngClass]="{
+      blue: oldPass === 0,
+      green: oldPass === 1,
+      red: oldPass === -1,
+      group: true
+    }">
       <label for="oldPassword" class="group-start">Old Password:</label>
-      <input [(ngModel)]="oldPass" type="password" id="oldPassword" class="group-end" name="oldPassword" placeholder="Old Password...">
+      <input (input)="oldPassChange($event.target.value)" type="password" id="oldPassword" class="group-end" name="oldPassword" placeholder="Old Password...">
     </div>
     
-    <div class="group blue">
+    <div>
+      <h2>A strong password satisfies the following criteria:</h2>
+      <ol class="left-align">
+        <li>It contains at least one lowercase English character.</li>
+        <li>It contains at least one uppercase English character.</li>
+        <li>It contains at least one of these characters: !@#$%^&*()-+</li>
+        <li>Its length is at least 8.</li>
+        <li>It contains at least one digit.</li>
+      </ol>
+    </div>
+    <div [ngClass]="{
+      blue: newPass === 0,
+      yellow: newPass === 1,
+      green: newPass === 2,
+      red: newPass === -1,
+      group: true
+    }">
       <label for="newPassword1" class="group-start">New Password:</label>
-      <input [(ngModel)]="newPass" type="password" id="newPassword1" class="group-end" name="newPassword1" placeholder="New Password...">
+      <input [(ngModel)]="newPassField" (input)="newPassChange($event.target.value)" type="password" id="newPassword1" class="group-end" name="newPassword1" placeholder="New Password...">
     </div>
     
-    <div class="group blue">
+    <div [ngClass]="{
+      blue: verifyPass === 0,
+      green: verifyPass === 1,
+      red: verifyPass === -1,
+      group: true
+    }">
       <label for="newPassword2" class="group-start">Verify New Password:</label>
-      <input [(ngModel)]="verifyPass" type="password" id="newPassword2" class="group-end" name="newPassword2"
+      <input [(ngModel)]="verifyPassField" (input)="verifyPassChange($event.target.value)" type="password" id="newPassword2" class="group-end" name="newPassword2"
         placeholder="Verify New Password..">
     </div>
   </form>
