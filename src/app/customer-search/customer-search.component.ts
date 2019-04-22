@@ -28,7 +28,7 @@ export class CustomerSearchComponent implements OnInit {
     if (!this.validID()) { this.invalidID = true; return; };
     this.invalidID = false;
     this.searchBtn = false;
-    let appts: Object[] = this.queryDB();
+    let appts: Object[] = this.getAppointments();
     this.currentPage = 0;
     this.resultsTable = appts.map((x) => Object.assign({}, x));
     this.resultsTable.sort((a, b) => {
@@ -71,7 +71,7 @@ export class CustomerSearchComponent implements OnInit {
   }
   // CHANGE this function to call the API service that talks to the DB
   // Should still return an Object[]
-  private queryDB(): Object[] {
+  private getAppointments(): Object[] {
     let appts: Object[] = [];
     let numResults = Math.floor(Math.random() * 22);
     console.log(numResults);
