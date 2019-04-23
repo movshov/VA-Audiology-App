@@ -50,3 +50,22 @@
 .left-align {
     text-align: left;
 }
+
+.warning {
+    color: red;
+    animation-name: warning;
+    animation-duration: 1s;
+}
+@keyframes warning {
+    from {color: white;}
+    to {color: red;}
+}
+.success {
+    color: green;
+    animation-name: success;
+    animation-duration: 1s;
+}
+@keyframes success {
+    from {color: white;}
+    to {color: green;}
+}

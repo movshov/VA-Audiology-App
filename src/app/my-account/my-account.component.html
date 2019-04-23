@@ -2,13 +2,13 @@
   <h1>My Account</h1>
   <form style="width: 75%; display: inline-block">
     <div [ngClass]="{
-      blue: oldPass === 0,
-      green: oldPass === 1,
-      red: oldPass === -1,
+      blue: passColors['oldPass'] === 0,
+      green: passColors['oldPass'] === 1,
+      red: passColors['oldPass'] === -1,
       group: true
     }">
       <label for="oldPassword" class="group-start">Old Password:</label>
-      <input (input)="oldPassChange($event.target.value)" type="password" id="oldPassword" class="group-end" name="oldPassword" placeholder="Old Password...">
+      <input [(ngModel)]="passFields['oldPassField']" (input)="oldPassChange()" type="password" id="oldPassword" class="group-end" name="oldPassword" placeholder="Old Password...">
     </div>
     
     <div>
@@ -22,25 +22,31 @@
       </ol>
     </div>
     <div [ngClass]="{
-      blue: newPass === 0,
-      yellow: newPass === 1,
-      green: newPass === 2,
-      red: newPass === -1,
+      blue: passColors['newPass'] === 0,
+      yellow: passColors['newPass'] === 1,
+      green: passColors['newPass'] === 2,
+      red: passColors['newPass'] === -1,
       group: true
     }">
       <label for="newPassword1" class="group-start">New Password:</label>
-      <input [(ngModel)]="newPassField" (input)="newPassChange($event.target.value)" type="password" id="newPassword1" class="group-end" name="newPassword1" placeholder="New Password...">
+      <input [(ngModel)]="passFields['newPassField']" (input)="newPassChange()" type="password" id="newPassword1" class="group-end" name="newPassword1" placeholder="New Password...">
     </div>
     
     <div [ngClass]="{
-      blue: verifyPass === 0,
-      green: verifyPass === 1,
-      red: verifyPass === -1,
+      blue: passColors['verifyPass'] === 0,
+      green: passColors['verifyPass'] === 1,
+      red: passColors['verifyPass'] === -1,
       group: true
     }">
       <label for="newPassword2" class="group-start">Verify New Password:</label>
-      <input [(ngModel)]="verifyPassField" (input)="verifyPassChange($event.target.value)" type="password" id="newPassword2" class="group-end" name="newPassword2"
+      <input [(ngModel)]="passFields['verifyPassField']" (input)="verifyPassChange()" type="password" id="newPassword2" class="group-end" name="newPassword2"
         placeholder="Verify New Password..">
     </div>
+
+    <h3 *ngIf="messages['display']" [ngClass]="{
+      warning: messages['warning'],
+      success: !messages['warning']
+    }">{{ messages['message'] }}</h3>
+    <button (click)="onSubmit()" type="submit">Submit</button>
   </form>
 </div>
