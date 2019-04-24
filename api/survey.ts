@@ -54,6 +54,5 @@ export default handler(async (request : any) => {
     throw error
   } finally {
     client.release()
-    return "Survey.ts finished."
   }
 });
