@@ -20,8 +20,8 @@ app.use(
 )
 
 // POST endpoint for submiting surveys
-import surveyEndpoint from './survey'
-app.post('/appointment/survey', surveyEndpoint)
+import surveyEndpoint from './survey';
+app.post('/appointment/survey', surveyEndpoint);
 
 // GET endpoint for the root
 import appointmentsEndpoint from './appointments'
