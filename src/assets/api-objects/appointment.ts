@@ -1,14 +1,19 @@
+
+// TODO: Repackage
+import { ClientNotes } from './client-notes';
+
 export class Appointment {
     AppointmentID: number;
     AuthorityID: number;
     PatientID: number;
-    tfiSurveyID: number;
-    thsSurveyID: number;
-    tsSurveyID: number;
-    AudiologistExamsID: number;
+    tfiSurvey: tfiSurvey;
+    thsSurvey: thsSurvey;
+    tsSurvey: tsSurvey;
+    AudiologistExams: AudiologistExams;
     AppointmentDate: string;
     AppointmentTime: string;
-    NotesId: number;
+    PatientNotes: string;
+    AppoitnemtnsNotes: string;
 
 }
 
