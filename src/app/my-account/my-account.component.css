@@ -1,3 +1,8 @@
+button:disabled {
+    background-color: #eeeeee;
+    color: white;
+}
+
 .center {
     text-align: center;
 }
@@ -51,21 +56,39 @@
     text-align: left;
 }
 
-.warning {
+.toWarn {
     color: red;
-    animation-name: warning;
-    animation-duration: 1s;
+    animation-name: warn;
+    animation-duration: 0.5s;
 }
-@keyframes warning {
-    from {color: white;}
-    to {color: red;}
+.warnToWarn {
+    color: red;
+    animation-name: warn2;
+    animation-duration: 0.5s;
 }
-.success {
+.toSuccess {
     color: green;
     animation-name: success;
     animation-duration: 1s;
 }
+.successToSuccess {
+    color: green;
+    animation-name: success2;
+    animation-duration: 1s;
+}
+@keyframes warn {
+    from {color: white;}
+    to {color: red;}
+}
+@keyframes warn2 {
+    from {color: white;}
+    to {color: red;}
+}
 @keyframes success {
+    from {color: white;}
+    to {color: green;}
+}
+@keyframes success2 {
     from {color: white;}
     to {color: green;}
 }
