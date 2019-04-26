@@ -16,6 +16,7 @@ button:disabled {
     display: block;
     padding: 3px;
     width: 100%;
+    overflow: hidden;
 }
 .group-start, .group-end {
     box-sizing: border-box;
@@ -24,14 +25,16 @@ button:disabled {
     border: none;
     vertical-align: middle;
     margin: 0;
-    display: inline-block;
 }
 .group-start {
+    width: 15em;
     text-align: right;
-    width: 25%;
+    float: left;
 }
 .group-end {
-    width: 75%;
+    display: inline-block;
+    width: calc(100% - 15em);
+    min-width: 8em;
     color: black;
 }
 
