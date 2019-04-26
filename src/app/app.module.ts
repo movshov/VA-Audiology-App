@@ -73,6 +73,7 @@ import { FaqComponent } from './faq/faq.component';
 import { AudiologistSummaryComponent } from './audiologist-summary/audiologist-summary.component';
 import { TestsDataService } from './services/tests-data.service';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { CustomerSearchComponent } from './customer-search/customer-search.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -121,7 +122,8 @@ type StoreType = {
     SoundComponent,
     FaqComponent,
     AudiologistSummaryComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    CustomerSearchComponent
   ],
   exports: [
     MatSliderModule,
