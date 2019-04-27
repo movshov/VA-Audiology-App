@@ -45,22 +45,24 @@ export class MyAccountComponent implements OnInit {
     let warn: boolean = true;
     if (this.passFields.oldPassField === '') {
       this.passColors.oldPass = this.colors.red;
-      this.messages.message = 'You Must Enter Your Old Password/Passphrase!';
+      this.messages.message = 'You Must Enter Your Old Password!';
     } else if (this.passFields.newPassField === '') {
-      this.messages.message = 'You Must Enter A New Password/Passphrase!';
+      this.messages.message = 'You Must Enter A New Password!';
+    } else if (this.passFields.newPassField.length > 72) {
+      this.messages.message = 'Maximum Password Length of 72 Characters!'
     } else if (this.passColors.newPass === this.colors.red) {
-      this.messages.message = 'Choose A Stronger Password/Passphrase!';
+      this.messages.message = 'Choose A Stronger Password!';
     } else if (this.passFields.verifyPassField !== this.passFields.newPassField) {
-      this.messages.message = 'New Passwords/Passphrases Do Not Match!';
+      this.messages.message = 'New Passwords Do Not Match!';
     } else if (this.passFields.oldPassField === this.passFields.newPassField) {
-      this.messages.message = 'Choose A New Password/Passphrase!';
+      this.messages.message = 'Choose A New Password!';
     } else if (!this.oldPassMatches()) {
       this.passColors.oldPass = this.colors.red;
-      this.messages.message = 'Old Password/Passphrase Is Invalid!';
+      this.messages.message = 'Old Password Is Invalid!';
     } else {
       // TODO: REMOVE the following line when we connect to DB
       this.pword = this.passFields.newPassField;
-      this.messages.message = 'Password/Passphrase Changed';
+      this.messages.message = 'Password Changed';
       warn = false;
       this.passColors.oldPass = this.colors.green;
     }
@@ -75,15 +77,15 @@ export class MyAccountComponent implements OnInit {
   }
   private passwordStrength(): number {
     if (this.passFields.newPassField === '') { return this.colors.blue; }
+    if (this.passFields.newPassField.length < 8) { return this.colors.red; } // Minimum length of 8
     let total: number = 0;
     total += this.passFields.newPassField.toUpperCase() !== this.passFields.newPassField ? 1 : 0; // has lower
     total += this.passFields.newPassField.toLowerCase() !== this.passFields.newPassField ? 1 : 0; // has upper
     total += /(!|@|#|\$|%|\^|\&|\*|\(|\)|-|\+)/.test(this.passFields.newPassField) ? 1 : 0; // has special
     total += /\d/.test(this.passFields.newPassField) ? 1 : 0; // has digit
-    total += this.passFields.newPassField.length >= 15 ? 7 : this.passFields.newPassField.length >= 8 ? 5 : 0; // length at least 20
 
-    if (total < 8) { return this.colors.red; }
-    if (total < 9) { return this.colors.yellow; }
+    if (total < 3) { return this.colors.red; }
+    if (total < 4) { return this.colors.yellow; }
     return this.colors.green;
   }
   private animWarn(warn: boolean): void {
