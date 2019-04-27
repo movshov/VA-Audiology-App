@@ -14,9 +14,8 @@
 
     <div>
       <h2>Password Requirements</h2>
-      <h3>A password must be at least 8 characters long and include <strong><em>at least 3</em></strong> character
-        types.</h3>
-      <p class="left-align">The character types are:</p>
+      <h3 class="left-align">A password must be at least 8 characters long, six of the characters cannot occur more than
+        once, and it must include characters from <strong><em>at least 3</em></strong> of the following categories:</h3>
       <ul class="left-align">
         <li>Lowercase English characters: <strong>a-z</strong></li>
         <li>Uppercase English characters: <strong>A-Z</strong></li>
@@ -28,7 +27,8 @@
           computer to guess.</h4>
         <h4>A passphrase is a series of unrelated words or a sentence (not a popular quote or song), such as:</h4>
       </div>
-      <h4><strong>Battery-sunset ate 3</strong> <em style="margin: 0 10px">OR</em> <strong>I bought 12 donuts!</strong></h4>
+      <h4><strong>Battery-sunset ate 3</strong> <em style="margin: 0 10px">OR</em> <strong>I bought 12 donuts!</strong>
+      </h4>
     </div>
     <div [ngClass]="{
       blue: passColors.newPass === this.colors.blue,

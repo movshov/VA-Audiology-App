@@ -78,6 +78,7 @@ export class MyAccountComponent implements OnInit {
   private passwordStrength(): number {
     if (this.passFields.newPassField === '') { return this.colors.blue; }
     if (this.passFields.newPassField.length < 8) { return this.colors.red; } // Minimum length of 8
+    if (!this.sixUnique()) { return this.colors.red; } // Minimum 6 unique characters
     let total: number = 0;
     total += this.passFields.newPassField.toUpperCase() !== this.passFields.newPassField ? 1 : 0; // has lower
     total += this.passFields.newPassField.toLowerCase() !== this.passFields.newPassField ? 1 : 0; // has upper
@@ -87,6 +88,19 @@ export class MyAccountComponent implements OnInit {
     if (total < 3) { return this.colors.red; }
     if (total < 4) { return this.colors.yellow; }
     return this.colors.green;
+  }
+  private sixUnique(): boolean {
+    let array: Array<number> = [];
+    for(let char of this.passFields.newPassField) {
+      array[char] = 1 + (array[char] || 0);
+    }
+    let unique = 0;
+    for(let num in array) {
+      if(array[num] === 1) {
+        unique++;
+      }
+    }
+    return unique >= 6;
   }
   private animWarn(warn: boolean): void {
     if (this.messages.color === this.colors.red || this.messages.color === this.colors.red2) {
