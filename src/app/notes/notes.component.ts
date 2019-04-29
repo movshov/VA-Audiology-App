@@ -58,18 +58,13 @@ export class NotesComponent implements OnInit {
           
           alert('Please enter a note!');
 
-      } else if(typeof(this.content) === 'string'  && 
-          typeof(this.id) === 'string' ) {
+      } else {
           
-          return {
+         return {
               message : this.content ,
               patientID : this.id
           };
-
-      } else {
-          console.error('Doesnt work');
-          return null;
-      }
+        }
   }
 
 
