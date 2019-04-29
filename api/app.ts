@@ -23,7 +23,7 @@ app.use(
 import appointmentsEndpoint from './appointments'
 import appointmentsPostEndpoint from './appointmentsPOST';
 app.get('/appointments', appointmentsEndpoint);
-app.post('./appointments', appointmentsPostEndpoint);
+app.post('/appointments', appointmentsPostEndpoint);
 
 import indexEndpoint from './index'
 app.get('/', indexEndpoint)
