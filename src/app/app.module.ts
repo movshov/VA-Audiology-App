@@ -74,6 +74,7 @@ import { AudiologistSummaryComponent } from './audiologist-summary/audiologist-s
 import { TestsDataService } from './services/tests-data.service';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { CustomerSearchComponent } from './customer-search/customer-search.component';
+import { ServerApiService } from './services/server-api.service';
 
 import { SurveySubmitHandler } from './services/api-survey.submit.service';
 
@@ -166,7 +167,8 @@ type StoreType = {
     ThsDataService,
     RouterGuards,
     TestsDataService,
-    SurveySubmitHandler
+    SurveySubmitHandler,
+    ServerApiService
   ]
 })
 export class AppModule {
