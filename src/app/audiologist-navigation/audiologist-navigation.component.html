@@ -37,6 +37,8 @@
     <!-- <div class="row"><button class="main-btn" (click)="showSuggestedTests()">Suggested</button></div> -->
     <div class="row"><label class="sec-label">SUMMARY SECTION</label></div>
     <div class="row"><button class="main-btn" (click)="showSummary()">Summary</button></div>
+    <div class="row"><button class="main-btn" (click)="showSearch()">Search</button></div>
+
     <div class="row"><button class="main-btn" (click)="submitSurvey()">Submit</button></div>
 
     </div>
@@ -55,6 +57,8 @@
         <audiogram class="{{recommendedTests ? 'main-right-container': 'main-right-container-hidden'}}"></audiogram>
         <otoscopy class="{{recommendedTests ? 'main-right-container': 'main-right-container-hidden'}}"></otoscopy>
         <tympanometry class="{{recommendedTests ? 'main-right-container' : 'main-right-container-hidden'}}"></tympanometry>
+        <customer-search class="{{search ? 'main-right-container' : 'main-right-container-hidden'}}"></customer-search>
+
         <!-- <my-account></my-account>
         <customer-search></customer-search>
         <notes></notes> -->

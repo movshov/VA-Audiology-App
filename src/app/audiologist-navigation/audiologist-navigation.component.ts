@@ -24,6 +24,7 @@ export class AudiologistNavigationComponent {
     public recommendedTests: boolean = false;
     public suggestedTests: boolean = false;
     public summary: boolean = true;
+    public search: boolean = false;
 
     public onToggle() {
       if (!this.active) {
@@ -39,19 +40,34 @@ export class AudiologistNavigationComponent {
       this.recommendedTests = true;
       this.suggestedTests = false;
       this.summary = false;
+      this.search = false;
+
     }
 
     public showSuggestedTests() {
       this.recommendedTests = false;
       this.suggestedTests = true;
       this.summary = false;
+      this.search = false;
+
     }
 
     public showSummary() {
       this.recommendedTests = false;
       this.suggestedTests = false;
       this.summary = true;
+      this.search = false;
+
     }
+
+    public showSearch() {
+      this.recommendedTests = false;
+      this.suggestedTests = false;
+      this.summary = false;
+      this.search = true;
+
+    }
+
 
     public submitSurvey() {
       if(this.summaryComponent != null) {
