@@ -77,7 +77,7 @@ import { CustomerSearchComponent } from './customer-search/customer-search.compo
 import { HttpClientModule } from '@angular/common/http';
 
 //API Services
-import { AppointmentsService } from './services/appointments.service';
+import { ServerApiService } from './services/server-api.service';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -169,7 +169,7 @@ type StoreType = {
     ThsDataService,
     RouterGuards,
     TestsDataService,
-    AppointmentsService
+    ServerApiService
   ]
 })
 export class AppModule {
