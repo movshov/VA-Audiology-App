@@ -1,0 +1,37 @@
+export class Appointment {
+    appointmentid: number;
+    authorityid: number;
+    patientid: number;
+    deceased: boolean;
+    patientnotes: string;
+    appointmentdatetime: Date;
+    tympanometrytype: string;
+    otoscopytype: string;
+    rightear_lowf_severity: string;
+    rightear_highf_severity: string;
+    leftear_lowf_severity: string;
+    leftear_highf_severity: string;
+    rightear_lowf_configuration: string;
+    rightear_highf_configuration: string;
+    leftear_lowf_configuration: string;
+    leftear_highf_configuration: string;
+    audiogramtype: string;
+    username: string;
+    password: string;
+    authorityname: string;
+    authoritytype: number;
+    tfi_i: number;
+    tfi_sc: number;
+    tfi_c: number;
+    tfi_si: number;
+    tfi_a: number;
+    tfi_r: number;
+    tfi_q: number;
+    tfi_e: number;
+    tfi_overallscore: number;
+    ths_sectiona: number;
+    ths_sectionb: number;
+    ths_sectionc: number;
+    ths_sectionc_example: string;
+    ts_type: string;
+}
