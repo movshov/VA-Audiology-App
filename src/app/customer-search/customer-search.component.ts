@@ -16,6 +16,7 @@ export class CustomerSearchComponent implements OnInit {
   public searchBtn: boolean = true; // Search button is disabled while querying DB
   public invalidID: boolean = false;
   public resultsTable: Appointment[] = [];
+
   public currentPage: number = 0;
 
 
@@ -66,7 +67,6 @@ export class CustomerSearchComponent implements OnInit {
     let appts: Appointment[] = [];
     this.customerSearchService.searchApiService(this.idSearch).subscribe((results) => {
       this.resultsTable = results.data;
-      console.log(this.resultsTable[0].authorityid);
       this.resultsTable.sort((a: Appointment, b: Appointment) => {
         let date1 = a.appointmentdatetime;
         let date2 = b.appointmentdatetime;
