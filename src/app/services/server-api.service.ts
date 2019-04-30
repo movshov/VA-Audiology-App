@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Response } from '../../../api-objects/GenericResponse';
@@ -15,25 +15,31 @@ export class ServerApiService {
   constructor(private http: HttpClient) { }
   
   // Base Function
-  public get<T>(urlExtension: string): Observable<Response<T>> {
-    return this.http.get<Response<T>>(this.baseUrl + urlExtension, this.createHeaders())
+  public get<T>(urlExtension: string, queryParams?: Map<string, string>): Observable<Response<T>> {
+    return this.http.get<Response<T>>(this.baseUrl + urlExtension, this.createHeaders(queryParams))
     .pipe(catchError(this.handleError<Response<T>>(urlExtension, null)));
   }
 
-  public post<T>(urlExtension: string, body: any): Observable<Response<T>> {
-    return this.http.post<Response<T>>(this.baseUrl + urlExtension, body, this.createHeaders())
+  public post<T>(urlExtension: string, body: any, queryParams?: Map<string, string>): Observable<Response<T>> {
+    return this.http.post<Response<T>>(this.baseUrl + urlExtension, body, this.createHeaders(queryParams))
       .pipe(catchError(this.handleError<Response<T>>(urlExtension, null)));
   }
 
-  public delete<T>(urlExtension: string): Observable<Response<T>> {
-    return this.http.delete<Response<T>>(this.baseUrl + urlExtension, this.createHeaders())
+  public delete<T>(urlExtension: string, queryParams?: Map<string, string>): Observable<Response<T>> {
+    return this.http.delete<Response<T>>(this.baseUrl + urlExtension, this.createHeaders(queryParams))
       .pipe(catchError(this.handleError<Response<T>>(urlExtension, null)));
 
   }
 
-  private createHeaders() {
+  private createHeaders(queryParams?: Map<string, string>) {
+    let parameters = new HttpParams();
+    if (queryParams) {
+      queryParams.forEach((value, key , map) => {
+        parameters = parameters.set(key, value);
+      });
+    }
     return {
-
+      params: parameters,
       headers: new HttpHeaders({
         'Accept': 'application/json',
         'X-USER-ID': this.getAuthorization(),
