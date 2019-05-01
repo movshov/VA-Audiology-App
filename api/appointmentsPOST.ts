@@ -43,7 +43,7 @@ export default handler(async (request: any) => {
     leftear_highf_severity, rightear_lowf_configuration, rightear_highf_configuration, leftear_lowf_configuration, leftear_highf_configuration, audiogramtype
   } = request.body;
 
-  let tfi_datapoints : sting[]  = [
+  let tfi_datapoints : string[]  = [
     'patientid',
     'tfi_i',
     'tfi_sc',
@@ -54,25 +54,46 @@ export default handler(async (request: any) => {
     'tfi_q',
     'tfi_e',
     'tfi_overallscore'
-    ]
+  ];
 
-    let tfisurvey_sql = "INSERT INTO tfisurvey (" + tfi_datapoints.join(", ") + ") VALUES ("+ tfi_datapoints.map((value, index)=>"$" + (index + 1)) + ") RETURNING *";
+  let ths_datapoints : string[] = [
+    'patientid',
+    'ths_sectiona',
+    'ths_sectionb',
+    'ths_sectionc',
+    'ths_sectionc_example'  
+  ];
 
+  let ts_datapoints : string[] = [
+    'patientid',
+    'ts_type'
+  ]
 
+  let audiologistexams_datapoints : string[] = [
+    'tympanometrytype', 
+    'otoscopytype', 
+    'rightear_lowf_severity', 
+    'rightear_highf_severity', 
+    'leftear_lowf_severity', 
+    'leftear_highf_severity',
+    'rightear_lowf_configuration',
+    'rightear_highf_configuration',
+    'leftear_lowf_configuration',
+    'leftear_highf_configuration', 
+    'audiogramtype'
+  ]
 
-
-  let tfisurvey_sql = "INSERT INTO tfisurvey (patientid, tfi_i, tfi_sc, tfi_c, tfi_si, tfi_a, tfi_r, tfi_q, tfi_e, tfi_overallscore) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *";
+  let tfisurvey_sql : string = "INSERT INTO tfisurvey (" + tfi_datapoints.join(", ") + ") VALUES ("+ tfi_datapoints.map((value, index) => "$" + (index + 1)) + ") RETURNING *";  
   let tfisurvey_values = [patientid, tfi_i, tfi_sc, tfi_c, tfi_si, tfi_a, tfi_r, tfi_q, tfi_e, tfi_overallscore];
-
-  let thssurvey_sql = "INSERT INTO thssurvey (patientid, ths_sectiona, ths_sectionb, ths_sectionc, ths_sectionc_example) VALUES ($1, $2, $3, $4, $5) RETURNING *";
+  
+  let thssurvey_sql : string = "INSERT INTO thssurvey (" + ths_datapoints.join(", ") + ") VALUES (" + ths_datapoints.map((value, index) => "$" + (index + 1)) + ") RETURNING *";
   let thssurvey_values = [patientid, ths_sectiona, ths_sectionb, ths_sectionc, ths_sectionc_example];
-
-  let tssurvey_sql = "INSERT INTO tssurvey (patientid, ts_type) VALUES ($1, $2) RETURNING *";
+  
+  let tssurvey_sql : string = "INSERT INTO tssurvey (" + ts_datapoints.join(", ") + ") VALUES (" + ts_datapoints.map((value, index) => "$" + (index + 1)) + ") RETURNING *";
   let tssurvey_values = [patientid, ts_type];
-
-  let audiologistexam_sql = "INSERT INTO audiologistexams (tympanometrytype, otoscopytype, rightear_lowf_severity, rightear_highf_severity, leftear_lowf_severity, leftear_highf_severity, rightear_lowf_configuration, rightear_highf_configuration, leftear_lowf_configuration, leftear_highf_configuration, audiogramtype) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *";
+  
+  let audiologistexam_sql : string = "INSERT INTO audiologistexams (" + audiologistexams_datapoints.join(", ") + ") VALUES (" + audiologistexams_datapoints.map((value, index) => "$" + (index + 1)) + ") RETURNING *";
   let audiologistexam_values = [tympanometrytype, otoscopytype, rightear_lowf_severity, rightear_highf_severity, leftear_lowf_severity, leftear_highf_severity, rightear_lowf_configuration, rightear_highf_configuration, leftear_lowf_configuration, leftear_highf_configuration, audiogramtype];
-
 
   // Appointments inserted last because it needs info from the other tables
   try {
