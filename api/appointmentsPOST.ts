@@ -43,6 +43,22 @@ export default handler(async (request: any) => {
     leftear_highf_severity, rightear_lowf_configuration, rightear_highf_configuration, leftear_lowf_configuration, leftear_highf_configuration, audiogramtype
   } = request.body;
 
+  let tfi_datapoints : sting[]  = [
+    'patientid',
+    'tfi_i',
+    'tfi_sc',
+    'tfi_c',
+    'tfi_si',
+    'tfi_a',
+    'tfi_r',
+    'tfi_q',
+    'tfi_e',
+    'tfi_overallscore'
+    ]
+
+    let tfisurvey_sql = "INSERT INTO tfisurvey (" + tfi_datapoints.join(", ") + ") VALUES ("+ tfi_datapoints.map((value, index)=>"$" + (index + 1)) + ") RETURNING *";
+
+
 
 
   let tfisurvey_sql = "INSERT INTO tfisurvey (patientid, tfi_i, tfi_sc, tfi_c, tfi_si, tfi_a, tfi_r, tfi_q, tfi_e, tfi_overallscore) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *";
