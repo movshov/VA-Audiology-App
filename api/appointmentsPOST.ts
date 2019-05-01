@@ -3,11 +3,9 @@ import db from './db';
 import { QueryResult } from 'pg';
 
 export default handler(async (request: any) => {
-
-  let connection = db();
-  const client = await connection.connect();
-
-  // Take data from request and build sql call from it
+  
+  return await db(async (connection) => {
+    // Take data from request and build sql call from it
   // TODO: Move this data structure to it's own class
   const {
     //Sharded Values
@@ -96,12 +94,11 @@ export default handler(async (request: any) => {
   let audiologistexam_values = [tympanometrytype, otoscopytype, rightear_lowf_severity, rightear_highf_severity, leftear_lowf_severity, leftear_highf_severity, rightear_lowf_configuration, rightear_highf_configuration, leftear_lowf_configuration, leftear_highf_configuration, audiogramtype];
 
   // Appointments inserted last because it needs info from the other tables
-  try {
     await Promise.all([
-      client.query(tfisurvey_sql, tfisurvey_values),
-      client.query(thssurvey_sql, thssurvey_values),
-      client.query(tssurvey_sql, tssurvey_values),
-      client.query(audiologistexam_sql, audiologistexam_values)
+      connection.query(tfisurvey_sql, tfisurvey_values),
+      connection.query(thssurvey_sql, thssurvey_values),
+      connection.query(tssurvey_sql, tssurvey_values),
+      connection.query(audiologistexam_sql, audiologistexam_values)
     ]).then(values => {
       let tfisurveyid = values[0].rows[0].tfisurveyid;
       let thssurveyid = values[1].rows[0].thssurveyid;
@@ -110,14 +107,9 @@ export default handler(async (request: any) => {
 
       let appointment_sql = "INSERT INTO appointments (authorityid, patientid, tfisurveyid, thssurveyid, tssurveyid, audiologistexamsid, appointmentdatetime) VALUES ($1, $2, $3, $4, $5, $6, NOW())"
       let appointment_values = [authorityid, patientid, tfisurveyid, thssurveyid, tssurveyid, audiologistexamsid]
-      client.query(appointment_sql, appointment_values)
+      connection.query(appointment_sql, appointment_values)
 
       return { tfisurveyid,  thssurveyid, tssurveyid};
     })
-  } catch (error) {
-    throw error;
-  } finally {
-    client.release();
-  }
-
+  });
 });

@@ -25,8 +25,10 @@ app.get('/heartbeat', heartbeatEndpoint);
 import loginEndpoint from './login';
 app.post('/login', loginEndpoint);
 
-import appointmentsEndpoint from './appointments';
+import appointmentsEndpoint from './appointments'
+import appointmentsPostEndpoint from './appointmentsPOST';
 app.get('/appointments', appointmentsEndpoint);
+app.post('/appointments', appointmentsPostEndpoint);
 
 import indexEndpoint from './index';
 app.get('/', indexEndpoint);
