@@ -11,10 +11,12 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "pg": "^7.10.0",
+    "ts-node-dev": "^1.0.0-pre.32",
     "typescript": "^3.4.1"
   },
   "devDependencies": {},
   "scripts": {
+    "debug": "ts-node-dev --respawn --transpileOnly ./app.ts",
     "tsc": "tsc",
     "server": "node ./build/app.js",
     "dev": "npm run tsc && npm run server",
