@@ -5,41 +5,7 @@ import { QueryResult } from 'pg';
 export default handler(async (request: any) => {
   
   return await db(async (connection) => {
-    // Take data from request and build sql call from it
-  // TODO: Move this data structure to it's own class
-  const {
-    //Sharded Values
-    patientid,
-    //TFI Survey
-    tfi_i,
-    tfi_sc,
-    tfi_c,
-    tfi_si,
-    tfi_a,
-    tfi_r,
-    tfi_q,
-    tfi_e,
-    tfi_overallscore,
-    //THS Survey
-    ths_sectiona,
-    ths_sectionb,
-    ths_sectionc,
-    ths_sectionc_example,
-    //TS Survey
-    ts_type,
-    //Appointment
-    authorityid,
-    //tfisurveyid,
-    //thssurveyid,
-    //tssurveyid,
-    appointmentdatetime,
-    tympanometrytype, 
-    otoscopytype, 
-    rightear_lowf_severity, 
-    rightear_highf_severity, 
-    leftear_lowf_severity, 
-    leftear_highf_severity, rightear_lowf_configuration, rightear_highf_configuration, leftear_lowf_configuration, leftear_highf_configuration, audiogramtype
-  } = request.body;
+    // Take data from request and build sql call from i
 
   let tfi_datapoints : string[]  = [
     'patientid',
