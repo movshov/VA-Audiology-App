@@ -1,6 +1,5 @@
 import handler from './handler';
 import db from './db';
-import { QueryResult } from 'pg';
 
 export default handler(async (request: any) => {
   
