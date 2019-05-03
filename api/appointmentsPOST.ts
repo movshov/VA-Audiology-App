@@ -81,7 +81,7 @@ export default handler(async (request: any) => {
     'audiogramtype'
   ]
 
-  let tfisurvey_sql : string = "INSERT INTO tfisurvey (" + tfi_datapoints.join(", ") + ") VALUES ("+ tfi_datapoints.map((value, index) => "$" + (index + 1)) + ") RETURNING *";  
+  let tfisurvey_sql : string = "INSERT INTO tfisurvey (" + tfi_datapoints.join(", ") + ") VALUES ("+ tfi_datapoints.map((value, index) => request.body[value]) + ") RETURNING *";  
   let tfisurvey_values = [patientid, tfi_i, tfi_sc, tfi_c, tfi_si, tfi_a, tfi_r, tfi_q, tfi_e, tfi_overallscore];
   
   let thssurvey_sql : string = "INSERT INTO thssurvey (" + ths_datapoints.join(", ") + ") VALUES (" + ths_datapoints.map((value, index) => "$" + (index + 1)) + ") RETURNING *";
