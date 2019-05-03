@@ -47,6 +47,16 @@ export default handler(async (request: any) => {
     'audiogramtype'
   ]
 
+  let appointment_datapoints : string [] = [
+    'authorityid',
+    'patientid',
+    'tfisurveyid',
+    'thssurveyid',
+    'tssurveyid',
+    'audiologistexamsid',
+    'appointmentdatetime'
+  ]
+
   let tfisurvey_sql : string = "INSERT INTO tfisurvey (" + tfi_datapoints.join() + ") VALUES ("+ tfi_datapoints.map((value, index) => request.body[value]) + ") RETURNING *"; 
   
   let thssurvey_sql : string = "INSERT INTO thssurvey (" + ths_datapoints.join() + ") VALUES (" + ths_datapoints.map((value, index) => {
@@ -80,16 +90,13 @@ export default handler(async (request: any) => {
       connection.query(audiologistexam_sql)
     ]).then(values => {
       
-      let tfisurveyid = values[0].rows[0].tfisurveyid;
-      let thssurveyid = values[1].rows[0].thssurveyid;
-      let tssurveyid = values[2].rows[0].tssurveyid;
-      let audiologistexamsid = values[3].rows[0].audiologistexamsid;
+      request.body['tfisurveyid'] = values[0].rows[0].tfisurveyid;
+      request.body['thssurveyid'] = values[1].rows[0].thssurveyid;
+      request.body['tssurveyid'] = values[2].rows[0].tssurveyid;
+      request.body['audiologistexamsid'] = values[3].rows[0].audiologistexamsid;
 
-      let appointment_sql = "INSERT INTO appointments (authorityid, patientid, tfisurveyid, thssurveyid, tssurveyid, audiologistexamsid, appointmentdatetime) VALUES ($1, $2, $3, $4, $5, $6, NOW())"
-      let appointment_values = [request.body['authorityid'], request.body['patientid'], tfisurveyid, thssurveyid, tssurveyid, audiologistexamsid]
-      connection.query(appointment_sql, appointment_values)
-
-      return { tfisurveyid,  thssurveyid, tssurveyid};
+      let appointment_sql = "INSERT INTO appointments (" + appointment_datapoints.join() + ") VALUES ("+ appointment_datapoints.map((value, index) => request.body[value]) + "NOW())"
+      connection.query(appointment_sql)
     }).catch(err => console.log(err))
 
   });
