@@ -86,7 +86,7 @@ export default handler(async (request: any) => {
       let audiologistexamsid = values[3].rows[0].audiologistexamsid;
 
       let appointment_sql = "INSERT INTO appointments (authorityid, patientid, tfisurveyid, thssurveyid, tssurveyid, audiologistexamsid, appointmentdatetime) VALUES ($1, $2, $3, $4, $5, $6, NOW())"
-      let appointment_values = [authorityid, patientid, tfisurveyid, thssurveyid, tssurveyid, audiologistexamsid]
+      let appointment_values = [request.body['authorityid'], request.body['patientid'], tfisurveyid, thssurveyid, tssurveyid, audiologistexamsid]
       connection.query(appointment_sql, appointment_values)
 
       return { tfisurveyid,  thssurveyid, tssurveyid};
