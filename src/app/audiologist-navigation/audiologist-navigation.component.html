@@ -39,8 +39,8 @@
       <!-- <div class="row"><button class="main-btn" (click)="showSuggestedTests()">Suggested</button></div> -->
       <!-- <div class="row"><label class="sec-label">SUMMARY SECTION</label></div> -->
       <div *ngIf="state.tabIsVisible(TabsEnum.NOTES)" class="row"><button class="main-btn" (click)="showNotes()">Notes</button></div>
+      <div *ngIf="state.tabIsVisible(TabsEnum.SEARCH)" class="row"><button class="main-btn" (click)="showSearch()">Search</button></div>
       <div *ngIf="state.tabIsVisible(TabsEnum.SUBMIT_BTN)" class="row"><button class="main-btn" (click)="submitSurvey()">Submit</button></div>
-
 
     </div>
     <div class="{{active ? 'right-container' : 'right-container-full'}}">
@@ -57,8 +57,8 @@
           <audiogram class="{{recommendedTests ? 'main-right-container': 'main-right-container-hidden'}}"></audiogram>
           <otoscopy class="{{recommendedTests ? 'main-right-container': 'main-right-container-hidden'}}"></otoscopy>
           <tympanometry class="{{recommendedTests ? 'main-right-container' : 'main-right-container-hidden'}}"></tympanometry>
-          <!-- <my-account></my-account>
-        <customer-search></customer-search>-->
+          <customer-search class="{{search ? 'main-right-container' : 'main-right-container-hidden' }}"></customer-search>
+          <!-- <my-account></my-account>-->
           <notes class="{{notes ? 'main-right-container' : 'main-right-container-hidden'}}"></notes>
         </kendo-pdf-export>
         <!-- <div class="{{suggestedTests ? 'main-right-container' : 'main-right-container-hidden'}}">Suggested Tests</div> -->

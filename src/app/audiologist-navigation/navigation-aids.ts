@@ -20,6 +20,7 @@ export enum StatesEnum {
 
 export class State {
     private tabVisibility: Map<TabsEnum, boolean> = new Map();
+    private currentTab: TabsEnum;
 
     constructor(state: StatesEnum) {
         this.changeState(state);

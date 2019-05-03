@@ -4,7 +4,7 @@ import { aggregateBy } from '@progress/kendo-data-query';
 import { NgForm } from '@angular/forms';
 import { AudiologistSummaryComponent } from '../audiologist-summary/audiologist-summary.component';
 import { Utilities } from '../common/utlilities';
-import { State, StatesEnum, TabsEnum } from './state';
+import { State, StatesEnum, TabsEnum } from './navigation-aids';
 
 @Component({
   selector: 'audio-navigation',
@@ -23,11 +23,12 @@ export class AudiologistNavigationComponent {
 
   public active: boolean = true;
   public scale: number = 0.55;
-  public state: State = new State(StatesEnum.FROM_QUEST);
+  public state: State = new State(StatesEnum.AUD_NO_DATA);
   public recommendedTests: boolean = false;
   public suggestedTests: boolean = false;
   public summary: boolean = true;
   public notes: boolean = false;
+  public search: boolean = false;
 
   constructor() {
   }
@@ -47,6 +48,7 @@ export class AudiologistNavigationComponent {
     this.suggestedTests = false;
     this.summary = false;
     this.notes = false;
+    this.search = false;
   }
 
   public showSuggestedTests() {
@@ -54,14 +56,15 @@ export class AudiologistNavigationComponent {
     this.suggestedTests = true;
     this.summary = false;
     this.notes = false;
+    this.search = false;
   }
 
   public showSummary() {
-    console.log('show summary');
     this.recommendedTests = false;
     this.suggestedTests = false;
     this.summary = true;
     this.notes = false;
+    this.search = false;
   }
 
   public showNotes() {
@@ -69,6 +72,15 @@ export class AudiologistNavigationComponent {
     this.suggestedTests = false;
     this.summary = false;
     this.notes = true;
+    this.search = false;
+  }
+
+  public showSearch() {
+    this.recommendedTests = false;
+    this.suggestedTests = false;
+    this.summary = false;
+    this.notes = false;
+    this.search = true;
   }
 
   public submitSurvey() {
