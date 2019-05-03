@@ -81,10 +81,30 @@ export default handler(async (request: any) => {
     'audiogramtype'
   ]
 
-  let tfisurvey_sql : string = "INSERT INTO tfisurvey (" + tfi_datapoints.join(", ") + ") VALUES ("+ tfi_datapoints.map((value, index) => request.body[value]) + ") RETURNING *"; 
-  let thssurvey_sql : string = "INSERT INTO thssurvey (" + ths_datapoints.join(", ") + ") VALUES (" + ths_datapoints.map((value, index) => request.body[value]) + ") RETURNING *";
-  let tssurvey_sql : string = "INSERT INTO tssurvey (" + ts_datapoints.join(", ") + ") VALUES (" + ts_datapoints.map((value, index) => request.body[value]) + ") RETURNING *";
-  let audiologistexam_sql : string = "INSERT INTO audiologistexams (" + audiologistexams_datapoints.join(", ") + ") VALUES (" + audiologistexams_datapoints.map((value, index) => request.body[value]) + ") RETURNING *";
+  let tfisurvey_sql : string = "INSERT INTO tfisurvey (" + tfi_datapoints.join() + ") VALUES ("+ tfi_datapoints.map((value, index) => request.body[value]) + ") RETURNING *"; 
+  
+  let thssurvey_sql : string = "INSERT INTO thssurvey (" + ths_datapoints.join() + ") VALUES (" + ths_datapoints.map((value, index) => {
+    if (value == 'ths_sectionc_example') {
+      return "'" + request.body[value] + "'"
+    }
+    else{
+      return request.body[value]
+    } 
+    
+  }) + ") RETURNING *";
+
+  let tssurvey_sql : string = "INSERT INTO tssurvey (" + ts_datapoints.join() + ") VALUES (" + ts_datapoints.map((value, index) => {
+    if (value == 'ts_type') {
+      return "'" + request.body[value] + "'"
+    }
+    else{
+      return request.body[value]
+    } 
+  }) + ") RETURNING *";
+
+  let audiologistexam_sql : string = "INSERT INTO audiologistexams (" + audiologistexams_datapoints.join() + ") VALUES (" + audiologistexams_datapoints.map((value, index) => ("'" + request.body[value] + "'") ) + ") RETURNING *";
+
+  //return {tfisurvey_sql,thssurvey_sql,tssurvey_sql,audiologistexam_sql}
 
   // Appointments inserted last because it needs info from the other tables
     await Promise.all([
@@ -93,6 +113,7 @@ export default handler(async (request: any) => {
       connection.query(tssurvey_sql),
       connection.query(audiologistexam_sql)
     ]).then(values => {
+      
       let tfisurveyid = values[0].rows[0].tfisurveyid;
       let thssurveyid = values[1].rows[0].thssurveyid;
       let tssurveyid = values[2].rows[0].tssurveyid;
@@ -103,6 +124,7 @@ export default handler(async (request: any) => {
       connection.query(appointment_sql, appointment_values)
 
       return { tfisurveyid,  thssurveyid, tssurveyid};
-    })
+    }).catch(err => console.log(err))
+
   });
 });
