@@ -81,24 +81,17 @@ export default handler(async (request: any) => {
     'audiogramtype'
   ]
 
-  let tfisurvey_sql : string = "INSERT INTO tfisurvey (" + tfi_datapoints.join(", ") + ") VALUES ("+ tfi_datapoints.map((value, index) => request.body[value]) + ") RETURNING *";  
-  let tfisurvey_values = [patientid, tfi_i, tfi_sc, tfi_c, tfi_si, tfi_a, tfi_r, tfi_q, tfi_e, tfi_overallscore];
-  
-  let thssurvey_sql : string = "INSERT INTO thssurvey (" + ths_datapoints.join(", ") + ") VALUES (" + ths_datapoints.map((value, index) => "$" + (index + 1)) + ") RETURNING *";
-  let thssurvey_values = [patientid, ths_sectiona, ths_sectionb, ths_sectionc, ths_sectionc_example];
-  
-  let tssurvey_sql : string = "INSERT INTO tssurvey (" + ts_datapoints.join(", ") + ") VALUES (" + ts_datapoints.map((value, index) => "$" + (index + 1)) + ") RETURNING *";
-  let tssurvey_values = [patientid, ts_type];
-  
-  let audiologistexam_sql : string = "INSERT INTO audiologistexams (" + audiologistexams_datapoints.join(", ") + ") VALUES (" + audiologistexams_datapoints.map((value, index) => "$" + (index + 1)) + ") RETURNING *";
-  let audiologistexam_values = [tympanometrytype, otoscopytype, rightear_lowf_severity, rightear_highf_severity, leftear_lowf_severity, leftear_highf_severity, rightear_lowf_configuration, rightear_highf_configuration, leftear_lowf_configuration, leftear_highf_configuration, audiogramtype];
+  let tfisurvey_sql : string = "INSERT INTO tfisurvey (" + tfi_datapoints.join(", ") + ") VALUES ("+ tfi_datapoints.map((value, index) => request.body[value]) + ") RETURNING *"; 
+  let thssurvey_sql : string = "INSERT INTO thssurvey (" + ths_datapoints.join(", ") + ") VALUES (" + ths_datapoints.map((value, index) => request.body[value]) + ") RETURNING *";
+  let tssurvey_sql : string = "INSERT INTO tssurvey (" + ts_datapoints.join(", ") + ") VALUES (" + ts_datapoints.map((value, index) => request.body[value]) + ") RETURNING *";
+  let audiologistexam_sql : string = "INSERT INTO audiologistexams (" + audiologistexams_datapoints.join(", ") + ") VALUES (" + audiologistexams_datapoints.map((value, index) => request.body[value]) + ") RETURNING *";
 
   // Appointments inserted last because it needs info from the other tables
     await Promise.all([
-      connection.query(tfisurvey_sql, tfisurvey_values),
-      connection.query(thssurvey_sql, thssurvey_values),
-      connection.query(tssurvey_sql, tssurvey_values),
-      connection.query(audiologistexam_sql, audiologistexam_values)
+      connection.query(tfisurvey_sql),
+      connection.query(thssurvey_sql),
+      connection.query(tssurvey_sql),
+      connection.query(audiologistexam_sql)
     ]).then(values => {
       let tfisurveyid = values[0].rows[0].tfisurveyid;
       let thssurveyid = values[1].rows[0].thssurveyid;
