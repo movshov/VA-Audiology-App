@@ -1,7 +1,5 @@
-import { ActivatedRouteSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
 import { ViewChild, Component, ViewEncapsulation } from '@angular/core';
-import { aggregateBy } from '@progress/kendo-data-query';
-import { NgForm } from '@angular/forms';
 import { AudiologistSummaryComponent } from '../audiologist-summary/audiologist-summary.component';
 import { Utilities } from '../common/utlilities';
 import { State, StatesEnum, TabsEnum } from './navigation-aids';
@@ -21,16 +19,12 @@ export class AudiologistNavigationComponent {
   @ViewChild(AudiologistSummaryComponent) summaryComponent: AudiologistSummaryComponent;
   get TabsEnum() { return TabsEnum; }
 
+  public patientID: string = Utilities.getSessionStorage('patient-id');
   public active: boolean = true;
   public scale: number = 0.55;
-  public state: State = new State(StatesEnum.AUD_NO_DATA);
-  public recommendedTests: boolean = false;
-  public suggestedTests: boolean = false;
-  public summary: boolean = true;
-  public notes: boolean = false;
-  public search: boolean = false;
+  public state: State = new State(StatesEnum.FROM_QUEST, TabsEnum.SUMMARY);
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   public onToggle() {
@@ -43,50 +37,18 @@ export class AudiologistNavigationComponent {
     }
   }
 
-  public showRecommendedTests() {
-    this.recommendedTests = true;
-    this.suggestedTests = false;
-    this.summary = false;
-    this.notes = false;
-    this.search = false;
-  }
-
-  public showSuggestedTests() {
-    this.recommendedTests = false;
-    this.suggestedTests = true;
-    this.summary = false;
-    this.notes = false;
-    this.search = false;
-  }
-
-  public showSummary() {
-    this.recommendedTests = false;
-    this.suggestedTests = false;
-    this.summary = true;
-    this.notes = false;
-    this.search = false;
-  }
-
-  public showNotes() {
-    this.recommendedTests = false;
-    this.suggestedTests = false;
-    this.summary = false;
-    this.notes = true;
-    this.search = false;
-  }
-
-  public showSearch() {
-    this.recommendedTests = false;
-    this.suggestedTests = false;
-    this.summary = false;
-    this.notes = false;
-    this.search = true;
-  }
-
   public submitSurvey() {
     if (this.summaryComponent != null) {
       this.summaryComponent.submitSurvey();
     }
+  }
 
+  public clearData() {
+    // clear all patient data in memory
+  }
+
+  public logout() {
+    this.clearData();
+    this.router.navigateByUrl('');
   }
 }

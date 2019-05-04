@@ -19,48 +19,57 @@ export enum StatesEnum {
 }
 
 export class State {
-    private tabVisibility: Map<TabsEnum, boolean> = new Map();
+    private tabAvailable: Map<TabsEnum, boolean> = new Map();
     private currentTab: TabsEnum;
 
-    constructor(state: StatesEnum) {
-        this.changeState(state);
+    constructor(initialState: StatesEnum, initialTab: TabsEnum) {
+        this.changeState(initialState);
+        this.selectTab(initialTab);
     }
 
-    public tabIsVisible(tab: TabsEnum): boolean {
-        return this.tabVisibility.get(tab);
+    public tabIsAvailable(tab: TabsEnum): boolean {
+        return this.tabAvailable.get(tab);
+    }
+
+    public tabIsSelected(tab: TabsEnum): boolean {
+        return tab === this.currentTab;
+    }
+
+    public selectTab(tab: TabsEnum) {
+        this.currentTab = tab;
     }
 
     public changeState(state: StatesEnum) {
         this.reset();
         switch (state) {
             case StatesEnum.FROM_QUEST:
-                this.tabVisibility.set(TabsEnum.SUMMARY, true);
-                this.tabVisibility.set(TabsEnum.TESTS, true);
-                this.tabVisibility.set(TabsEnum.NOTES, true);
-                this.tabVisibility.set(TabsEnum.SUBMIT_BTN, true);
-                this.tabVisibility.set(TabsEnum.DISCARD_BTN, true);
+                this.tabAvailable.set(TabsEnum.SUMMARY, true);
+                this.tabAvailable.set(TabsEnum.TESTS, true);
+                this.tabAvailable.set(TabsEnum.NOTES, true);
+                this.tabAvailable.set(TabsEnum.SUBMIT_BTN, true);
+                this.tabAvailable.set(TabsEnum.DISCARD_BTN, true);
                 break;
             case StatesEnum.AUD_NO_DATA:
-                this.tabVisibility.set(TabsEnum.SEARCH, true);
-                this.tabVisibility.set(TabsEnum.ACCOUNT, true);
+                this.tabAvailable.set(TabsEnum.SEARCH, true);
+                this.tabAvailable.set(TabsEnum.ACCOUNT, true);
                 break;
             case StatesEnum.ADMIN_NO_DATA:
-                this.tabVisibility.set(TabsEnum.USERS, true);
-                this.tabVisibility.set(TabsEnum.QUERIES, true);
-                this.tabVisibility.set(TabsEnum.SPREAD, true);
-                this.tabVisibility.set(TabsEnum.ACCOUNT, true);
+                this.tabAvailable.set(TabsEnum.USERS, true);
+                this.tabAvailable.set(TabsEnum.QUERIES, true);
+                this.tabAvailable.set(TabsEnum.SPREAD, true);
+                this.tabAvailable.set(TabsEnum.ACCOUNT, true);
                 break;
             case StatesEnum.LOADED_APPT:
-                this.tabVisibility.set(TabsEnum.SUMMARY, true);
-                this.tabVisibility.set(TabsEnum.NOTES, true);
-                this.tabVisibility.set(TabsEnum.SUBMIT_BTN, true);
-                this.tabVisibility.set(TabsEnum.CLOSE_BTN, true);
+                this.tabAvailable.set(TabsEnum.SUMMARY, true);
+                this.tabAvailable.set(TabsEnum.NOTES, true);
+                this.tabAvailable.set(TabsEnum.SUBMIT_BTN, true);
+                this.tabAvailable.set(TabsEnum.CLOSE_BTN, true);
         }
     }
 
     private reset() {
         for (const tab in Object(TabsEnum)) {
-            this.tabVisibility.set(TabsEnum[tab], false);
+            this.tabAvailable.set(TabsEnum[tab], false);
         }
     }
 }

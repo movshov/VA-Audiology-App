@@ -136,6 +136,38 @@
   background-repeat: no-repeat;
 }
 
+.audio .left-container .btn {
+  color: white;
+  font-family: 'Roboto';
+  font-size: 1em;
+  margin-bottom: 5%;
+  height: 100%;
+  left: 20%;
+  width: 100%;
+  text-align: center;
+  padding: 3%;
+  border-radius: 4px;
+  background-repeat: no-repeat;
+}
+.audio .left-container .main-btn:hover {
+  background-repeat: no-repeat;
+  background: linear-gradient(to right, #0086D1, #0098DB);
+  cursor: pointer;
+}
+.audio .left-container .green {
+  background: linear-gradient(#029822, #01bb3f, #029822);
+}
+.audio .left-container .green:hover {
+  background: linear-gradient(#007e2a, #01420f, #007e2a);
+}
+
+.audio .left-container .red {
+  background: linear-gradient(#980202, #bb0101, #980202);
+}
+.audio .left-container .red:hover {
+  background: linear-gradient(#940000, #5a0000, #940000);
+}
+
 .audio .left-container .search-container {
   float: left;
   width: 100%;
@@ -178,15 +210,17 @@
   cursor: pointer;
 }
 
-.audio .left-container .main-btn:hover {
-  background-repeat: no-repeat;
-  background: linear-gradient(to right, #0086D1, #0098DB);
-  cursor: pointer;
-}
-
-/*This adjusts the margins for the home button*/
+/*This adjusts the margins for the logout button*/
 .navbar-header{
   margin: 2%;
+  width: 100%;
+}
+.navbar-header button{
+  float: left;
+  width: auto;
+}
+.navbar-header span{
+  float: right;
 }
 
 
