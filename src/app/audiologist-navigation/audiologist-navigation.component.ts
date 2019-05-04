@@ -3,7 +3,6 @@ import { ViewChild, Component, ViewEncapsulation } from '@angular/core';
 import { AudiologistSummaryComponent } from '../audiologist-summary/audiologist-summary.component';
 import { Utilities } from '../common/utlilities';
 import { State, StatesEnum, TabsEnum } from './navigation-aids';
-import { SummaryComponent } from '../summary/summary.component';
 
 @Component({
   selector: 'audio-navigation',
