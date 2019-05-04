@@ -35,31 +35,28 @@ npm-debug.log
 npm-debug.log.*
 
 # Typing
-src/typings/tsd/
-typings/
-tsd_typings/
+client/src/typings/tsd/
+client/typings/
+client/tsd_typings/
 
 # Dist
-dist
-public/__build__/
-src/*/__build__/
-__build__/**
-public/dist/
-src/*/dist/
-dist/**
-.awcache
-.webpack.json
-compiled/
-dll/
+client/dist
+client/public/__build__/
+client/src/*/__build__/
+client/__build__/**
+client/public/dist/
+client/src/*/dist/
+client/dist/**
+client/.awcache
+client/.webpack.json
+client/compiled/
+client/dll/
 
-# Doc
-doc/
-documentation/
 
 # IDE
-.idea/
-.idea/libraries
-*.swp
+client/.idea/
+client/.idea/libraries
+client/*.swp
 
 # Angular
 *.ngfactory.ts
