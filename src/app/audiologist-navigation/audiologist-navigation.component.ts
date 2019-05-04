@@ -63,9 +63,9 @@ export class AudiologistNavigationComponent {
     this.router.navigateByUrl('/home');
   }
 
+  // CHANGE this to take an appointment object
   public onApptLoad(appt: Object) {
     this.patientID = appt['id'];
-    // This will be dependant on how the Object from the client-side api service looks
     this.summaryComponent.patientID = appt['id'];
     this.summaryComponent.ts = appt['ts'];
     // this.summaryComponent.tfiVars.set(tfiNames[0], appt[tfiNames[0]]);

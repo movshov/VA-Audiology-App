@@ -1,5 +1,10 @@
 import { Utilities } from '../common/utlilities';
 
+/*
+    If you need to add a new option to the audiologist and/or admin:
+    1. Add a new item in TabsEnum
+    2. Add to setupState() under the appropriate state(s) it should appear
+*/
 export enum TabsEnum {
     SUMMARY,
     TESTS,
