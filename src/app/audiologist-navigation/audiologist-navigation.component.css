@@ -208,14 +208,14 @@
   cursor: pointer;
 }
 
-.navbar-header{
+.nav-head{
   width: 100%;
   padding: 1%;
 }
-.navbar-header button{
+.nav-head button{
   display: inline-block;
 }
-.navbar-header span{
+.nav-head span{
   float: right;
   padding: 2%;
   background-color: white;
