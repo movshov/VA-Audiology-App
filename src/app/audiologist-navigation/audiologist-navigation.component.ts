@@ -3,6 +3,7 @@ import { ViewChild, Component, ViewEncapsulation } from '@angular/core';
 import { AudiologistSummaryComponent } from '../audiologist-summary/audiologist-summary.component';
 import { Utilities } from '../common/utlilities';
 import { State, StatesEnum, TabsEnum } from './navigation-aids';
+import { SummaryComponent } from '../summary/summary.component';
 
 @Component({
   selector: 'audio-navigation',
@@ -22,7 +23,7 @@ export class AudiologistNavigationComponent {
   public patientID: string = Utilities.getSessionStorage('patient-id');
   public active: boolean = true;
   public scale: number = 0.55;
-  public state: State = new State(StatesEnum.FROM_QUEST, TabsEnum.SUMMARY);
+  public state: State = new State();
 
   constructor(private router: Router) {
   }
@@ -45,10 +46,28 @@ export class AudiologistNavigationComponent {
 
   public clearData() {
     // clear all patient data in memory
+    Utilities.removeItemFromSessionStorage('patient-id');
+    Utilities.removeItemFromSessionStorage('tests-data');
+    Utilities.removeItemFromSessionStorage('tfi-dataRecord');
+    Utilities.removeItemFromSessionStorage('ths-dataRecord');
+    Utilities.removeItemFromSessionStorage('ths-history');
+    Utilities.removeItemFromSessionStorage('ts-dataRecord');
+    Utilities.removeItemFromSessionStorage('ts-history');
+    Utilities.removeItemFromSessionStorage('dataFromDB');
+    this.state.determineState();
   }
 
   public logout() {
     this.clearData();
-    this.router.navigateByUrl('');
+    Utilities.removeItemFromSessionStorage('audiologist-pin');
+    Utilities.removeItemFromSessionStorage('permissions');
+    this.router.navigateByUrl('/home');
+  }
+
+  public onApptLoad(appt: Object) {
+    this.patientID = appt['id'];
+    this.summaryComponent.patientID = appt['id'];
+    this.summaryComponent.ts = appt['ts'];
+    this.state.determineState();
   }
 }

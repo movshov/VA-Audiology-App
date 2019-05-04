@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { TestsDataService } from '../services/tests-data.service';
 import { TfiDataService } from '../services/tfi-data.service';
 import { ThsDataService } from '../services/ths-data.service';
 import { TsScreenerDataService } from '../services/ts-screener-data.service';
+import { Utilities } from '../common/utlilities';
 
 @Component({
   selector: 'customer-search',
@@ -10,14 +11,14 @@ import { TsScreenerDataService } from '../services/ts-screener-data.service';
   styleUrls: ['./customer-search.component.css']
 })
 export class CustomerSearchComponent implements OnInit {
+  @Output() appointment = new EventEmitter<Object>();
   public idSearch: string;
   public searchBtn: boolean = true; // Search button is disabled while querying DB
   public invalidID: boolean = false;
   public resultsTable = [];
   public currentPage: number = 0;
 
-  constructor(
-    private testDataService: TestsDataService, private tsDataService: TsScreenerDataService, private thsDataService: ThsDataService, private tfiDataService: TfiDataService) { }
+  constructor() { }
 
   public ngOnInit() {
   }
@@ -44,11 +45,11 @@ export class CustomerSearchComponent implements OnInit {
     });
     this.searchBtn = true;
   }
-  // CHANGE this function to actually load the selected appointment into sessionStorage and tell
-  // audiologist-navigation to change state
+  // 
   public loadAppt(appt: Object) {
     if (appt['id'] === '') { return; }
-    // for each dataService saveData
+    Utilities.setSessionStorage('dataFromDB', 'true');
+    this.appointment.emit(appt);
     console.log('appt: ' + appt['date']);
   }
   // pagination functions
@@ -79,6 +80,7 @@ export class CustomerSearchComponent implements OnInit {
       let tmp: Object = {};
       tmp['id'] = this.idSearch;
       tmp['date'] = this.randomDate();
+      tmp['ts'] = (Math.random() + 1).toString(36);
       appts.push(tmp);
     }
     return appts;
