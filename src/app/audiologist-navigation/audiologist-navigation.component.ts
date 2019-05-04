@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { ViewChild, Component, ViewEncapsulation } from '@angular/core';
-import { AudiologistSummaryComponent } from '../audiologist-summary/audiologist-summary.component';
+import { AudiologistSummaryComponent, tfiNames } from '../audiologist-summary/audiologist-summary.component';
 import { Utilities } from '../common/utlilities';
 import { State, StatesEnum, TabsEnum } from './navigation-aids';
 
@@ -65,8 +65,13 @@ export class AudiologistNavigationComponent {
 
   public onApptLoad(appt: Object) {
     this.patientID = appt['id'];
+    // This will be dependant on how the Object from the client-side api service looks
     this.summaryComponent.patientID = appt['id'];
     this.summaryComponent.ts = appt['ts'];
+    // this.summaryComponent.tfiVars.set(tfiNames[0], appt[tfiNames[0]]);
+    // for(let i = 1; i < tfiNames.length; i++) {
+    //   this.summaryComponent.tfiVars.set(tfiNames[i], appt[tfiNames[i]]);
+    // }
     this.state.determineState();
   }
 }
