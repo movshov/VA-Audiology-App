@@ -16,13 +16,12 @@ import { State, StatesEnum, TabsEnum } from './navigation-aids';
  * active: boolean is a local variable will be switch between true and false to trigger the function.
  */
 export class AudiologistNavigationComponent {
-  @ViewChild(AudiologistSummaryComponent) summaryComponent: AudiologistSummaryComponent;
   get TabsEnum() { return TabsEnum; }
-
   public patientID: string = Utilities.getSessionStorage('patient-id');
   public active: boolean = true;
   public scale: number = 0.55;
   public state: State = new State();
+  @ViewChild(AudiologistSummaryComponent) private summaryComponent: AudiologistSummaryComponent;
 
   constructor(private router: Router) {
   }

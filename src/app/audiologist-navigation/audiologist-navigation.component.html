@@ -44,13 +44,13 @@
         <button class="btn main-tab" (click)="state.selectTab(TabsEnum.ACCOUNT)">My Account</button>
       </div>
       <div *ngIf="state.tabIsAvailable(TabsEnum.SUBMIT_BTN)" class="row">
-        <button class="btn green main-nav" (click)="submitSurvey()">Submit</button>
+        <button id="submit" class="btn green main-nav" (click)="submitSurvey()">Submit</button>
       </div>
       <div *ngIf="state.tabIsAvailable(TabsEnum.DISCARD_BTN)" class="row">
-        <button class="btn red main-nav" (click)="clearData()">Discard</button>
+        <button id="discard" class="btn red main-nav" (click)="clearData()">Discard</button>
       </div>
       <div *ngIf="state.tabIsAvailable(TabsEnum.CLOSE_BTN)" class="row">
-        <button class="btn red main-nav" (click)="clearData()">Close</button>
+        <button id="close" class="btn red main-nav" (click)="clearData()">Close</button>
       </div>
 
     </div>

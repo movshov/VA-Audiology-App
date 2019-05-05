@@ -46,14 +46,14 @@ export class State {
     }
 
     public determineState() {
-        if(Utilities.getSessionStorage('dataFromDB') === 'true') {
+        if (Utilities.getSessionStorage('dataFromDB') === 'true') {
             this.setupState(StatesEnum.LOADED_APPT);
-        } else if(Utilities.getSessionStorage('dataFromDB') === 'false') {
+        } else if (Utilities.getSessionStorage('dataFromDB') === 'false') {
             this.setupState(StatesEnum.FROM_QUEST);
         } else {
-            if(Utilities.getSessionStorage('permissions') === 'audiologist') {
+            if (Utilities.getSessionStorage('permissions') === 'audiologist') {
                 this.setupState(StatesEnum.AUD_NO_DATA);
-            } else if(Utilities.getSessionStorage('permissions') === 'admin'){
+            } else if (Utilities.getSessionStorage('permissions') === 'admin') {
                 this.setupState(StatesEnum.ADMIN_NO_DATA);
             }
         }
@@ -88,12 +88,17 @@ export class State {
                 this.tabAvailable.set(TabsEnum.SUBMIT_BTN, true);
                 this.tabAvailable.set(TabsEnum.CLOSE_BTN, true);
                 this.selectTab(TabsEnum.SUMMARY);
+                break;
+                default:
+                throw new Error('No such state!');
         }
     }
 
     private reset() {
         for (const tab in Object(TabsEnum)) {
-            this.tabAvailable.set(TabsEnum[tab], false);
+            if (Object(TabsEnum).hasOwnProperty(tab)) {
+                this.tabAvailable.set(TabsEnum[tab], false);
+            }
         }
     }
 }

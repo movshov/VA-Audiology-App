@@ -11,7 +11,7 @@ import { Utilities } from '../common/utlilities';
   styleUrls: ['./customer-search.component.css']
 })
 export class CustomerSearchComponent implements OnInit {
-  @Output() appointment = new EventEmitter<Object>();
+  @Output() public appointment = new EventEmitter<Object>();
   public idSearch: string;
   public searchBtn: boolean = true; // Search button is disabled while querying DB
   public invalidID: boolean = false;
@@ -45,7 +45,7 @@ export class CustomerSearchComponent implements OnInit {
     });
     this.searchBtn = true;
   }
-  // 
+  
   public loadAppt(appt: Object) {
     if (appt['id'] === '') { return; }
     Utilities.setSessionStorage('dataFromDB', 'true');
