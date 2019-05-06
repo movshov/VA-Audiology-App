@@ -3,6 +3,7 @@ import { ViewChild, Component, ViewEncapsulation } from '@angular/core';
 import { AudiologistSummaryComponent, tfiNames } from '../audiologist-summary/audiologist-summary.component';
 import { Utilities } from '../common/utlilities';
 import { State, StatesEnum, TabsEnum } from './navigation-aids';
+import { Appointment } from 'api-objects/Appointment';
 
 @Component({
   selector: 'audio-navigation',
@@ -26,13 +27,21 @@ export class AudiologistNavigationComponent {
   constructor(private router: Router) {
   }
 
+  public ngOnInit() {
+    if(this.summaryComponent.ts === '' || this.summaryComponent.ts === null) {
+      this.state.determineState(false);
+    } else {
+      this.state.determineState(true, false);
+    }
+  }
+
   public onToggle() {
     if (!this.active) {
       this.active = true;
       console.log('is active');
     } else {
       this.active = false;
-      console.log('is active');
+      console.log('is inactive');
     }
   }
 
@@ -44,15 +53,20 @@ export class AudiologistNavigationComponent {
 
   public clearData() {
     // clear all patient data in memory
-    Utilities.removeItemFromSessionStorage('patient-id');
-    Utilities.removeItemFromSessionStorage('tests-data');
-    Utilities.removeItemFromSessionStorage('tfi-dataRecord');
-    Utilities.removeItemFromSessionStorage('ths-dataRecord');
-    Utilities.removeItemFromSessionStorage('ths-history');
-    Utilities.removeItemFromSessionStorage('ts-dataRecord');
-    Utilities.removeItemFromSessionStorage('ts-history');
-    Utilities.removeItemFromSessionStorage('dataFromDB');
-    this.state.determineState();
+    let sessionKeys: string[] = [
+      'patient-id', 
+      'tests-data', 
+      'tfi-dataRecord', 
+      'ths-dataRecord', 
+      'ths-history', 
+      'ts-dataRecord', 
+      'ts-history'
+    ];
+    sessionKeys.forEach( (value) => {
+      Utilities.removeItemFromSessionStorage(value);
+    });
+    this.patientID = null;
+    this.state.determineState(false);
   }
 
   public logout() {
@@ -62,15 +76,11 @@ export class AudiologistNavigationComponent {
     this.router.navigateByUrl('/home');
   }
 
-  // CHANGE this to take an appointment object
-  public onApptLoad(appt: Object) {
-    this.patientID = appt['id'];
-    this.summaryComponent.patientID = appt['id'];
-    this.summaryComponent.ts = appt['ts'];
-    // this.summaryComponent.tfiVars.set(tfiNames[0], appt[tfiNames[0]]);
-    // for(let i = 1; i < tfiNames.length; i++) {
-    //   this.summaryComponent.tfiVars.set(tfiNames[i], appt[tfiNames[i]]);
-    // }
-    this.state.determineState();
+  public onApptLoad(appt: Appointment) {
+    this.patientID = appt.patientid.toString();
+    this.summaryComponent.patientID = appt.patientid.toString();
+    this.summaryComponent.ts = appt.ts_type;
+    // Load the rest of the summary...
+    this.state.determineState(true, true);
   }
 }

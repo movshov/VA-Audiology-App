@@ -8,7 +8,7 @@
 
       <div class="nav-head">
         <button class="btn red" (click)="logout()">Logout</button>
-        <span>Patient ID: {{ patientID }}</span>
+        <span *ngIf="patientID !== null" >Patient ID: {{ patientID }}</span>
       </div>
 
       <!--

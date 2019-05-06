@@ -35,11 +35,8 @@ export class CustomerSearchComponent implements OnInit {
 
         this.searchBtn = true;
     }
-    // CHANGE this function to actually load the selected appointment into sessionStorage and tell
-    // audiologist-navigation to change state
+    // Emits the selected appointment, so that audiologist-navigation can load the appointment data
     public loadAppt(appt: Appointment) {
-        if (appt['id'] === '') { return; }
-        Utilities.setSessionStorage('dataFromDB', 'true');
         this.appointment.emit(appt);
         console.log('appt: ID-"' + appt.appointmentid + '"      Audiologist-"' + appt.authorityname + '"');
     }

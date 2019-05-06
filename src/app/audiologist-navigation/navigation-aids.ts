@@ -26,15 +26,14 @@ export enum StatesEnum {
 }
 
 export class State {
-    private tabAvailable: Map<TabsEnum, boolean> = new Map();
+    private tabAvailable: Set<TabsEnum> = new Set();
     private currentTab: TabsEnum;
 
     constructor() {
-        this.determineState();
     }
 
     public tabIsAvailable(tab: TabsEnum): boolean {
-        return this.tabAvailable.get(tab);
+        return this.tabAvailable.has(tab);
     }
 
     public tabIsSelected(tab: TabsEnum): boolean {
@@ -45,11 +44,14 @@ export class State {
         this.currentTab = tab;
     }
 
-    public determineState() {
-        if (Utilities.getSessionStorage('dataFromDB') === 'true') {
-            this.setupState(StatesEnum.LOADED_APPT);
-        } else if (Utilities.getSessionStorage('dataFromDB') === 'false') {
-            this.setupState(StatesEnum.FROM_QUEST);
+    /*
+        loadedAppt: is there appointment data?
+        fromDB: is that data from the database?
+    */
+    public determineState(loadedAppt: boolean, fromDB: boolean = false) {
+        if(loadedAppt) {
+            if(fromDB) { this.setupState(StatesEnum.LOADED_APPT); }
+            else { this.setupState(StatesEnum.FROM_QUEST); }
         } else {
             if (Utilities.getSessionStorage('permissions') === 'audiologist') {
                 this.setupState(StatesEnum.AUD_NO_DATA);
@@ -63,30 +65,30 @@ export class State {
         this.reset();
         switch (state) {
             case StatesEnum.FROM_QUEST:
-                this.tabAvailable.set(TabsEnum.SUMMARY, true);
-                this.tabAvailable.set(TabsEnum.TESTS, true);
-                this.tabAvailable.set(TabsEnum.NOTES, true);
-                this.tabAvailable.set(TabsEnum.SUBMIT_BTN, true);
-                this.tabAvailable.set(TabsEnum.DISCARD_BTN, true);
+                this.tabAvailable.add(TabsEnum.SUMMARY);
+                this.tabAvailable.add(TabsEnum.TESTS);
+                this.tabAvailable.add(TabsEnum.NOTES);
+                this.tabAvailable.add(TabsEnum.SUBMIT_BTN);
+                this.tabAvailable.add(TabsEnum.DISCARD_BTN);
                 this.selectTab(TabsEnum.SUMMARY);
                 break;
             case StatesEnum.AUD_NO_DATA:
-                this.tabAvailable.set(TabsEnum.SEARCH, true);
-                this.tabAvailable.set(TabsEnum.ACCOUNT, true);
+                this.tabAvailable.add(TabsEnum.SEARCH);
+                this.tabAvailable.add(TabsEnum.ACCOUNT);
                 this.selectTab(TabsEnum.SEARCH);
                 break;
             case StatesEnum.ADMIN_NO_DATA:
-                this.tabAvailable.set(TabsEnum.USERS, true);
-                this.tabAvailable.set(TabsEnum.QUERIES, true);
-                this.tabAvailable.set(TabsEnum.SPREAD, true);
-                this.tabAvailable.set(TabsEnum.ACCOUNT, true);
+                this.tabAvailable.add(TabsEnum.USERS);
+                this.tabAvailable.add(TabsEnum.QUERIES);
+                this.tabAvailable.add(TabsEnum.SPREAD);
+                this.tabAvailable.add(TabsEnum.ACCOUNT);
                 this.selectTab(TabsEnum.USERS);
                 break;
             case StatesEnum.LOADED_APPT:
-                this.tabAvailable.set(TabsEnum.SUMMARY, true);
-                this.tabAvailable.set(TabsEnum.NOTES, true);
-                this.tabAvailable.set(TabsEnum.SUBMIT_BTN, true);
-                this.tabAvailable.set(TabsEnum.CLOSE_BTN, true);
+                this.tabAvailable.add(TabsEnum.SUMMARY);
+                this.tabAvailable.add(TabsEnum.NOTES);
+                this.tabAvailable.add(TabsEnum.SUBMIT_BTN);
+                this.tabAvailable.add(TabsEnum.CLOSE_BTN);
                 this.selectTab(TabsEnum.SUMMARY);
                 break;
                 default:
@@ -95,10 +97,6 @@ export class State {
     }
 
     private reset() {
-        for (const tab in Object(TabsEnum)) {
-            if (Object(TabsEnum).hasOwnProperty(tab)) {
-                this.tabAvailable.set(TabsEnum[tab], false);
-            }
-        }
+        this.tabAvailable.clear();
     }
 }
