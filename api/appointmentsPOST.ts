@@ -53,7 +53,6 @@ export default handler(async (request: any) => {
     'tfi_e',
     'tfi_overallscore'
   ];
-
   let ths_datapoints : string[] = [
     'patientid',
     'ths_sectiona',
@@ -61,12 +60,10 @@ export default handler(async (request: any) => {
     'ths_sectionc',
     'ths_sectionc_example'  
   ];
-
   let ts_datapoints : string[] = [
     'patientid',
     'ts_type'
   ]
-
   let audiologistexams_datapoints : string[] = [
     'tympanometrytype', 
     'otoscopytype', 
@@ -81,10 +78,15 @@ export default handler(async (request: any) => {
     'audiogramtype'
   ]
 
-  let tfisurvey_sql : string = "INSERT INTO tfisurvey (" + tfi_datapoints.join(", ") + ") VALUES ("+ tfi_datapoints.map((value, index) => request.body[value]) + ") RETURNING *"; 
+  let tfisurvey_sql : string = "INSERT INTO tfisurvey (" + tfi_datapoints.join(", ") + ") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *"; 
+  let tfisurvey_values : number[] = tfi_datapoints.map((value, index) => request.body[value]);
+  
   let thssurvey_sql : string = "INSERT INTO thssurvey (" + ths_datapoints.join(", ") + ") VALUES (" + ths_datapoints.map((value, index) => request.body[value]) + ") RETURNING *";
+  let thssurvey_values = ths_datapoints.map((value, index) => request.body[value])
+
   let tssurvey_sql : string = "INSERT INTO tssurvey (" + ts_datapoints.join(", ") + ") VALUES (" + ts_datapoints.map((value, index) => request.body[value]) + ") RETURNING *";
   let audiologistexam_sql : string = "INSERT INTO audiologistexams (" + audiologistexams_datapoints.join(", ") + ") VALUES (" + audiologistexams_datapoints.map((value, index) => request.body[value]) + ") RETURNING *";
+
 
   // Appointments inserted last because it needs info from the other tables
     await Promise.all([
@@ -98,7 +100,7 @@ export default handler(async (request: any) => {
       let tssurveyid = values[2].rows[0].tssurveyid;
       let audiologistexamsid = values[3].rows[0].audiologistexamsid;
 
-      let appointment_sql = "INSERT INTO appointments (authorityid, patientid, tfisurveyid, thssurveyid, tssurveyid, audiologistexamsid, appointmentdatetime) VALUES ($1, $2, $3, $4, $5, $6, NOW())"
+      let appointment_sql : string = "INSERT INTO appointments (" + audiologistexams_datapoints.join(", ") + ") VALUES ($1, $2, $3, $4, $5, $6, NOW())"
       let appointment_values = [authorityid, patientid, tfisurveyid, thssurveyid, tssurveyid, audiologistexamsid]
       connection.query(appointment_sql, appointment_values)
 
