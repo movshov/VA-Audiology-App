@@ -24,6 +24,7 @@ export class AudiologistNavigationComponent {
   public active: boolean = true;
   public scale: number = 0.55;
   public state: State = new State();
+  public users: string = 'Users';
   @ViewChild(AudiologistSummaryComponent) private summaryComponent: AudiologistSummaryComponent;
   
 
