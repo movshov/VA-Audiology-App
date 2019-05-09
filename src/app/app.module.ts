@@ -87,6 +87,7 @@ import { UsersComponent } from './users/users.component';
 
 import { ApiUsersCrudService } from './services/api-users-crud.service';
 import { ServerAuthenticationService } from './services/server-authentication.service';
+import { AdminPatientHandler } from './services/admin-patient.service.ts';
 
 
 
@@ -185,6 +186,7 @@ type StoreType = {
     RouterGuards,
     TestsDataService,
     SurveySubmitHandler,
+    AdminPatientHandler,
     CustomerSearchService,
     ServerApiService,
     ApiUsersCrudService,
