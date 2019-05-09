@@ -4,6 +4,7 @@ import { AudiologistSummaryComponent, tfiNames } from '../audiologist-summary/au
 import { Utilities } from '../common/utlilities';
 import { State, StatesEnum, TabsEnum } from './navigation-aids';
 import { Appointment } from 'api-objects/Appointment';
+import { ApiUsersCrudService } from '../services/api-users-crud.service';
 
 @Component({
   selector: 'audio-navigation',
@@ -22,9 +23,10 @@ export class AudiologistNavigationComponent {
   public active: boolean = true;
   public scale: number = 0.55;
   public state: State = new State();
+  public users: string = 'Users';
   @ViewChild(AudiologistSummaryComponent) private summaryComponent: AudiologistSummaryComponent;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private service: ApiUsersCrudService) {
   }
 
   public ngOnInit() {
@@ -82,5 +84,23 @@ export class AudiologistNavigationComponent {
     this.summaryComponent.ts = appt.ts_type;
     // Load the rest of the summary...
     this.state.determineState(true, true);
+  }
+
+  public testUsersCRUD() {
+    this.service.deleteUser('Addy').subscribe(data => {
+      this.users = '';
+      this.users += 'username: ' + data.data.username + '  password: ' + data.data.password + '  success: ' + data.data.success + '\n';
+      // for(let tmp in data.data) {
+      //   if(data.data.hasOwnProperty(tmp)) {
+      //     this.users += 'username: ' + data.data[tmp].username + '  password: ' + data.data[tmp].password + '  success: ' + data.data[tmp].success + '\n';
+      //   }
+      // }
+    }, (error) => {
+      for(let err in error.error) {
+        if(error.hasOwnProperty(err)) {
+          console.log(err + ': ' + error.error[err]);
+        }
+      }
+    });
   }
 }
