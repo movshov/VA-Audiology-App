@@ -21,12 +21,12 @@ export class ApiUsersCrudService {
 
   // Response data should be true if password changed
   public changePassword(oldPassword: string, newPassword: string): Observable<Response<boolean>> {
-    return this.serverApiService.post<boolean>('changePassword', {'oldPassword': oldPassword, 'newPassword': newPassword});
+    return this.serverApiService.post<boolean>('changePassword', {oldPassword, newPassword});
   }
 
   // Response data should be the new generated password
   public resetPassword(username: string): Observable<Response<string>> {
-    return this.serverApiService.post<string>('resetPassword', {'username': username});
+    return this.serverApiService.post<string>('resetPassword', {username});
   }
 
   // Response data should be true if user was deleted
