@@ -10,7 +10,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class ServerApiService {
   // TODO: Configure base Url, to point to hosted endpoint. (localhost:3333 isn't a valid endpoint.)
 
-  private baseUrl = 'REPLACE ME';  // URL to web api
+  private baseUrl = 'http://73.11.92.198:3333/';  // URL to web api
 
   constructor(private http: HttpClient) { }
   

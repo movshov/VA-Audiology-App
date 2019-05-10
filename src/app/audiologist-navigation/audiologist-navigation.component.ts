@@ -28,7 +28,7 @@ export class AudiologistNavigationComponent {
   }
 
   public ngOnInit() {
-    if(this.summaryComponent.ts === '' || this.summaryComponent.ts === null) {
+    if (this.summaryComponent.ts === '' || this.summaryComponent.ts === null) {
       this.state.determineState(false);
     } else {
       this.state.determineState(true, false);
@@ -54,15 +54,15 @@ export class AudiologistNavigationComponent {
   public clearData() {
     // clear all patient data in memory
     let sessionKeys: string[] = [
-      'patient-id', 
-      'tests-data', 
-      'tfi-dataRecord', 
-      'ths-dataRecord', 
-      'ths-history', 
-      'ts-dataRecord', 
+      'patient-id',
+      'tests-data',
+      'tfi-dataRecord',
+      'ths-dataRecord',
+      'ths-history',
+      'ts-dataRecord',
       'ts-history'
     ];
-    sessionKeys.forEach( (value) => {
+    sessionKeys.forEach((value) => {
       Utilities.removeItemFromSessionStorage(value);
     });
     this.patientID = null;
@@ -78,9 +78,9 @@ export class AudiologistNavigationComponent {
 
   public onApptLoad(appt: Appointment) {
     this.patientID = appt.patientid.toString();
-    this.summaryComponent.patientID = appt.patientid.toString();
-    this.summaryComponent.ts = appt.ts_type;
+    //Summary Component should simply receive the Apointmnet Object and Load
     // Load the rest of the summary...
+    this.summaryComponent.loadAppointment(appt);
     this.state.determineState(true, true);
   }
 }
