@@ -9,19 +9,28 @@ export class ApiUsersCrudService {
 
   constructor(private serverApiService: ServerApiService) { }
 
+  // Response data should be the generated password.
   public createUser(obj: UsersObject): Observable<Response<string>> {
-    return this.serverApiService.post<string>('create_user', obj);
+    return this.serverApiService.post<string>('createUser', obj);
   }
 
+  // Response data should be an array of UsersObject
   public getUsers(): Observable<Response<UsersObject[]>> {
-    return this.serverApiService.get<UsersObject[]>('get_users');
+    return this.serverApiService.get<UsersObject[]>('getUsers');
   }
 
-  public changePassword(obj: UsersObject): Observable<Response<UsersObject>> {
-    return this.serverApiService.post<UsersObject>('change_password', obj);
+  // Response data should be true if password changed
+  public changePassword(oldPassword: string, newPassword: string): Observable<Response<boolean>> {
+    return this.serverApiService.post<boolean>('changePassword', {'oldPassword': oldPassword, 'newPassword': newPassword});
   }
 
-  public deleteUser(username: string): Observable<Response<UsersObject>> {
-    return this.serverApiService.delete<UsersObject>('del_user', new Map<string, string>([['name', username]]));
+  // Response data should be the new generated password
+  public resetPassword(username: string): Observable<Response<string>> {
+    return this.serverApiService.post<string>('resetPassword', {'username': username});
+  }
+
+  // Response data should be true if user was deleted
+  public deleteUser(username: string): Observable<Response<boolean>> {
+    return this.serverApiService.delete<boolean>('deleteUser', new Map<string, string>([['username', username]]));
   }
 }
