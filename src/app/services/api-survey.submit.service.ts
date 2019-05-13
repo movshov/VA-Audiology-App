@@ -1,56 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Utilities } from '../common/utlilities';
-
-class PatientJSON {
-  patienID : string = '';
-  isDeceased : boolean = false;
-}
-
-class PatientSurveyJSON {
-    otoscopy : string = '';
-    typanometry : string = '';
+import { ServerApiService } from './server-api.service';
+import {AppointmentSubmission, PatientSurveyJSON, PatientJSON} from '../../../api-objects/AppointmentSubmission'
 
 
-    rightEarLowFreqSeverity : string = '';
-    rightEarLowFreqConfiguration : string = '';
-    rightEarHighFreqSeverity : string = '';
-    rightEarHighFreqConfiguration : string = '';
-
-    leftEarLowFreqSeverity : string = '';
-    leftEarLowFreqConfiguration : string = '';
-    leftEarHighFreqSeverity : string = '';
-    leftEarHighFreqConfiguration : string = '';
-
-    audiogram : string = '';
-
-
-    thsSectionATotal : number = 0;
-    thsSectionBTotal : number = 0;
-    thsSectionCSeverity : number = 0;
-
-
-    tfiI : number = 0;
-    tfiSc : number = 0;
-    tfiC : number = 0;
-    tfiSi : number = 0;
-    tfiA : number = 0;
-    tfiR : number = 0;
-    tfiQ : number = 0;
-    tfiE : number = 0;
-
-    tfiOverallScore : number = 0;
-
-
-    tsTinnitusType : string = '';
-}
-
-class SurveyInstanceJSON {
-  patientSurvey : PatientSurveyJSON;
-  patient : PatientJSON;
-}
 
 @Injectable()
 export class SurveySubmitHandler {
+
+  constructor(private serverApiService: ServerApiService) { }
+
   // Note that anything passed in here is data that is not
   // accessible via session storage.
   public submitSurvey(thsScoreVars : Map<string, number>, tfiVars : Map<string, number>, tsType : string) {
@@ -65,7 +24,7 @@ export class SurveySubmitHandler {
     let testDataString = Utilities.getSessionStorage('tests-data');
     let testData = JSON.parse(testDataString);
 
-    let result = new SurveyInstanceJSON;
+    let result = new AppointmentSubmission();
     result.patientSurvey = this.buildPatientSurveyJSON(testData, thsScoreVars, tfiVars, tsType);
     result.patient = this.buildPatientJSON();
 
@@ -76,6 +35,10 @@ export class SurveySubmitHandler {
     if(result.patient == null) {
       throw new Error('No patient data');
     }
+    this.serverApiService.post<string>('appointments', result).subscribe(
+      result => {
+        console.log(result);
+      });
 
     console.log(JSON.stringify(result));
   }
@@ -102,6 +65,8 @@ export class SurveySubmitHandler {
     result.thsSectionATotal = thsScoreVars.get("thsA");
     result.thsSectionBTotal = thsScoreVars.get("thsB");
     result.thsSectionCSeverity = thsScoreVars.get("thsC");
+    // TODO: Add THS EXAMPLE TEST:
+    // result.ths_sectionc_example = 
 
     return result;
   }
