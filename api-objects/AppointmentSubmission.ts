@@ -31,7 +31,7 @@ export class AppointmentSubmission {
             ths_sectiona: this.patientSurvey.thsSectionATotal,
             ths_sectionb: this.patientSurvey.thsSectionBTotal,
             ths_sectionc: this.patientSurvey.thsSectionCSeverity,
-            ths_sectionc_example: 'UNKNOWN', // TODO: FIND SECTION C EXAMPLE
+            ths_sectionc_example: this.patientSurvey.ths_sectionc_example, // TODO: FIND SECTION C EXAMPLE
             tfi_i: this.patientSurvey.tfiI,
             tfi_sc: this.patientSurvey.tfiSc,
             tfi_c: this.patientSurvey.tfiC,
@@ -72,6 +72,7 @@ export class PatientSurveyJSON {
     thsSectionATotal: number = 0;
     thsSectionBTotal: number = 0;
     thsSectionCSeverity: number = 0;
+    ths_sectionc_example: string = '';
 
     tfiI: number = 0;
     tfiSc: number = 0;
