@@ -7,6 +7,7 @@ import { TsScreenerAnswerStrings, ThsAnswerStrings } from '../common/custom-reso
 import { TestsDataService } from '../services/tests-data.service';
 import { Subscription } from 'rxjs/Subscription';
 import { SurveySubmitHandler } from '../services/api-survey.submit.service';
+import { Appointment } from '../../../api-objects/Appointment';
 
 export const tfiNames: string[] = ['overallTFI', 'intrusive', 'sense', 'cognitive', 'sleep', 'auditory', 'relaxation', 'quality', 'emotional'];
 const testRadioNames: string[] = ['audiogramType', 'leftHighSev', 'leftLowSev', 'rightHighSev', 'rightLowSev', 'otoscopyType', 'tympanometryType'];
@@ -36,7 +37,8 @@ export class AudiologistSummaryComponent implements OnInit {
    * @param testsDataService the data service for the test results
    */
   constructor(public thsDataService: ThsDataService, public tsDataService: TsScreenerDataService, public tfiDataService: TfiDataService,
-    public testsDataService: TestsDataService) {
+    public testsDataService: TestsDataService,
+    private surveySubmitHandler: SurveySubmitHandler) {
     this.tsDataService.onInit();
     this.setTS();
     this.thsDataService.onInit();
@@ -204,6 +206,17 @@ export class AudiologistSummaryComponent implements OnInit {
     });
     list = list.slice(0, -2);
     return list;
+  }
+
+  public loadAppointment(app: Appointment) {
+    let appointment = new Appointment(app);
+    this.patientID = appointment.patientid.toString();
+    this.ts = appointment.ts_type;
+    this.tfiVars = appointment.createTfiMap();
+    this.testRadioVars = appointment.testSeverityVars();
+    this.testCheckBoxVars = appointment.testConfigVars();
+    this.thsTxtVars = appointment.createThsTextVar();
+    this.thsScoreVars = appointment.createThsScoreMap();
   }
 
 }
