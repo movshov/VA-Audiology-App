@@ -215,8 +215,10 @@ export class AudiologistSummaryComponent implements OnInit {
     this.testRadioVars = appointment.testSeverityVars();
     this.testCheckBoxVars = appointment.testConfigVars();
 
+    
+    let thsAnswers = new ThsAnswerStrings();
     let ans: Array<string> = [
-      ThsAnswerStrings.NO, ThsAnswerStrings.SMALL_YES, ThsAnswerStrings.MODERATE_YES, ThsAnswerStrings.BIG_YES, ThsAnswerStrings.VERY_BIG_YES
+      thsAnswers.NO, thsAnswers.SMALL_YES, thsAnswers.MODERATE_YES, thsAnswers.BIG_YES, thsAnswers.VERY_BIG_YES
     ];
     this.thsTxtVars.set('thsCtxt', ans[appointment.ths_sectionc]);
     this.thsTxtVars.set('thsCex', appointment.ths_sectionc > 0 ? appointment.ths_sectionc_example : '');
