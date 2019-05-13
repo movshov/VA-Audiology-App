@@ -90,6 +90,7 @@ import { ServerAuthenticationService } from './services/server-authentication.se
 import { NotificationService } from './services/notification.service';
 import { ErrorHandlingService } from './services/error-handling.service';
 import { AdminPatientService } from './services/admin-patient.service.ts';
+import { AdminPatientsListComponent } from './admin-patients-list/admin-patients-list.component';
 
 
 import { CurrentUsersComponent } from './current-users/current-users.component';
@@ -145,7 +146,8 @@ type StoreType = {
     MyAccountComponent,
     CustomerSearchComponent,
     UsersComponent,
-    CurrentUsersComponent
+    CurrentUsersComponent,
+    AdminPatientsListComponent,
 
   ],
   exports: [
