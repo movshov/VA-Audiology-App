@@ -87,6 +87,7 @@ import { UsersComponent } from './users/users.component';
 
 import { ApiUsersCrudService } from './services/api-users-crud.service';
 import { ServerAuthenticationService } from './services/server-authentication.service';
+import { AdminPatientsListComponent } from './admin-patients-list/admin-patients-list.component';
 
 
 
@@ -140,7 +141,8 @@ type StoreType = {
     NotesComponent,
     MyAccountComponent,
     CustomerSearchComponent,
-    UsersComponent
+    UsersComponent,
+    AdminPatientsListComponent
 
   ],
   exports: [
