@@ -40,13 +40,13 @@ export class RouterGuards implements CanActivate {
     }
 
     // restrict access to audiologist pages
-    if (url === '/audiologist') {
-      let userId = Utilities.getSessionStorage('userId');
-      let sessionId = Utilities.getSessionStorage('sessionId');
-      if (!userId || !sessionId) {
-        this.router.navigateByUrl('aud-login');
-      }
-    }
+    // if (url === '/audiologist') {
+    //   let userId = Utilities.getSessionStorage('userId');
+    //   let sessionId = Utilities.getSessionStorage('sessionId');
+    //   if (!userId || !sessionId) {
+    //     this.router.navigateByUrl('aud-login');
+    //   }
+    // }
     return true;
   }
 }
