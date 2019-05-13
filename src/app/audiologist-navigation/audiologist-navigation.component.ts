@@ -50,15 +50,10 @@ export class AudiologistNavigationComponent {
     if (this.summaryComponent != null) {
       this.summaryComponent.submitSurvey().subscribe(
         _ => {
+          // TODO: Replace Alert With Notification call once it is pulled in.
           alert('Survey was Sucessfully Submitted');
           this.logout();
-        },
-        catchError(
-          (error, _) => {
-            alert('Survey Failed to Submit');
-            throw error;
-          }
-        )
+        }
       );
     }
   }
