@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Please re-login</h1>>
+
+<div mat-dialog-content>
+  <label>Username:</label>
+  <mat-form-field>
+    <input matInput cdkFocusInitial [(ngModel)]="data.username">
+  </mat-form-field>
+  <label>Password:</label>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.password">
+  </mat-form-field>
+  <p *ngIf="loginFail" class="error">Incorrect Username or Password.</p> 
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onLogout()">Logout</button>
+  <button mat-button (click)="onLogin()">Login</button>
+</div>

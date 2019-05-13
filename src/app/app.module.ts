@@ -90,6 +90,7 @@ import { ServerAuthenticationService } from './services/server-authentication.se
 import { NotificationService } from './services/notification.service';
 import { ErrorHandlingService } from './services/error-handling.service';
 
+import { ReloginPopupComponent } from './relogin-popup/relogin-popup.component';
 
 import { CurrentUsersComponent } from './current-users/current-users.component';
 
@@ -144,7 +145,8 @@ type StoreType = {
     MyAccountComponent,
     CustomerSearchComponent,
     UsersComponent,
-    CurrentUsersComponent
+    CurrentUsersComponent,
+    ReloginPopupComponent
 
   ],
   exports: [
