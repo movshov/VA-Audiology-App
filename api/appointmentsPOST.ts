@@ -78,7 +78,7 @@ export default handler(async (request: any, userId) => {
   let audiologistexam_values = audiologistexams_datapoints.map((value) => body[value]);
 
   // Appointments inserted last because it needs info from the other tables
-    return await Promise.all([
+    const values = await Promise.all([
       connection.query(tfisurvey_sql, tfisurvey_value),
       connection.query(thssurvey_sql, thssurvey_values),
       connection.query(tssurvey_sql, tssurvey_values),
@@ -99,5 +99,6 @@ export default handler(async (request: any, userId) => {
     }).catch(err => {
       throw err;
     })
+    return values;
   });
 }, auth.authenticate);

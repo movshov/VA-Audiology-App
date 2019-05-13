@@ -12,7 +12,7 @@ export class SurveySubmitHandler {
 
   // Note that anything passed in here is data that is not
   // accessible via session storage.
-  public submitSurvey(thsScoreVars : Map<string, number>, tfiVars : Map<string, number>, tsType : string) {
+  public submitSurvey(thsScoreVars : Map<string, number>, thsTextVars: Map<string,string>, tfiVars : Map<string, number>, tsType : string) {
     if(thsScoreVars == null) {
       throw new Error('No THS Score Data');
     }
@@ -25,7 +25,7 @@ export class SurveySubmitHandler {
     let testData = JSON.parse(testDataString);
 
     let result = new AppointmentSubmission();
-    result.patientSurvey = this.buildPatientSurveyJSON(testData, thsScoreVars, tfiVars, tsType);
+    result.patientSurvey = this.buildPatientSurveyJSON(testData, thsScoreVars, thsTextVars, tfiVars, tsType);
     result.patient = this.buildPatientJSON();
 
     if(result.patientSurvey == null) {
@@ -35,15 +35,10 @@ export class SurveySubmitHandler {
     if(result.patient == null) {
       throw new Error('No patient data');
     }
-    this.serverApiService.post<string>('appointments', result).subscribe(
-      result => {
-        console.log(result);
-      });
-
-    console.log(JSON.stringify(result));
+    return this.serverApiService.post<string>('appointments', result);
   }
 
-  buildPatientSurveyJSON(testData, thsScoreVars : Map<string, number>, tfiVars : Map<string, number>, tsType : string) : PatientSurveyJSON {
+  buildPatientSurveyJSON(testData, thsScoreVars : Map<string, number>, thsTextVars : Map<string, string>, tfiVars : Map<string, number>, tsType : string) : PatientSurveyJSON {
     if(thsScoreVars == null || tsType == null || tsType == '') {
       return null;
     }
@@ -65,8 +60,7 @@ export class SurveySubmitHandler {
     result.thsSectionATotal = thsScoreVars.get("thsA");
     result.thsSectionBTotal = thsScoreVars.get("thsB");
     result.thsSectionCSeverity = thsScoreVars.get("thsC");
-    // TODO: Add THS EXAMPLE TEST:
-    // result.ths_sectionc_example = 
+    result.ths_sectionc_example = thsTextVars.get('thsCex');
 
     return result;
   }
