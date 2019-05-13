@@ -93,6 +93,7 @@ export class AudiologistNavigationComponent {
     this.summaryComponent.ts = appt.ts_type;
     this.notesComponent.loadNotes(appt.patientid);
     // Load the rest of the summary...
+    this.summaryComponent.loadAppointment(appt);
     this.state.determineState(true, true);
   }
 
