@@ -4,6 +4,7 @@ import { AudiologistSummaryComponent, tfiNames } from '../audiologist-summary/au
 import { Utilities } from '../common/utlilities';
 import { State, StatesEnum, TabsEnum } from './navigation-aids';
 import { Appointment } from 'api-objects/Appointment';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'audio-navigation',
@@ -47,7 +48,18 @@ export class AudiologistNavigationComponent {
 
   public submitSurvey() {
     if (this.summaryComponent != null) {
-      this.summaryComponent.submitSurvey();
+      this.summaryComponent.submitSurvey().subscribe(
+        _ => {
+          alert('Survey was Sucessfully Submitted');
+          this.logout();
+        },
+        catchError(
+          (error, _) => {
+            alert('Survey Failed to Submit');
+            throw error;
+          }
+        )
+      );
     }
   }
 
