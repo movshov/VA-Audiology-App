@@ -18,7 +18,7 @@ import {
 } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule, MatSnackBarModule  } from '@angular/material';
+import { MatSliderModule, MatSnackBarModule, MatDialogModule  } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -91,6 +91,7 @@ import { NotificationService } from './services/notification.service';
 import { ErrorHandlingService } from './services/error-handling.service';
 import { AdminPatientService } from './services/admin-patient.service.ts';
 import { AdminPatientsListComponent } from './admin-patients-list/admin-patients-list.component';
+import { AdminPatientListModalComponent } from './admin-patients-list/admin-patient-list-modal/admin-patient-list-modal.component';
 
 
 import { CurrentUsersComponent } from './current-users/current-users.component';
@@ -148,6 +149,7 @@ type StoreType = {
     UsersComponent,
     CurrentUsersComponent,
     AdminPatientsListComponent,
+    AdminPatientListModalComponent,
 
   ],
   exports: [
@@ -180,6 +182,7 @@ type StoreType = {
       preloadingStrategy: PreloadAllModules
     }),
     PDFExportModule,
+    MatDialogModule,
   ],
   /**
    * Expose our Services and Providers into Angular's dependency injection.
@@ -202,6 +205,9 @@ type StoreType = {
     ServerAuthenticationService,
     NotificationService,
     ErrorHandlingService,
+  ],
+  entryComponents: [
+    AdminPatientListModalComponent
   ]
 })
 export class AppModule {
