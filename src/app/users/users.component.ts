@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersObject, authorityTypes } from '../../../api-objects/UsersObject';
+import { ApiUsersCrudService } from '../services/api-users-crud.service';
 // import APIUsersCrudService from '../services/api-users-crud.services';
 
 @Component({
@@ -20,8 +21,8 @@ export class UsersComponent implements OnInit {
   public validEmail: boolean = true;
 
   // UNCOMMENT when Admin CRUD service is available
-  constructor(/*
-    private UserServices: APICrudService*/) { }
+  constructor(
+    private UserServices: ApiUsersCrudService) { }
 
   public ngOnInit() {
   }
@@ -73,7 +74,7 @@ export class UsersComponent implements OnInit {
    */
   public createUser(): void {
 
-    if ( this.isInputValid(this.userEmail) && this.name !== '' && this.username !== '' && (this.authorityType === 0 || this.authorityType === 1)) {
+    if (this.isInputValid(this.userEmail) && this.name !== '' && this.username !== '' && (this.authorityType === 0 || this.authorityType === 1)) {
 
       this.validEmail = true;
       // Create new user object
@@ -81,7 +82,9 @@ export class UsersComponent implements OnInit {
         this.username,
         this.name,
         this.userEmail,
+        '',
         this.authorityType);
+      console.log(JSON.stringify(UserRequest));
 
       // TODO: Uncomment once service is connected
       // this.userCreateRequest(UserRequest);
@@ -89,14 +92,25 @@ export class UsersComponent implements OnInit {
       // if(!this.usernameTaken) {
       //   this.showUserInfo = true;
       // } else {
-        // this.showUserInfo = false;
+      // this.showUserInfo = false;
       // }
 
       // TODO: Remove once service is connected
-      this.showUserInfo = true;
-      this.usernameTaken = false;
+      this.UserServices.createUser(UserRequest).subscribe(
+        response => {
+           let responseUser: UsersObject = response.data;
+           this.username = responseUser.username;
+           this.userPassword = responseUser.password;
+           this.authorityType = responseUser.authorityType;
+           this.userEmail = responseUser.email;
+           this.name= responseUser.authorityName;
 
-    } else if ( !this.isInputValid(this.userEmail)) {
+          this.showUserInfo = true;
+          this.usernameTaken = false;
+        }
+      );
+
+    } else if (!this.isInputValid(this.userEmail)) {
       this.validEmail = false;
       this.showUserInfo = false;
       console.log('else if block');
