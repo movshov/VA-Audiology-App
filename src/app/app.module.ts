@@ -93,6 +93,7 @@ import { AdminPatientListModalComponent } from './admin-patients-list/admin-pati
 import { NotificationService } from './services/notification.service';
 import { ErrorHandlingService } from './services/error-handling.service';
 
+import { CurrentUsersComponent } from './current-users/current-users.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -146,7 +147,8 @@ type StoreType = {
     CustomerSearchComponent,
     UsersComponent,
     AdminPatientsListComponent,
-    AdminPatientListModalComponent
+    AdminPatientListModalComponent,
+    CurrentUsersComponent,
 
   ],
   exports: [
