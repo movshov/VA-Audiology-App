@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { PatientResponse } from '../../../api-objects/PatientResponse';
 import { CustomerSearchService } from '../customer-search/customer-search.service';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { AdminPatientListModalComponent } from './admin-patient-list-modal/admin-patient-list-modal.component';
 
 @Component({
   selector: 'admin-patients-list',
@@ -12,7 +14,7 @@ export class AdminPatientsListComponent implements OnInit {
   public currentPage: number = 0;
 
   constructor(
-    private customerSearchService: CustomerSearchService
+    public dialog: MatDialog
   ) { }
 
   public ngOnInit() {
@@ -20,11 +22,20 @@ export class AdminPatientsListComponent implements OnInit {
   }
 
   public deletePatient(patient: PatientResponse) {
-    console.log('delete patient: ' + patient.patientid);
+    const dialogRef = this.dialog.open(AdminPatientListModalComponent, { data: { patientid: patient.patientid } });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'confirm') {
+        // delete this patient and all of its appointments
+        console.log(`Deleting ${patient.patientid}`);
+      } else {
+        console.log('Cancel operation');
+      }
+    });
   }
 
   public loadPatient(patient: PatientResponse) {
-    console.log('load patient?: ' + patient.patientid);
+    // Load version of customer search with this patient ID and ability to delete an appointment
+    console.log('load patient: ' + patient.patientid);
   }
 
   private loadPatients() {
