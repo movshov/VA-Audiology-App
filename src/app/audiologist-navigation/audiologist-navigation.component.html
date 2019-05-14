@@ -44,7 +44,7 @@
       </div> -->
 
       <div *ngIf="state.tabIsAvailable(TabsEnum.LIST_PATIENTS)" class="row">
-        <button class="btn main-tab" (click)="state.selectTab(TabsEnum.LIST_PATIENTS)">Patients</button>
+        <button class="btn main-tab" (click)="state.selectTab(TabsEnum.LIST_PATIENTS);child.loadPatients()">Patients</button>
       </div>
       <div *ngIf="state.tabIsAvailable(TabsEnum.ACCOUNT)" class="row">
         <button class="btn main-tab" (click)="state.selectTab(TabsEnum.ACCOUNT)">My Account</button>
@@ -78,7 +78,8 @@
             Add your component tag here, ensure that you use the same TabsEnum as above to check for display.
           -->
           <admin-patients-list
-            class="{{state.tabIsSelected(TabsEnum.LIST_PATIENTS) ? 'main-right-container' : 'main-right-container-hidden' }}">
+            class="{{state.tabIsSelected(TabsEnum.LIST_PATIENTS) ? 'main-right-container' : 'main-right-container-hidden' }}"
+            #child>
           </admin-patients-list>
           <customer-search
             class="{{state.tabIsSelected(TabsEnum.SEARCH) ? 'main-right-container' : 'main-right-container-hidden' }}"
