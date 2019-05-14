@@ -21,7 +21,7 @@ export class ApiUsersCrudService {
 
   // Response data should be true if password changed
   public changePassword(oldPassword: string, newPassword: string): Observable<Response<boolean>> {
-    return this.serverApiService.post<boolean>('changePassword', {oldPassword, newPassword});
+    return this.serverApiService.post<boolean>('changePassword', {oldPassword, newPassword});//'oldPassword', 'newPassword'
   }
 
   // Response data should be the new generated password
