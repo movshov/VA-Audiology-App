@@ -1,0 +1,29 @@
+<div class="container">
+  <label><h1>PATIENTS</h1></label>
+  <table *ngIf="patients.length !== 0 else notFound" class="resultsTable" border="1">
+    <thead>
+      <th>ID</th>
+      <th>Deceased</th>
+      <th>Patient Notes</th>
+      <th>Load</th>
+      <th>Delete</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patient of patients | slice:(currentPage * 10): (currentPage + 1) * 10">
+        <td>{{patient.patientid}}</td>
+        <td>{{patient.deceased}}</td>
+        <td class="notes"><span>{{patient.patientnotes.slice(0,5)}}...</span><div>{{patient.patientnotes}}</div></td>
+        <td><button (click)="loadPatient(patient)" class="loadbtn">Load</button></td>
+        <td><button (click)="deletePatient(patient)" class="deletebtn">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="page-buttons-container">
+    <button [disabled]="currentPage === 0" (click)="prevPage(1)" class="pagination"><</button>
+    <button [disabled]="patients.length <= (currentPage + 1) * 10" (click)="nextPage(1)" class="pagination">></button>
+  </div>
+  
+  <ng-template #notFound>
+    <p>Patient ID not found.</p>
+  </ng-template>
+</div>

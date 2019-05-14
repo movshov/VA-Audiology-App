@@ -17,7 +17,8 @@ export enum TabsEnum {
     SPREAD,
     SUBMIT_BTN,
     DISCARD_BTN,
-    CLOSE_BTN
+    CLOSE_BTN,
+    LIST_PATIENTS
 };
 export enum StatesEnum {
     FROM_QUEST,
@@ -83,6 +84,7 @@ export class State {
                 this.tabAvailable.add(TabsEnum.QUERIES);
                 this.tabAvailable.add(TabsEnum.SPREAD);
                 this.tabAvailable.add(TabsEnum.ACCOUNT);
+                this.tabAvailable.add(TabsEnum.LIST_PATIENTS);
                 this.selectTab(TabsEnum.USERS);
                 break;
             case StatesEnum.LOADED_APPT:
