@@ -18,7 +18,6 @@ export class AdminPatientsListComponent implements OnInit {
   ) { }
 
   public ngOnInit() {
-    this.loadPatients();
   }
 
   public deletePatient(patient: PatientResponse) {
@@ -38,7 +37,9 @@ export class AdminPatientsListComponent implements OnInit {
     console.log('load patient: ' + patient.patientid);
   }
 
-  private loadPatients() {
+  public loadPatients() {
+    this.currentPage = 0;
+    // TODO: Load patients from server
     this.patients = new Array<PatientResponse>();
     let patient: PatientResponse;
     for (let i = 0; i < 20; i++) {
