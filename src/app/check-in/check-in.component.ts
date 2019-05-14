@@ -76,7 +76,7 @@ export class CheckInComponent {
   isPatientIdValid() : boolean {
     const PATIENT_ID_LENGTH = 4;
 
-    return this.patientId.length == PATIENT_ID_LENGTH && this.isPatientIdNumber();
+    return this.patientId.length > 0 && this.patientId.length <= PATIENT_ID_LENGTH && this.isPatientIdNumber();
   }
   
   isPatientIdNumber() : boolean {
