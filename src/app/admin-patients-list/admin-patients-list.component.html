@@ -12,7 +12,7 @@
       <tr *ngFor="let patient of patients | slice:(currentPage * 10): (currentPage + 1) * 10">
         <td>{{patient.patientid}}</td>
         <td>{{patient.deceased}}</td>
-        <td class="notes">{{patient.patientnotes.slice(0,13)}}<span>...</span><div>{{patient.patientnotes.slice(5)}}</div></td>
+        <td class="notes"><span>{{patient.patientnotes.slice(0,5)}}...</span><div>{{patient.patientnotes}}</div></td>
         <td><button (click)="loadPatient(patient)" class="loadbtn">Load</button></td>
         <td><button (click)="deletePatient(patient)" class="deletebtn">Delete</button></td>
       </tr>

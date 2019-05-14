@@ -16,7 +16,7 @@
     background-color: #7eabe6;
 }
 .resultsTable tr:hover {
-    background-color: aqua;
+    background-color: #dddcb5;
 }
 .resultsTable .deletebtn {
     width: 100%;
@@ -49,7 +49,7 @@ tr:hover .notes span {
 tr:hover .notes div{
     display: inline;
 }
-tr:hover td {
+table,tr, td, button {
     height: 100%;
 }
 
