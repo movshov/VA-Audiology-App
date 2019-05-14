@@ -16,5 +16,9 @@ export class AdminPatientService {
   public deletePatient(patientId: number): Observable<Response<any>> {
     return this.serverApiService.delete<any>('patient/'+ patientId);
   }
+
+  public updateNotes(patientId: number, notes: string): Observable<Response<any>> {
+    return this.serverApiService.post<any>('patient/'+ patientId + '/notes', {notes});
+  }
 }
 

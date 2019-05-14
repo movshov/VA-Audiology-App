@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from '@rxjs'
+import { AdminPatientService } from '../services/admin-patient.service';
 
 // Define an interface for a note
 // This will be used to typecheck incoming objects
@@ -25,7 +26,7 @@ export class NotesComponent implements OnInit {
   public content: string;
 	
 
-  constructor() { 
+  constructor(private adminPatientService: AdminPatientService) { 
       this.content = '';
   }
 
@@ -48,14 +49,18 @@ export class NotesComponent implements OnInit {
 // returns the input from the user
 // TODO: make function return ClientNotes obj
 // from api-objects 
-  public submitNote(): noteType {
+  public submitNote(patientId: number): noteType {
 
       if(!this.content) {
           
           alert('Please enter a note!');
 
       } else if(typeof(this.content) === 'string') {
-          
+          this.adminPatientService.updateNotes(patientId, this.content).subscribe(
+              _ => {
+                  alert('SUCCESSFUL UPDATE!!!');
+              }
+          );
           return {
               message : this.content
           };
@@ -64,6 +69,11 @@ export class NotesComponent implements OnInit {
           console.error('Doesnt work');
           return null;
       }
+  }
+
+  public loadNotes(notes: string)
+  {
+      this.content = notes;
   }
 
 
