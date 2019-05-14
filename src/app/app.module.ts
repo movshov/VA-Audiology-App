@@ -18,7 +18,7 @@ import {
 } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule } from '@angular/material';
+import { MatSliderModule, MatDialogModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -88,6 +88,7 @@ import { UsersComponent } from './users/users.component';
 import { ApiUsersCrudService } from './services/api-users-crud.service';
 import { ServerAuthenticationService } from './services/server-authentication.service';
 import { AdminPatientsListComponent } from './admin-patients-list/admin-patients-list.component';
+import { AdminPatientListModalComponent } from './admin-patients-list/admin-patient-list-modal/admin-patient-list-modal.component';
 
 
 
@@ -142,7 +143,8 @@ type StoreType = {
     MyAccountComponent,
     CustomerSearchComponent,
     UsersComponent,
-    AdminPatientsListComponent
+    AdminPatientsListComponent,
+    AdminPatientListModalComponent
 
   ],
   exports: [
@@ -171,7 +173,8 @@ type StoreType = {
       useHash: Boolean(history.pushState) === false,
       preloadingStrategy: PreloadAllModules
     }),
-    PDFExportModule
+    PDFExportModule,
+    MatDialogModule
   ],
   /**
    * Expose our Services and Providers into Angular's dependency injection.
@@ -191,6 +194,9 @@ type StoreType = {
     ServerApiService,
     ApiUsersCrudService,
     ServerAuthenticationService
+  ],
+  entryComponents: [
+    AdminPatientListModalComponent
   ]
 })
 export class AppModule {
