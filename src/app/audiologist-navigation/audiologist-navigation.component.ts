@@ -7,6 +7,7 @@ import { Appointment } from 'api-objects/Appointment';
 import { parse } from 'json2csv';
 import { CustomerSearchService } from '../customer-search/customer-search.service';
 import { NotesComponent } from '../notes/notes.component';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'audio-navigation',
@@ -52,8 +53,14 @@ export class AudiologistNavigationComponent {
 
   public submitSurvey() {
     if (this.summaryComponent != null) {
-      this.summaryComponent.submitSurvey();
       this.notesComponent.submitNote(parseInt(this.patientID));
+      this.summaryComponent.submitSurvey().subscribe(
+        _ => {
+          // TODO: Replace Alert With Notification call once it is pulled in.
+          alert('Survey was Sucessfully Submitted');
+          this.logout();
+        }
+      );
     }
   }
 
@@ -91,6 +98,7 @@ export class AudiologistNavigationComponent {
     this.notesComponent.loadNotes(appt.patientnotes);
 
     // Load the rest of the summary...
+    this.summaryComponent.loadAppointment(appt);
     this.state.determineState(true, true);
   }
 
