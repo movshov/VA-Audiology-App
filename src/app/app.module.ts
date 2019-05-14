@@ -18,7 +18,7 @@ import {
 } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule, MatDialogModule } from '@angular/material';
+import { MatSliderModule, MatDialogModule, MatSnackBarModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -90,6 +90,8 @@ import { ServerAuthenticationService } from './services/server-authentication.se
 import { AdminPatientsListComponent } from './admin-patients-list/admin-patients-list.component';
 import { AdminPatientListModalComponent } from './admin-patients-list/admin-patient-list-modal/admin-patient-list-modal.component';
 
+import { NotificationService } from './services/notification.service';
+import { ErrorHandlingService } from './services/error-handling.service';
 
 
 // Application wide providers
@@ -152,7 +154,9 @@ type StoreType = {
     MatRadioModule,
     MatInputModule,
     MatCheckboxModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule ,
+
   ],
   /**
    * Import Angular's modules.
@@ -165,6 +169,7 @@ type StoreType = {
     FormsModule,
     HttpModule,
     MatSliderModule,
+    MatSnackBarModule ,
     MatRadioModule,
     MatInputModule,
     MatCheckboxModule,
@@ -193,7 +198,10 @@ type StoreType = {
     CustomerSearchService,
     ServerApiService,
     ApiUsersCrudService,
-    ServerAuthenticationService
+    ServerAuthenticationService,
+    NotificationService,
+    ErrorHandlingService,
+    
   ],
   entryComponents: [
     AdminPatientListModalComponent
