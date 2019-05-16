@@ -131,17 +131,17 @@ export class ThsQuestionStrings {
 }
 
 export class ThsAnswerStrings {
-  public NO: string = 'No, not a problem';
+  public static NO: string = 'No, not a problem';
 
-  public SMALL_YES: string = 'Yes, a small problem';
+  public static SMALL_YES: string = 'Yes, a small problem';
 
-  public MODERATE_YES: string = 'Yes, a moderate problem';
+  public static MODERATE_YES: string = 'Yes, a moderate problem';
 
-  public BIG_YES: string = 'Yes, a big problem';
+  public static BIG_YES: string = 'Yes, a big problem';
 
-  public VERY_BIG_YES: string = 'Yes, a very big problem';
+  public static VERY_BIG_YES: string = 'Yes, a very big problem';
 
-  public note: string = '*If sounds are too loud for you when wearing hearing aids, please tell your audiologist.';
+  public static note: string = '*If sounds are too loud for you when wearing hearing aids, please tell your audiologist.';
 
-  public examples: string = 'Examples: beeps, whistles, radio, barking, door slam, dishes clattering, etc.';
+  public static examples: string = 'Examples: beeps, whistles, radio, barking, door slam, dishes clattering, etc.';
 }

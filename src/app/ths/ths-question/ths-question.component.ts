@@ -60,11 +60,11 @@ export class ThsQuestionComponent implements OnInit {
   public answerStrings: ThsAnswerStrings = new ThsAnswerStrings();
 
   @Input() public question: string = '';
-  @Input() public radio1: string = this.answerStrings.NO;
-  @Input() public radio2: string = this.answerStrings.SMALL_YES;
-  @Input() public radio3: string = this.answerStrings.MODERATE_YES;
-  @Input() public radio4: string = this.answerStrings.BIG_YES;
-  @Input() public radio5: string = this.answerStrings.VERY_BIG_YES;
+  @Input() public radio1: string = ThsAnswerStrings.NO;
+  @Input() public radio2: string = ThsAnswerStrings.SMALL_YES;
+  @Input() public radio3: string = ThsAnswerStrings.MODERATE_YES;
+  @Input() public radio4: string = ThsAnswerStrings.BIG_YES;
+  @Input() public radio5: string = ThsAnswerStrings.VERY_BIG_YES;
   @Input() public state: number = null;
 
   @Output() public onClickedBack: EventEmitter<string> = new EventEmitter<string>();
