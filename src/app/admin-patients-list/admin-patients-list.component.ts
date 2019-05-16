@@ -50,15 +50,7 @@ export class AdminPatientsListComponent implements OnInit {
       this.patients.push(patient);
     }
     this.patients.sort((a: PatientResponse, b: PatientResponse) => {
-      let id1 = a.patientid;
-      let id2 = b.patientid;
-      let diff = id1.valueOf() - id2.valueOf();
-      if (diff > 0) {
-        return 1;
-      } else if (diff < 0) {
-        return -1;
-      }
-      return 0;
+      return a.patientid - b.patientid;
     });
   }
 
