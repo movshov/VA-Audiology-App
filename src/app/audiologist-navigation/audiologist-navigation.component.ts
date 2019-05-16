@@ -89,10 +89,8 @@ export class AudiologistNavigationComponent {
 
   public onApptLoad(appt: Appointment) {
     this.patientID = appt.patientid.toString();
-    this.summaryComponent.patientID = appt.patientid.toString();
-    this.summaryComponent.ts = appt.ts_type;
+    Utilities.setSessionStorage('patient-id', appt.patientid.toString());
     this.notesComponent.loadNotes(appt.patientid);
-    // Load the rest of the summary...
     this.summaryComponent.loadAppointment(appt);
     this.state.determineState(true, true);
   }

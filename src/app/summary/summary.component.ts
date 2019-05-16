@@ -434,13 +434,12 @@ export class SummaryComponent implements OnInit {
   }
 
   public getTHSChoiceNumber(answer: String) {
-    let thsAnswers = new ThsAnswerStrings();
     switch (answer) {
-      case thsAnswers.NO: return 0;
-      case thsAnswers.SMALL_YES: return 1;
-      case thsAnswers.MODERATE_YES: return 2;
-      case thsAnswers.BIG_YES: return 3;
-      case thsAnswers.VERY_BIG_YES: return 4;
+      case ThsAnswerStrings.NO: return 0;
+      case ThsAnswerStrings.SMALL_YES: return 1;
+      case ThsAnswerStrings.MODERATE_YES: return 2;
+      case ThsAnswerStrings.BIG_YES: return 3;
+      case ThsAnswerStrings.VERY_BIG_YES: return 4;
       default: return -1;
     }
   }

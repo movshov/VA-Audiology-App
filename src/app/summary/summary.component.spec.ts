@@ -45,17 +45,15 @@ describe('SummaryComponent', () => {
     });
     it('should check if Sub Score can be printed', () => {
       sessionStorage.clear();
-      let ths = new ThsAnswerStrings();
-      component.thsDataService.dataRecord = [{state: 1, choice: ths.NO}, {state: 2, choice: ths.NO},
-        {state: 3, choice: ths.NO}, {state: 4, choice: ths.NO}, {state: 4, choice: ths.NO}, {state: 4, choice: ths.NO}];
+      component.thsDataService.dataRecord = [{state: 1, choice: ThsAnswerStrings.NO}, {state: 2, choice: ThsAnswerStrings.NO},
+        {state: 3, choice: ThsAnswerStrings.NO}, {state: 4, choice: ThsAnswerStrings.NO}, {state: 4, choice: ThsAnswerStrings.NO}, {state: 4, choice: ThsAnswerStrings.NO}];
       component.thsDataService.history = [5, 5, 5, 9];
       component.constructTHSReport();
     });
     it('should check for wrong answers', () => {
       sessionStorage.clear();
-      let ths = new ThsAnswerStrings();
-      component.thsDataService.dataRecord = [{state: 1, choice: ths.NO}, {state: 2, choice: ths.NO},
-                                             {state: 3, choice: ths.NO}, {state: 4, choice: ths.NO}];
+      component.thsDataService.dataRecord = [{state: 1, choice: ThsAnswerStrings.NO}, {state: 2, choice: ThsAnswerStrings.NO},
+                                             {state: 3, choice: ThsAnswerStrings.NO}, {state: 4, choice: ThsAnswerStrings.NO}];
       component.thsDataService.history = [1, 2, 3, 4, 5, 7, 5, 5, 5, 9];
       component.constructTHSReport();
       expect(component.summaryItems.length).toEqual(8);
@@ -212,33 +210,26 @@ describe('SummaryComponent', () => {
       expect(component.getTSChoiceNumber(questions.MONTHLY_OR_YEARLY_BASIS)).toEqual(1);
     });
     it('should return -1 on TEST', () => {
-      let questions = new TsScreenerAnswerStrings();
       expect(component.getTSChoiceNumber('TEST')).toEqual(-1);
     });
   });
   describe('getTHSChoiceNumber', () => {
     it('should return 0 on NO', () => {
-      let questions = new ThsAnswerStrings();
-      expect(component.getTHSChoiceNumber(questions.NO)).toEqual(0);
+      expect(component.getTHSChoiceNumber(ThsAnswerStrings.NO)).toEqual(0);
     });
     it('should return 1 on SMALL_YES', () => {
-      let questions = new ThsAnswerStrings();
-      expect(component.getTHSChoiceNumber(questions.SMALL_YES)).toEqual(1);
+      expect(component.getTHSChoiceNumber(ThsAnswerStrings.SMALL_YES)).toEqual(1);
     });
     it('should return 2 on MODERATE_YES', () => {
-      let questions = new ThsAnswerStrings();
-      expect(component.getTHSChoiceNumber(questions.MODERATE_YES)).toEqual(2);
+      expect(component.getTHSChoiceNumber(ThsAnswerStrings.MODERATE_YES)).toEqual(2);
     });
     it('should return 3 on BIG_YES', () => {
-      let questions = new ThsAnswerStrings();
-      expect(component.getTHSChoiceNumber(questions.BIG_YES)).toEqual(3);
+      expect(component.getTHSChoiceNumber(ThsAnswerStrings.BIG_YES)).toEqual(3);
     });
     it('should return 4 on YES', () => {
-      let questions = new ThsAnswerStrings();
-      expect(component.getTHSChoiceNumber(questions.VERY_BIG_YES)).toEqual(4);
+      expect(component.getTHSChoiceNumber(ThsAnswerStrings.VERY_BIG_YES)).toEqual(4);
     });
     it('should return -1 on wrong string', () => {
-      let questions = new ThsAnswerStrings();
       expect(component.getTHSChoiceNumber('TEST')).toEqual(-1);
     });
   });
