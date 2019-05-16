@@ -32,10 +32,9 @@
       <div *ngIf="state.tabIsAvailable(TabsEnum.CURRENT_USERS)" class="row">
           <button class="btn main-tab" (click)="state.selectTab(TabsEnum.CURRENT_USERS)">Current Users</button>
         </div>
-      <!--
-      <div *ngIf="state.tabIsAvailable(TabsEnum.USERS)" class="row">
-        <button class="btn main-tab" (click)="state.selectTab(TabsEnum.USERS)">Users</button>
-      </div>
+        <div *ngIf="state.tabIsAvailable(TabsEnum.USERS)" class="row">
+          <button class="btn main-tab" (click)="state.selectTab(TabsEnum.USERS)">Create User</button>
+        </div>
       <!-- <div *ngIf="state.tabIsAvailable(TabsEnum.QUERIES)" class="row">
         <button class="btn main-tab" (click)="state.selectTab(TabsEnum.QUERIES)">Queries</button>
       </div>
