@@ -24,7 +24,7 @@
         <button class="btn main-tab" (click)="state.selectTab(TabsEnum.TESTS)">Tests</button>
       </div>
       <div *ngIf="state.tabIsAvailable(TabsEnum.NOTES)" class="row">
-        <button class="btn main-tab" (click)="state.selectTab(TabsEnum.NOTES)">Notes</button>
+        <button class="btn main-tab" (click)="this.loadNotes()">Notes</button>
       </div>
       <div *ngIf="state.tabIsAvailable(TabsEnum.SEARCH)" class="row">
         <button class="btn main-tab" (click)="state.selectTab(TabsEnum.SEARCH)">Search</button>

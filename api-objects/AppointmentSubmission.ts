@@ -11,7 +11,7 @@ export class AppointmentSubmission {
 
     public exportToSQLVars() {
         return {
-            patientid: 2, //TODO: Replace with actual patient id
+            patientid: this.patient.patienID, //TODO: Replace with actual patient id
             isDeceased: this.patient.isDeceased,
             otoscopytype: this.patientSurvey.otoscopy,
             tympanometrytype: this.patientSurvey.typanometry,

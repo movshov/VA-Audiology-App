@@ -39,6 +39,7 @@ export class AudiologistNavigationComponent {
     } else {
       this.state.determineState(true, false);
     }
+    this.notesComponent.getNotes(parseInt(this.patientID));
   }
 
   public onToggle() {
@@ -49,6 +50,11 @@ export class AudiologistNavigationComponent {
       this.active = false;
       console.log('is inactive');
     }
+  }
+
+  public loadNotes() {
+    this.state.selectTab(TabsEnum.NOTES);
+    //this.notesComponent.getNotes(parseInt(this.patientID));
   }
 
   public submitSurvey() {
@@ -94,11 +100,12 @@ export class AudiologistNavigationComponent {
     this.patientID = appt.patientid.toString();
     this.summaryComponent.patientID = appt.patientid.toString();
     this.summaryComponent.ts = appt.ts_type;
+    this.summaryComponent.loadAppointment(appt);
+
 
     this.notesComponent.loadNotes(appt.patientnotes);
 
     // Load the rest of the summary...
-    this.summaryComponent.loadAppointment(appt);
     this.state.determineState(true, true);
   }
 

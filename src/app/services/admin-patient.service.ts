@@ -13,6 +13,10 @@ export class AdminPatientService {
     return this.serverApiService.get<PatientResponse[]>('patient');
   }
 
+  public getPatient(patientId: number) : Observable<Response<PatientResponse[]>> {
+    return this.serverApiService.get<PatientResponse[]>('patient/'+patientId);
+  }
+
   public deletePatient(patientId: number): Observable<Response<any>> {
     return this.serverApiService.delete<any>('patient/'+ patientId);
   }

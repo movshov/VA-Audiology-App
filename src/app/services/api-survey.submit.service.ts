@@ -35,6 +35,8 @@ export class SurveySubmitHandler {
     if(result.patient == null) {
       throw new Error('No patient data');
     }
+
+    console.log(JSON.stringify(result));
     return this.serverApiService.post<string>('appointments', result);
   }
 
@@ -61,6 +63,7 @@ export class SurveySubmitHandler {
     result.thsSectionBTotal = thsScoreVars.get("thsB");
     result.thsSectionCSeverity = thsScoreVars.get("thsC");
     result.ths_sectionc_example = thsTextVars.get('thsCex');
+
 
     return result;
   }
