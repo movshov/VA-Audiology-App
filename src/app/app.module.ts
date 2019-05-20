@@ -18,7 +18,7 @@ import {
 } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule, MatSnackBarModule  } from '@angular/material';
+import { MatSliderModule, MatSnackBarModule, MatDialogModule  } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -91,6 +91,7 @@ import { NotificationService } from './services/notification.service';
 import { ErrorHandlingService } from './services/error-handling.service';
 
 import { ReloginPopupComponent } from './relogin-popup/relogin-popup.component';
+import { ReloginPopupService } from './relogin-popup/relogin-popup.service';
 
 import { CurrentUsersComponent } from './current-users/current-users.component';
 
@@ -179,6 +180,7 @@ type StoreType = {
       preloadingStrategy: PreloadAllModules
     }),
     PDFExportModule,
+    MatDialogModule
   ],
   /**
    * Expose our Services and Providers into Angular's dependency injection.
@@ -200,6 +202,10 @@ type StoreType = {
     ServerAuthenticationService,
     NotificationService,
     ErrorHandlingService,
+    ReloginPopupService,
+  ],
+  entryComponents: [
+    ReloginPopupComponent
   ]
 })
 export class AppModule {
