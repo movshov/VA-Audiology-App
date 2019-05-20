@@ -29,9 +29,7 @@ export class ReloginPopupService {
     }
 
     private post<T>(urlExtension: string, body: any, queryParams?: Map<string, string>): Observable<Response<T>> {
-        return this.http.post<Response<T>>(baseUrl + urlExtension, body, this.createHeaders(queryParams)).pipe(
-            //catchError(this.errorHandler.handleServerError<Response<T>>())
-        );
+        return this.http.post<Response<T>>(baseUrl + urlExtension, body, this.createHeaders(queryParams));
     }
 
     private createHeaders(queryParams?: Map<string, string>) {

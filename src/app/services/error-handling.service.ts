@@ -22,7 +22,6 @@ export class ErrorHandlingService {
           this.popup.open(ReloginPopupComponent);
         }
       }else if (error.status == 404) {
-        this.popup.open(ReloginPopupComponent);
         this.notificationService.showError("Server Not Found: Server was unable to find the requested endpoint: " + error.url);
       } else {
         this.notificationService.showError('Unexpected Error: ' + error.message);
