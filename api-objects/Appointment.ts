@@ -45,9 +45,6 @@ export class Appointment {
     public createThsScoreMap() {
         return new Map<string, number>([['thsA', this.ths_sectiona], ['thsB', this.ths_sectionb], ['thsC', this.ths_sectionb]]);
     }
-    // public createThsTextVar() {
-    //     return new Map<string, string>([['thsCtxt', this.getthsCtxt()], ['thsCex', this.ths_sectionc_example]]);
-    // }
 
     public testSeverityVars() {
         return new Map<string, string>([['audiogramType', this.audiogramtype], ['leftHighSev', this.leftear_highf_severity], ['leftLowSev', this.leftear_lowf_severity], ['rightHighSev', this.rightear_highf_severity], ['rightLowSev', this.rightear_lowf_severity], ['otoscopyType', this.otoscopytype], ['tympanometryType', this.tympanometrytype]]);

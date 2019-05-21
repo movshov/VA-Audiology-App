@@ -70,10 +70,10 @@ export class SurveySubmitHandler {
       return false;
     }
 
-    storeIn.audiogram = this.getPropertyValue(testData, 'audiogramType');
+    storeIn.audiogramtype = this.getPropertyValue(testData, 'audiogramType');
 
-    storeIn.otoscopy = this.getPropertyValue(testData, 'otoscopyType');
-    storeIn.typanometry = this.getPropertyValue(testData, 'tympanometryType');
+    storeIn.otoscopytype = this.getPropertyValue(testData, 'otoscopyType');
+    storeIn.tympanometrytype = this.getPropertyValue(testData, 'tympanometryType');
 
     storeIn.rightEarHighFreqSeverity = this.getPropertyValue(testData, 'rightHighSev');
     storeIn.rightEarLowFreqSeverity = this.getPropertyValue(testData, 'rightLowSev');
@@ -96,7 +96,7 @@ export class SurveySubmitHandler {
     }
 
     let result = new PatientJSON;
-    result.patienID = patientID;
+    result.patientId = patientID;
 
     return result;
   }

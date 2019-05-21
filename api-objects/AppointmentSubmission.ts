@@ -11,10 +11,10 @@ export class AppointmentSubmission {
 
     public exportToSQLVars() {
         return {
-            patientid: 2, //TODO: Replace with actual patient id
+            patientid: this.patient.patientId, //TODO: Replace with actual patient id
             isDeceased: this.patient.isDeceased,
-            otoscopytype: this.patientSurvey.otoscopy,
-            tympanometrytype: this.patientSurvey.typanometry,
+            otoscopytype: this.patientSurvey.otoscopytype,
+            tympanometrytype: this.patientSurvey.tympanometrytype,
 
             rightear_lowf_severity: this.patientSurvey.rightEarLowFreqSeverity,
             rightear_lowf_configuration: this.patientSurvey.rightEarLowFreqConfiguration,
@@ -26,7 +26,7 @@ export class AppointmentSubmission {
             leftear_highf_severity: this.patientSurvey.leftEarHighFreqSeverity,
             leftear_highf_configuration: this.patientSurvey.leftEarHighFreqConfiguration,
 
-            audiogramtype: this.patientSurvey.audiogram,
+            audiogramtype: this.patientSurvey.audiogramtype,
 
             ths_sectiona: this.patientSurvey.thsSectionATotal,
             ths_sectionb: this.patientSurvey.thsSectionBTotal,
@@ -49,13 +49,13 @@ export class AppointmentSubmission {
 }
 
 export class PatientJSON {
-    patienID: string = '';
+    patientId: string = '';
     isDeceased: boolean = false;
 }
 
 export class PatientSurveyJSON {
-    otoscopy: string = '';
-    typanometry: string = '';
+    otoscopytype: string = '';
+    tympanometrytype: string = '';
 
     rightEarLowFreqSeverity: string = '';
     rightEarLowFreqConfiguration: string = '';
@@ -67,7 +67,7 @@ export class PatientSurveyJSON {
     leftEarHighFreqSeverity: string = '';
     leftEarHighFreqConfiguration: string = '';
 
-    audiogram: string = '';
+    audiogramtype: string = '';
 
     thsSectionATotal: number = 0;
     thsSectionBTotal: number = 0;
