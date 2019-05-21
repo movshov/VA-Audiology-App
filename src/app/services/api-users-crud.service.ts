@@ -16,7 +16,7 @@ export class ApiUsersCrudService {
 
   // Response data should be an array of UsersObject
   public getUsers(): Observable<Response<UsersObject[]>> {
-    return this.serverApiService.get<UsersObject[]>('getUsers');
+    return this.serverApiService.get<UsersObject[]>('accounts');
   }
 
   // Response data should be true if password changed
@@ -26,11 +26,16 @@ export class ApiUsersCrudService {
 
   // Response data should be the new generated password
   public resetPassword(username: string): Observable<Response<string>> {
-    return this.serverApiService.post<string>('resetPassword', {username});
+    return this.serverApiService.post<string>('accounts/resetPassword', {username});
   }
 
   // Response data should be true if user was deleted
   public deleteUser(username: string): Observable<Response<boolean>> {
-    return this.serverApiService.delete<boolean>('deleteUser', new Map<string, string>([['username', username]]));
+    return this.serverApiService.delete<boolean>('accounts', new Map<string, string>([['username', username]]));
+  }
+
+  // Response data should be true if user was deleted
+  public updateUsername(username: string, newUsername: string): Observable<Response<null>> {
+    return this.serverApiService.post<null>('accounts/changeUsername', {username, 'newusername': newUsername});
   }
 }
