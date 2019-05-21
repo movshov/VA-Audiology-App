@@ -14,6 +14,8 @@ export class ReloginPopupService {
 
     constructor(private http: HttpClient) { }
 
+    // Using the server-authentication service causes a circular dependancy problem,
+    // To solve, it along with some code from server-api service had to be duplicated here.
     public login(username: string, password: string): Observable<null> {
         return this.post<LoginSession>('login', { 'username': username, 'password': password })
             .pipe(
