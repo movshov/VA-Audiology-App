@@ -62,12 +62,10 @@ export class ThsComponent implements OnInit {
         let tinscreendata = Utilities.getSessionStorage('ts-dataRecord');
         if (!tinscreendata || !tinscreenhistory) {
             this.router.navigateByUrl('appointments');
-        }
-        else {
+        } else {
             this.router.navigateByUrl('ts');
         }
     }
-
 
     if (prevState) {
       this.currentState = prevState;

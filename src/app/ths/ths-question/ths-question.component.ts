@@ -80,28 +80,23 @@ export class ThsQuestionComponent implements OnInit {
     this.selectedValue = this.dataService.populateAnswers(this.state);
   }
 
-  public answer_rad1(){
-
+  public answer_rad1() {
     this.selectedValue = this.radio1;
   }
 
-  public answer_rad2(){
-
+  public answer_rad2() {
     this.selectedValue = this.radio2;
   }
 
-  public answer_rad3(){
-
+  public answer_rad3() {
     this.selectedValue = this.radio3;
   }
 
-  public answer_rad4(){
-
+  public answer_rad4() {
     this.selectedValue = this.radio4;
   }
 
-  public answer_rad5(){
-
+  public answer_rad5() {
     this.selectedValue = this.radio5;
   }
 

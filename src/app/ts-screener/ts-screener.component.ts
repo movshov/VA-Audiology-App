@@ -86,8 +86,7 @@ export class TsScreenerComponent implements OnInit {
         let nextS: number = this.stateMachine.moveStateForward(this.currentState, choice);
         this.currentState = nextS;
         this.updateSessionStorage();
-
-      this.router.navigateByUrl('/ths');
+        this.router.navigateByUrl('/ths');
     }
   }
 

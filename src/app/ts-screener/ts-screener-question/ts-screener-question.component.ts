@@ -51,16 +51,15 @@ export class TsScreenerQuestionComponent implements OnInit {
     this.selectedValue = this.dataService.populateAnswers(this.state);
   }
 
-  public answer_yes(){
+  public answer_yes() {
    this.selectedValue = this.radio1;
   }
 
-  public answer_no(){
-
+  public answer_no() {
     this.selectedValue = this.radio2;
   }
 
-  public answer_sometimes(){
+  public answer_sometimes() {
     this.selectedValue = this.radio3;
   }
 }

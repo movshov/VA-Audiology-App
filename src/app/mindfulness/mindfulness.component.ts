@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppState } from '../app.service';
 
-
 @Component({
   selector: 'app-mindfulness',
   templateUrl: './mindfulness.component.html',
@@ -12,7 +11,7 @@ export class MindfulnessComponent implements OnInit {
     public localState = { value: '' };
     constructor(public appState: AppState, private router: Router) { }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
   public patientOnClick() {

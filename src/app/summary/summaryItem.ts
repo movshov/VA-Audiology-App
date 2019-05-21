@@ -17,7 +17,6 @@ export class SumString extends SummaryItem {
     }
 }
 
-
 /**
  * The survey title type
  */

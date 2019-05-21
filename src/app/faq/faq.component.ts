@@ -11,7 +11,7 @@ export class FaqComponent implements OnInit {
     public localState = { value: '' };
     constructor(public appState: AppState, private router: Router) { }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
   public patientOnClick() {
