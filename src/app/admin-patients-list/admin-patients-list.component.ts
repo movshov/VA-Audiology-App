@@ -14,6 +14,8 @@ import { NotificationService } from '../services/notification.service';
 export class AdminPatientsListComponent implements OnInit {
   public patients: Array<PatientResponse> = [];
   public currentPage: number = 0;
+  public patientNotes: string = 'Patient Notes...';
+  public selectedPat: number = -1;
 
   constructor(
     public dialog: MatDialog,
@@ -55,6 +57,11 @@ export class AdminPatientsListComponent implements OnInit {
         });
       }
     )
+  }
+
+  public changeSelectedPatient(notes: string, id: number) {
+    this.patientNotes = notes;
+    this.selectedPat = id;
   }
 
   // pagination functions

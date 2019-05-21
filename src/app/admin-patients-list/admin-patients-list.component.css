@@ -3,6 +3,28 @@
     text-align: center;
 }
 
+.row {
+    display: flex;
+}
+
+.column-left {
+    flex: 1;
+}
+.column-right {
+    flex: 1;
+}
+.column-right textarea {
+    width: 75%;
+    height: 100%;
+}
+
+.patientSelected {
+    background-color: #dddcb5;
+}
+.patientNotSelected {
+    background-color: initial;
+}
+
 .resultsTable {
     margin: 10px auto 0 auto;
     width: 75%;
@@ -12,7 +34,7 @@
     background-color: #0448a1;
     color: white;
 }
-.resultsTable tr:nth-child(even) {
+.resultsTable .patientNotSelected:nth-child(even) {
     background-color: #7eabe6;
 }
 .resultsTable tr:hover {
@@ -35,22 +57,6 @@
 .resultsTable .loadbtn:hover {
     width: 100%;
     background-color: #81c981;
-}
-
-.notes {
-    width: 50%;
-}
-.notes div {
-    display: none;
-}
-tr:hover .notes span {
-    display: none;
-}
-tr:hover .notes div{
-    display: inline;
-}
-table,tr, td, button {
-    height: 100%;
 }
 
 .pagination {
