@@ -13,6 +13,7 @@ export enum TabsEnum {
     SEARCH,
     ACCOUNT,
     USERS,
+    CURRENT_USERS,
     QUERIES,
     SPREAD,
     SUBMIT_BTN,
@@ -85,6 +86,7 @@ export class State {
                 this.tabAvailable.add(TabsEnum.SPREAD);
                 this.tabAvailable.add(TabsEnum.ACCOUNT);
                 this.tabAvailable.add(TabsEnum.LIST_PATIENTS);
+                this.tabAvailable.add(TabsEnum.CURRENT_USERS);
                 this.selectTab(TabsEnum.USERS);
                 break;
             case StatesEnum.LOADED_APPT:

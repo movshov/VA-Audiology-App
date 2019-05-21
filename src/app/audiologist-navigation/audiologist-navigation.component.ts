@@ -4,6 +4,8 @@ import { AudiologistSummaryComponent, tfiNames } from '../audiologist-summary/au
 import { Utilities } from '../common/utlilities';
 import { State, StatesEnum, TabsEnum } from './navigation-aids';
 import { Appointment } from 'api-objects/Appointment';
+import { parse } from 'json2csv';
+import { CustomerSearchService } from '../customer-search/customer-search.service';
 
 @Component({
   selector: 'audio-navigation',
@@ -23,8 +25,9 @@ export class AudiologistNavigationComponent {
   public scale: number = 0.55;
   public state: State = new State();
   @ViewChild(AudiologistSummaryComponent) private summaryComponent: AudiologistSummaryComponent;
+  
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private customerSearchService: CustomerSearchService) {
   }
 
   public ngOnInit() {
@@ -85,4 +88,7 @@ export class AudiologistNavigationComponent {
     this.state.determineState(true, true);
   }
 
+  public downloadSpreadsheet() {
+    this.customerSearchService.getAllAppointments().subscribe();
+  }
 }
