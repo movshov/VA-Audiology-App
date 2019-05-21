@@ -16,11 +16,11 @@ export class ServerAuthenticationService {
     public login(username: string, password: string): Observable<null> {
         return this.serverApiService.post<LoginSession>('login', { username, password })
             .pipe(
-                tap((response) => {
-                    // Utilities.setSessionStorage('userId', response.data.user.toString());
-                    // Utilities.setSessionStorage('sessionId', response.data.session.toString());
-                    //console.log(authorityTypes[response.data.authorityType]);
-                    // Utilities.setSessionStorage('permissions', authorityTypes[response.data.authorityType]);
+                tap((response: Response<LoginSession>) => {
+                    Utilities.setSessionStorage('userId', response.data.user.toString());
+                    Utilities.setSessionStorage('sessionId', response.data.session.toString());
+                    console.log(authorityTypes[response.data.authorityType]);
+                    Utilities.setSessionStorage('permissions', authorityTypes[response.data.authorityType]);
                 }),
                 map<Response<LoginSession>, null>((_) => null)
             );
