@@ -17,10 +17,10 @@ export class ServerAuthenticationService {
         return this.serverApiService.post<LoginSession>('login', { username, password })
             .pipe(
                 tap((response) => {
-                    Utilities.setSessionStorage('userId', response.data.user.toString());
-                    Utilities.setSessionStorage('sessionId', response.data.session.toString());
-                    console.log(authorityTypes[response.data.authorityType]);
-                    Utilities.setSessionStorage('permissions', authorityTypes[response.data.authorityType]);
+                    // Utilities.setSessionStorage('userId', response.data.user.toString());
+                    // Utilities.setSessionStorage('sessionId', response.data.session.toString());
+                    //console.log(authorityTypes[response.data.authorityType]);
+                    // Utilities.setSessionStorage('permissions', authorityTypes[response.data.authorityType]);
                 }),
                 map<Response<LoginSession>, null>((_) => null)
             );
