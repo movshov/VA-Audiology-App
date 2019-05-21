@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PatientResponse } from '../../../api-objects/PatientResponse';
-import { CustomerSearchService } from '../customer-search/customer-search.service';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { Response } from '../../../api-objects/GenericResponse';
+import { MatDialog } from '@angular/material';
 import { AdminPatientListModalComponent } from './admin-patient-list-modal/admin-patient-list-modal.component';
+import { AdminPatientService } from '../services/admin-patient.service';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'admin-patients-list',
@@ -14,7 +16,9 @@ export class AdminPatientsListComponent implements OnInit {
   public currentPage: number = 0;
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private adminPatientService: AdminPatientService,
+    private notificationService: NotificationService,
   ) { }
 
   public ngOnInit() {
@@ -25,9 +29,12 @@ export class AdminPatientsListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'confirm') {
         // delete this patient and all of its appointments
-        console.log(`Deleting ${patient.patientid}`);
-      } else {
-        console.log('Cancel operation');
+        this.adminPatientService.deletePatient(patient.patientid).subscribe(
+          (_) => {
+            this.notificationService.showSuccess("Patient Successfully Deleted");
+            this.loadPatients();
+          }
+        );
       }
     });
   }
@@ -39,19 +46,15 @@ export class AdminPatientsListComponent implements OnInit {
 
   public loadPatients() {
     this.currentPage = 0;
-    // TODO: Load patients from server
-    this.patients = new Array<PatientResponse>();
-    let patient: PatientResponse;
-    for (let i = 0; i < 20; i++) {
-      patient = new Object as PatientResponse;
-      patient.deceased = Math.random() >= 0.5;
-      patient.patientid = Math.floor(Math.random() * 10000);
-      patient.patientnotes = Math.random().toString(36) + ' ' + Math.random().toString(36) + ' ' + Math.random().toString(36) + ' ' + Math.random().toString(36) + ' ' + Math.random().toString(36) + ' ' + Math.random().toString(36) + ' ' + Math.random().toString(36) + ' ' + Math.random().toString(36) + ' ' + Math.random().toString(36) + ' ' + Math.random().toString(36) + ' ' + Math.random().toString(36) + ' ' + Math.random().toString(36) + ' ' + Math.random().toString(36) + ' ' + Math.random().toString(36);
-      this.patients.push(patient);
-    }
-    this.patients.sort((a: PatientResponse, b: PatientResponse) => {
-      return a.patientid - b.patientid;
-    });
+    // Load patients from server
+    this.adminPatientService.getPatients().subscribe(
+      (response: Response<PatientResponse[]>) => {
+        this.patients = response.data;
+        this.patients.sort((a: PatientResponse, b: PatientResponse) => {
+          return a.patientid - b.patientid;
+        });
+      }
+    )
   }
 
   // pagination functions
