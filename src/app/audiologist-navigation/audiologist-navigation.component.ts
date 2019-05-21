@@ -4,10 +4,9 @@ import { AudiologistSummaryComponent, tfiNames } from '../audiologist-summary/au
 import { Utilities } from '../common/utlilities';
 import { State, StatesEnum, TabsEnum } from './navigation-aids';
 import { Appointment } from 'api-objects/Appointment';
-import { parse } from 'json2csv';
 import { CustomerSearchService } from '../customer-search/customer-search.service';
 import { NotesComponent } from '../notes/notes.component';
-import { catchError } from 'rxjs/operators';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'audio-navigation',
@@ -30,7 +29,7 @@ export class AudiologistNavigationComponent {
   @ViewChild(NotesComponent) private notesComponent: NotesComponent;
 
 
-  constructor(private router: Router, private customerSearchService: CustomerSearchService) {
+  constructor(private router: Router, private customerSearchService: CustomerSearchService, private notificationService: NotificationService) {
   }
 
   public ngOnInit() {
@@ -59,7 +58,7 @@ export class AudiologistNavigationComponent {
       this.notesComponent.submitNote(parseInt(this.patientID));
       this.summaryComponent.submitSurvey().subscribe(
         (_) => {
-          alert('Survey was Sucessfully Submitted');
+          this.notificationService.showSuccess('Survey was successfuly Submitted');
           this.logout();
         });
     }
