@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Users } from './users';
-import { UsersObject } from '../../../api-objects/UsersObject';
+import { UsersObject, authorityTypes } from '../../../api-objects/UsersObject';
 import { ApiUsersCrudService } from '../services/api-users-crud.service';
 import { NotificationService } from '../services/notification.service';
 
@@ -14,6 +13,7 @@ import { NotificationService } from '../services/notification.service';
 export class CurrentUsersComponent implements OnInit {
   public usersTable: UsersObject[] = [];
   public pageCounter: number = 0;
+  public authorityTypes = authorityTypes;
 
   constructor(private apiUsersCrudService: ApiUsersCrudService, private notificationService: NotificationService) { }
 
@@ -27,10 +27,6 @@ export class CurrentUsersComponent implements OnInit {
         (results) => {
           this.usersTable = results.data;
         });
-    this.usersTable = Users;
-    this.usersTable.map((types) => {
-      if (types.authorityType === 0) { } else { }
-    });
   }
 
   public prevPage(pageNum: number): void {
@@ -69,9 +65,9 @@ export class CurrentUsersComponent implements OnInit {
   public updateUser(f: NgForm, update: UsersObject) {
     let index: number = this.usersTable.indexOf(update);
     if (f.value.username !== '') {
-      this.apiUsersCrudService.updateUsername(update.username, f.value).subscribe(
+      this.apiUsersCrudService.updateUsername(update.username, f.value.username).subscribe(
         (_) => {
-          this.notificationService.showSuccess('Username, ' + update.username + ' was successfully updated to ' + f.value);
+          this.notificationService.showSuccess('Username, ' + update.username + ' was successfully updated to ' + f.value.username);
           this.usersTable[index].username = f.value.username;
         }
       )
