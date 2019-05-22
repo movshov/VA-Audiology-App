@@ -55,6 +55,7 @@ AuthorityId SERIAL,
 Username text UNIQUE,
 Password text,
 AuthorityName text, 
+AuthorityEmail text,
 AuthorityType int,
 PRIMARY KEY (AuthorityID)
 );

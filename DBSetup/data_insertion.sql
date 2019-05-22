@@ -57,13 +57,13 @@ insert into tsSurvey values
 (110000, 00003, 'TYPE A');
 
 insert into Authority values
-(111, 'Audio1', '$2b$12$DYhr7TOVcajggMkNIj59YOCQflxKRWpVDeNXJKusNEJk9FN2G6Dl6', 'John (password1)', 0),
-(222, 'Audio2', '$2b$12$y8NXh.6bdGYzoH0R4QSqPupWed29lxxJ4etdas8Ecl2eoYRgy1pRy', 'Jim (password2)', 0),
-(333, 'Audio3', '$2b$12$1i4LYl4aKBXCnrV1mtZ2Suw1Xnk6gId0TfFOapCO.5yMsGxQ1s3Au', 'Jimmy (password3)', 0),
-(444, 'Stat', '$2b$12$iAq0Y1m7sxjn52wVm45omeAyselFqK7KHpQ52HBi3l2ZV7JurDbDW', 'Emily (qwertyuiop)', 1),
-(555, 'Audio4', '$2b$12$CnUTwCaYtQFkNboPDHb4d.fIwVZeAICqoca8lxIKYcwwPd4/gQAFq', 'Jill (password4)', 0),
-(666, 'Admin', '$2b$12$g/slSWxU4kvytubcT3ZEWuo5uIrdKyEnhB6HI6n7atCc/Yz8yq8GO', 'Satan (Master)', 1),
-(777, 'Audio5', '$2b$12$MTADOtwldX8YedHCMi4qpOY.KWibqgZMW2VcAG9eaiWCdkqz9x7g2', 'Janet (password5)', 0);
+(111, 'Audio1', '$2b$12$DYhr7TOVcajggMkNIj59YOCQflxKRWpVDeNXJKusNEJk9FN2G6Dl6', 'John (password1)', 'test@test.com', 0),
+(222, 'Audio2', '$2b$12$y8NXh.6bdGYzoH0R4QSqPupWed29lxxJ4etdas8Ecl2eoYRgy1pRy', 'Jim (password2)', 'test@test.com', 0),
+(333, 'Audio3', '$2b$12$1i4LYl4aKBXCnrV1mtZ2Suw1Xnk6gId0TfFOapCO.5yMsGxQ1s3Au', 'Jimmy (password3)', 'test@test.com', 0),
+(444, 'Stat', '$2b$12$iAq0Y1m7sxjn52wVm45omeAyselFqK7KHpQ52HBi3l2ZV7JurDbDW', 'Emily (qwertyuiop)', 'test@test.com', 1),
+(555, 'Audio4', '$2b$12$CnUTwCaYtQFkNboPDHb4d.fIwVZeAICqoca8lxIKYcwwPd4/gQAFq', 'Jill (password4)', 'test@test.com', 0),
+(666, 'Admin', '$2b$12$g/slSWxU4kvytubcT3ZEWuo5uIrdKyEnhB6HI6n7atCc/Yz8yq8GO', 'Satan (Master)', 'test@test.com', 1),
+(777, 'Audio5', '$2b$12$MTADOtwldX8YedHCMi4qpOY.KWibqgZMW2VcAG9eaiWCdkqz9x7g2', 'Janet (password5)', 'test@test.com', 0);
 
 insert into AudiologistExams values
 (1, 00001, 'Conductive Hearing Loss, Bilateral', 'Normal', 'Moderate', 'Normal', 'Normal', 'Moderate', 'Symmetric', 'Symmetric', 'Rising', 'Symmetric', 'Sensorineural'),
