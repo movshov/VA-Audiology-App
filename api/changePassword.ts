@@ -10,12 +10,7 @@ import { Client } from 'pg';
 export default handler(async (req, userId) => {
     errors.requireParams(req.body, ['oldPassword', 'newPassword']);
     return withConnection(async (db: Client) => {
-        const userFound = await db.query('SELECT Password FROM Authority WHERE AuthorityId = $1', [userId]);
-        if (userFound.rows.length !== 1) {
-            throw new errors.APIError('Somehow failed to find an Authority entry for user ' + userId);
-        }
-        const hash = userFound.rows[0].password;
-        if (! await auth.matchesHash(req.body.oldPassword, hash)) {
+        if (! await auth.matchesPassword(db, userId, req.body.oldPassword)) {
             throw new errors.BadParameter("Old password does not match.");
         }
 

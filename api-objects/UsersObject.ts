@@ -13,3 +13,10 @@ export class UsersObject {
         public authorityType: number,
     ) {}
 }
+
+export class CreateUserRequest {
+    constructor(
+        public user: UsersObject,
+        public adminPassword: string,
+    ) {}
+}
