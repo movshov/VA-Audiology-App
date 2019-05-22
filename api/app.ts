@@ -34,6 +34,8 @@ import accountCreate from './accounts/create';
 app.post('/accounts/create', accountCreate);
 import resetPassword from './accounts/resetPassword';
 app.post('/accounts/resetPassword', resetPassword);
+import deleteAccount from './accounts/delete';
+app.delete('/accounts/:accountId', deleteAccount);
 
 import changeUsername from './accounts/changeUsername';
 app.post('/accounts/changeUsername', changeUsername);
