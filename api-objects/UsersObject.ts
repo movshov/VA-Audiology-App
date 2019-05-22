@@ -12,6 +12,11 @@ export class UsersObject {
         public email: string,
         public authorityType: number,
     ) {}
+	public authorityid: number;
+	public authorityname: string;
+	public authorityemail: string;
+	public password: string;
+	public authoritytype: number;
 }
 
 export class CreateUserRequest {

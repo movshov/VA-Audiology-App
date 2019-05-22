@@ -3,6 +3,7 @@
   <table *ngIf="usersTable.length !== 0 else notFound" class="usersTable" border="1">
     <thead>
       <th>Name</th>
+      <th>Authority Type</th>
       <th>Username</th>
       <th>Email</th>
       <!-- <th>Authority Type</th> -->
@@ -11,9 +12,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of usersTable | slice:(pageCounter * 10): (pageCounter + 1) * 10">
-        <td>{{user.name}}</td>
         <td>{{user.username}}</td>
-        <td>{{user.email}}</td>
+        <td>{{authorityTypes[user.authoritytype]}}</td>
+        <td>{{user.authorityname}}</td>
+        <td>{{user.authorityemail}}</td>
         <!-- <td>{{user.authorityType}}</td> -->
         <td><button (click)="deleteUser(user)" class="deletebtn">Delete</button></td>
         <td>
