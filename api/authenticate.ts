@@ -30,6 +30,15 @@ export async function setPassword(db: Client, userId: number, password: string) 
     await db.query('UPDATE Authority SET Password = $1 WHERE AuthorityId = $2', [hashed, userId]);
 }
 
+export async function matchesPassword(db: Client, userId: number, password: string): Promise<boolean> {
+    const userFound = await db.query('SELECT Password FROM Authority WHERE AuthorityId = $1', [userId]);
+    if (userFound.rows.length !== 1) {
+        throw new errors.APIError('Somehow failed to find an Authority entry for user ' + userId);
+    }
+    const hash = userFound.rows[0].password;
+    return await matchesHash(password, hash);
+}
+
 export async function matchesHash(password: string, hash: string): Promise<boolean> {
     return await bcrypt.compare(password, hash);
 }

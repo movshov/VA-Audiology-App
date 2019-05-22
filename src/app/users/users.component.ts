@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersObject, authorityTypes } from '../../../api-objects/UsersObject';
+import { UsersObject, CreateUserRequest, authorityTypes } from '../../../api-objects/UsersObject';
 import { ApiUsersCrudService } from '../services/api-users-crud.service';
 
 @Component({
@@ -11,7 +11,8 @@ import { ApiUsersCrudService } from '../services/api-users-crud.service';
 export class UsersComponent implements OnInit {
 
   public username: string = '';
-  public userPassword: string = 'htxliwq7ja'; // example temp password to be displayed to the user(Remove later)
+  public userPassword: string = ''; 
+  public adminPassword: string = '';
   public authorityType: number;
   public userEmail: string = '';
   public name: string = '';
@@ -33,15 +34,18 @@ export class UsersComponent implements OnInit {
    *  @Param UserRequest Object of type UsersObject which has fields {username,name,email,authorityType}
    */
   
-  private userCreateRequest(userRequest: UsersObject): void {
+  private userCreateRequest(userRequest: CreateUserRequest): void {
     this.userService.createUser(userRequest).subscribe((result : Response<AccountCreateResponse>) => {
       this.userPassword = result.data.password;
       this.usernameTaken = false;
       this.showUserInfo = true;
     },(error) =>{
-       if(error.status === 409) {
+       if (error.status === 409) {
         this.usernameTaken = true;
         console.log('Username not Available');
+       } else if (error.status === 400) {
+        this.usernameTaken = false;
+        console.log('Your password does not match');
        } else {
         this.usernameTaken = false;
         console.log('Server Error Occurred please try again later!');
@@ -81,7 +85,7 @@ export class UsersComponent implements OnInit {
         this.userEmail,
         this.authorityType);
 
-      this.userCreateRequest(userRequest);
+      this.userCreateRequest(new CreateUserRequest(userRequest, this.adminPassword));
     } else if ( !this.isInputValid(this.userEmail)) {
       this.validEmail = false;
       this.showUserInfo = false;
