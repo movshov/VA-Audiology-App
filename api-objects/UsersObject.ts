@@ -6,9 +6,10 @@ export enum AuthorityEnum {
 export const authorityTypes: Array<string> = ['Audiologist', 'Admin'];
 
 export class UsersObject {
+	public authorityid: number;
 	public username: string;
-	public name: string;
-	public email: string;
+	public authorityname: string;
+	public authorityemail: string;
 	public password: string;
-	public authorityType: number;
+	public authoritytype: number;
 }
