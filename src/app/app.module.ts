@@ -98,6 +98,7 @@ import { ReloginPopupComponent } from './relogin-popup/relogin-popup.component';
 import { ReloginPopupService } from './relogin-popup/relogin-popup.service';
 
 import { CurrentUsersComponent } from './current-users/current-users.component';
+import { AdminPasswordConfirm } from './admin-password-confirm/admin-password-confirm.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -153,8 +154,9 @@ type StoreType = {
     CurrentUsersComponent,
     ReloginPopupComponent,
     AdminPatientsListComponent,
-    AdminPatientListModalComponent
+    AdminPatientListModalComponent,
     PatientLoginComponent,
+    AdminPasswordConfirm,
 
   ],
   exports: [
@@ -214,7 +216,8 @@ type StoreType = {
   ],
   entryComponents: [
     ReloginPopupComponent,
-    AdminPatientListModalComponent
+    AdminPatientListModalComponent,
+    AdminPasswordConfirm,
   ]
 })
 export class AppModule {
