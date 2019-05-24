@@ -50,6 +50,10 @@ export class SummaryComponent implements OnInit {
     console.log('landing page');
   }
 
+  public audioLoginClick() {
+    this.router.navigateByUrl('/aud-login');
+  }
+
   /**
    *
    * @param thsDataService the data service for ths questionare
