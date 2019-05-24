@@ -5,7 +5,6 @@ import { AccountCreateResponse } from '../../../../api-objects/accountCreateResp
 import { ServerApiService } from './server-api.service';
 import { Response } from '../../../../api-objects/GenericResponse';
 
-
 @Injectable()
 export class ApiUsersCrudService {
 
@@ -38,6 +37,6 @@ export class ApiUsersCrudService {
 
   // Response data should be true if user was deleted
   public updateUsername(username: string, newUsername: string): Observable<Response<null>> {
-    return this.serverApiService.post<null>('accounts/changeUsername', { username, 'newusername': newUsername });
+    return this.serverApiService.post<null>('accounts/changeUsername', { username, newusername: newUsername });
   }
 }
