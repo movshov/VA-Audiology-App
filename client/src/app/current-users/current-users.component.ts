@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { UsersObject, authorityTypes } from '../../../../api-objects/UsersObject';
 import { ApiUsersCrudService } from '../services/api-users-crud.service';
 import { NotificationService } from '../services/notification.service';
+import { Utilities } from '../common/utlilities';
 
 @Component({
   selector: 'current-users',
@@ -18,7 +19,9 @@ export class CurrentUsersComponent implements OnInit {
   constructor(private apiUsersCrudService: ApiUsersCrudService, private notificationService: NotificationService) { }
 
   public ngOnInit() {
-    this.getAllUsers();
+    let authority = Utilities.getSessionStorage('permissions');
+    if (authority === 'Admin')
+      this.getAllUsers();
   }
 
   public getAllUsers(): void {

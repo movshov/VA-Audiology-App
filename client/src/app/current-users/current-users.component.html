@@ -6,8 +6,7 @@
       <th>Authority Type</th>
       <th>Username</th>
       <th>Email</th>
-      <!-- <th>Authority Type</th> -->
-      <th>Delete User</th>
+      <!-- <th>Delete User</th> -->
       <th>Update Username</th>
       <th>Reset Password</th>
     </thead>
@@ -17,7 +16,6 @@
         <td>{{authorityTypes[user.authoritytype]}}</td>
         <td>{{user.authorityname}}</td>
         <td>{{user.authorityemail}}</td>
-        <!-- <td>{{user.authorityType}}</td> -->
         <!-- <td><button (click)="deleteUser(user)" class="deletebtn">Delete</button></td> -->
         <td>
           <form class="form-inline" #f="ngForm" (ngSubmit)="updateUser(f,user)">

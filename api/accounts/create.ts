@@ -13,7 +13,7 @@ export default handler(async (req, userId): Promise<AccountCreateResponse> => {
     const user: UsersObject = req.body.user;
     errors.requireParams(user, ['username', 'name', 'authorityType']);
     const username = user.username;
-    const authorityName = user.name;
+    const authorityName = user.authorityname;
     const authorityType = user.authorityType;
     return withConnection(async (db: Client) => {
         if (! await auth.matchesPassword(db, userId, req.body.adminPassword)) {
