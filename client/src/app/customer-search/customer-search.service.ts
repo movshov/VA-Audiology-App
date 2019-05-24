@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ServerApiService } from '../services/server-api.service';
-import { Appointment } from '../../../../api-objects/appointment';
+import { Appointment } from '../../../../api-objects/Appointment';
 import { Response } from '../../../../api-objects/GenericResponse';
 import { parse } from 'json2csv';
 
