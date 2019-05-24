@@ -17,8 +17,6 @@ import {
   PreloadAllModules
 } from '@angular/router';
 
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule, MatSnackBarModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
@@ -198,8 +196,6 @@ type StoreType = {
     ServerAuthenticationService,
     NotificationService,
     ErrorHandlingService,
-    
-    {provide: LocationStrategy, useClass:HashLocationStrategy}
   ]
 })
 export class AppModule {
