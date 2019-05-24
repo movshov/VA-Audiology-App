@@ -14,7 +14,7 @@ export class Utilities {
       return null;
     }
 
-    let bytes  = crypto.AES.decrypt(encryptedValue, this.key);
+    let bytes = crypto.AES.decrypt(encryptedValue, this.key);
     // console.log('decrypted: ', bytes.toString(crypto.enc.Utf8));
     return bytes.toString(crypto.enc.Utf8);
   }

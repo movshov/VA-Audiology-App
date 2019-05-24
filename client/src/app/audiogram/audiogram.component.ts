@@ -16,11 +16,6 @@ This component does not save information to any data services/databases
 })
 
 export class AudiogramComponent implements OnInit {
-
-  public patientID: string = Utilities.getSessionStorage('patient-id');
-
-  constructor(private dataService: TestsDataService){}
-
   // Text for test type radio buttons in the template
   public testTypes = [
     'Conductive',
@@ -51,14 +46,18 @@ export class AudiogramComponent implements OnInit {
     'Corner'
   ];
 
+  public patientID: string = Utilities.getSessionStorage('patient-id');
+
+  constructor(private dataService: TestsDataService) { }
+
   public ngOnInit() { }
 
   public typeChange(event: MatRadioChange) {
     this.dataService.saveData('audiogramType', event.value);
   }
   public severityChange(event: MatRadioChange) {
-    let sevs: Array<string> = ['leftHighSev', 'leftLowSev', 'rightHighSev', 'rightLowSev'];
-    if(sevs.includes(event.source.name)) {
+    let sevs: string[] = ['leftHighSev', 'leftLowSev', 'rightHighSev', 'rightLowSev'];
+    if (sevs.includes(event.source.name)) {
       this.dataService.saveData(sevs[sevs.indexOf(event.source.name)], event.value);
     }
   }

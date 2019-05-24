@@ -8,14 +8,14 @@ import { AppState } from '../app.service';
   styleUrls: ['./relaxation.component.css']
 })
 export class RelaxationComponent implements OnInit {
-    public localState = { value: '' };
-    constructor(public appState: AppState, private router: Router) { }
+  public localState = { value: '' };
+  constructor(public appState: AppState, private router: Router) { }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
   public patientOnClick() {
-      this.router.navigateByUrl('/landing');
-      console.log('go to landing page');
+    this.router.navigateByUrl('/landing');
+    console.log('go to landing page');
   }
 }

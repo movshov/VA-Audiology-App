@@ -12,7 +12,7 @@ export class ThankYouComponent implements OnInit {
 
   public title = 'Thank you for your cooperation!';
 
-  constructor(private router: Router) {};
+  constructor(private router: Router) { };
 
   public ngOnInit() {
     console.log('thank you page component');

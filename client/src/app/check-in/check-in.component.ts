@@ -21,11 +21,11 @@ export class CheckInComponent {
 
   public badPatientId: boolean = false;
   public badEmail: boolean = false;
-  
-  constructor(private router: Router, private tsDataService: TsScreenerDataService, private tfiDataService: TfiDataService, private thsDataService: ThsDataService) {};
-  
+
+  constructor(private router: Router, private tsDataService: TsScreenerDataService, private tfiDataService: TfiDataService, private thsDataService: ThsDataService) { };
+
   public onClick() {
-    if(this.isCredentialsValid()) {
+    if (this.isCredentialsValid()) {
       sessionStorage.clear();
       this.tsDataService.clearHistory();
       this.tfiDataService.clearHistory();
@@ -41,50 +41,11 @@ export class CheckInComponent {
     }
   }
 
-  isCredentialsValid() : boolean {
-    this.badPatientId = false;
-    this.badEmail = false;
-
-    let result = true;
-
-    // Check these individually so we can set the corresponding flags
-    // and still return the result.
-    if(!this.isPatientIdValid()) {
-      this.badPatientId = true;
-      result = false;
-    }
-
-    if(!this.isEmailValid()) {
-      this.badEmail = true;
-      result = false;
-    }
-
-    return result;
-  }
-
-  isEmailValid() : boolean {
-    let numAtSymbols : number = 0;
-
-    // Email is an optional field the user does not need
-    // to fill out. However, should they choose to do so, it
-    // should follow a proper format.
-    if(this.email.length === 0)
-      return true;
-
-    // Credit for this here: https://tylermcginnis.com/validate-email-address-javascript/
-    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(this.email);
-  }
-
-  isPatientIdValid() : boolean {
-    return /^\d+$/.test(this.patientId);
-  }
-  
   /**
    * This function is called when the "enter" key on the keyboard is pressed.
    * If the key has the value of 13, then this function will call the "onClick" function from above.
    * @param event the event caught by the action.
-  */
+   */
   public keyDownFunction(event) {
     if (event.keyCode === 13) {
       this.onClick();
@@ -94,5 +55,45 @@ export class CheckInComponent {
       this.badPatientId = false;
       this.badEmail = false;
     }
+  }
+
+  private isCredentialsValid(): boolean {
+    this.badPatientId = false;
+    this.badEmail = false;
+
+    let result = true;
+
+    // Check these individually so we can set the corresponding flags
+    // and still return the result.
+    if (!this.isPatientIdValid()) {
+      this.badPatientId = true;
+      result = false;
+    }
+
+    if (!this.isEmailValid()) {
+      this.badEmail = true;
+      result = false;
+    }
+
+    return result;
+  }
+
+  private isEmailValid(): boolean {
+    let numAtSymbols: number = 0;
+
+    // Email is an optional field the user does not need
+    // to fill out. However, should they choose to do so, it
+    // should follow a proper format.
+    if (this.email.length === 0) {
+      return true;
+    }
+
+    // Credit for this here: https://tylermcginnis.com/validate-email-address-javascript/
+    let re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(this.email);
+  }
+
+  private isPatientIdValid(): boolean {
+    return /^\d+$/.test(this.patientId);
   }
 }

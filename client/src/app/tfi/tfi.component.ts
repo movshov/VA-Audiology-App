@@ -14,10 +14,9 @@ import { Utilities } from '../common/utlilities';
 export class TfiComponent implements OnInit {
   public currentState: number = 0;
   private questions: TfiQuestionStrings = new TfiQuestionStrings();
-  private sections: TfiSectionStrings =  new TfiSectionStrings();
+  private sections: TfiSectionStrings = new TfiSectionStrings();
   private minmax: TfiMinMax = new TfiMinMax();
-  constructor(public router: Router,
-              private dataService: TfiDataService) { }
+  constructor(public router: Router, private dataService: TfiDataService) { }
 
   public ngOnInit() {
     if (Utilities.getSessionStorage('tfi-currentState')) {

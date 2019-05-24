@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PatientResponse } from '../../../api-objects/PatientResponse';
-import { Response } from '../../../api-objects/GenericResponse';
+import { PatientResponse } from '../../../../api-objects/PatientResponse';
+import { Response } from '../../../../api-objects/GenericResponse';
 import { MatDialog } from '@angular/material';
 import { AdminPatientListModalComponent } from './admin-patient-list-modal/admin-patient-list-modal.component';
 import { AdminPatientService } from '../services/admin-patient.service';
@@ -12,7 +12,7 @@ import { NotificationService } from '../services/notification.service';
   styleUrls: ['./admin-patients-list.component.css']
 })
 export class AdminPatientsListComponent implements OnInit {
-  public patients: Array<PatientResponse> = [];
+  public patients: PatientResponse[] = [];
   public currentPage: number = 0;
   public patientNotes: string = 'Patient Notes...';
   public selectedPat: number = -1;
@@ -33,7 +33,7 @@ export class AdminPatientsListComponent implements OnInit {
         // delete this patient and all of its appointments
         this.adminPatientService.deletePatient(patient.patientid).subscribe(
           (_) => {
-            this.notificationService.showSuccess("Patient Successfully Deleted");
+            this.notificationService.showSuccess('Patient Successfully Deleted');
             this.loadPatients();
           }
         );
@@ -55,8 +55,7 @@ export class AdminPatientsListComponent implements OnInit {
         this.patients.sort((a: PatientResponse, b: PatientResponse) => {
           return a.patientid - b.patientid;
         });
-      }
-    )
+      });
   }
 
   public changeSelectedPatient(notes: string, id: number) {

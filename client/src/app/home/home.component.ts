@@ -10,7 +10,7 @@ import { AppState } from '../app.service';
   selector: 'home',  // <home></home>
   providers: [
   ],
-  styleUrls: [ './home.component.css' ],
+  styleUrls: ['./home.component.css'],
   templateUrl: './home.component.html'
 })
 
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   public localState = { value: '' };
   constructor(
     public appState: AppState, private router: Router
-  ) {}
+  ) { }
 
   public ngOnInit() {
     console.log('hello `Home` component');

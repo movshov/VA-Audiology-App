@@ -8,27 +8,27 @@ import { stringify } from 'querystring';
 // Holds test results entered
 @Injectable()
 export class TestsDataService {
-  public data: Array <{name: string, value: string}> = [];
-  observableData: BehaviorSubject<{ name: string; value: string; }[]>;
+  public data: Array<{ name: string, value: string }> = [];
+  public observableData: BehaviorSubject<Array<{ name: string; value: string; }>>;
 
   constructor() {
-    this.observableData = new BehaviorSubject<{name: string, value: string}[]>(this.data);
+    this.observableData = new BehaviorSubject<Array<{ name: string, value: string }>>(this.data);
   }
 
   public onInit() {
-    if(JSON.parse(Utilities.getSessionStorage('tests-data'))) {
+    if (JSON.parse(Utilities.getSessionStorage('tests-data'))) {
       this.data = JSON.parse(Utilities.getSessionStorage('tests-data'));
     }
   }
 
   public saveData(name: string, value: string): void {
-    if(this.data.length > 0) {
+    if (this.data.length > 0) {
       let index: number = this.data.findIndex((x) => x.name === name);
-      if(index !== -1) {
+      if (index !== -1) {
         this.data.splice(index, 1);
       }
     }
-    this.data.push({name, value});
+    this.data.push({ name, value });
     this.updateSessionStorage();
     this.observableData.next(this.data);
   }

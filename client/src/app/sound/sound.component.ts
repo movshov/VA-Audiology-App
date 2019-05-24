@@ -9,15 +9,14 @@ import { AppState } from '../app.service';
 })
 export class SoundComponent implements OnInit {
 
-    public localState = { value: '' };
-    constructor(public appState: AppState, private router: Router) { }
+  public localState = { value: '' };
+  constructor(public appState: AppState, private router: Router) { }
 
-
-  ngOnInit() {
+  public ngOnInit() {
   }
 
   public patientOnClick() {
-      this.router.navigateByUrl('/landing');
-      console.log('go to landing page');
+    this.router.navigateByUrl('/landing');
+    console.log('go to landing page');
   }
 }

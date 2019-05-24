@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Utilities } from '../common/utlilities';
 import { CustomerSearchService } from './customer-search.service';
-import { Appointment } from '../../../api-objects/Appointment';
+import { Appointment } from '../../../../api-objects/Appointment';
 
 @Component({
     selector: 'customer-search',
@@ -9,15 +9,13 @@ import { Appointment } from '../../../api-objects/Appointment';
     styleUrls: ['./customer-search.component.css']
 })
 export class CustomerSearchComponent implements OnInit {
-  @Output() public appointment = new EventEmitter<Object>();
+    @Output() public appointment = new EventEmitter<Object>();
     public idSearch: string;
     public searchBtn: boolean = true; // Search button is disabled while querying DB
     public invalidID: boolean = false;
     public resultsTable: Appointment[] = [];
 
     public currentPage: number = 0;
-
-
 
     constructor(
         private customerSearchService: CustomerSearchService) { }

@@ -1,9 +1,9 @@
 import { Router } from '@angular/router';
-import { ViewChild, Component, ViewEncapsulation } from '@angular/core';
+import { ViewChild, Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { AudiologistSummaryComponent, tfiNames } from '../audiologist-summary/audiologist-summary.component';
 import { Utilities } from '../common/utlilities';
 import { State, StatesEnum, TabsEnum } from './navigation-aids';
-import { Appointment } from 'api-objects/Appointment';
+import { Appointment } from '../../../../api-objects/Appointment';
 import { parse } from 'json2csv';
 import { CustomerSearchService } from '../customer-search/customer-search.service';
 import { NotesComponent } from '../notes/notes.component';
@@ -19,7 +19,7 @@ import { NotesComponent } from '../notes/notes.component';
  * Either to show the sidebar or to hide the sidebar.
  * active: boolean is a local variable will be switch between true and false to trigger the function.
  */
-export class AudiologistNavigationComponent {
+export class AudiologistNavigationComponent implements OnInit {
   get TabsEnum() { return TabsEnum; }
   public patientID: string = Utilities.getSessionStorage('patient-id');
   public active: boolean = true;
@@ -27,7 +27,6 @@ export class AudiologistNavigationComponent {
   public state: State = new State();
   @ViewChild(AudiologistSummaryComponent) private summaryComponent: AudiologistSummaryComponent;
   @ViewChild(NotesComponent) private notesComponent: NotesComponent;
-  
 
   constructor(private router: Router, private customerSearchService: CustomerSearchService) {
   }
@@ -39,7 +38,7 @@ export class AudiologistNavigationComponent {
       this.state.determineState(true, false);
     }
     if (this.patientID) {
-      this.notesComponent.loadNotes(parseInt(this.patientID));
+      this.notesComponent.loadNotes(parseInt(this.patientID, 10));
     }
   }
 
@@ -55,7 +54,7 @@ export class AudiologistNavigationComponent {
 
   public submitSurvey() {
     if (this.summaryComponent != null) {
-      this.notesComponent.submitNote(parseInt(this.patientID));
+      this.notesComponent.submitNote(parseInt(this.patientID, 10));
       this.summaryComponent.submitSurvey();
     }
   }

@@ -1,4 +1,4 @@
-import { Component, transition } from '@angular/core';
+import { Component, transition, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Utilities } from '../common/utlilities';
@@ -13,7 +13,7 @@ import { ServerAuthenticationService } from '../services/server-authentication.s
   templateUrl: './audiologist-login.component.html',
 })
 
-export class AudiologistLoginComponent {
+export class AudiologistLoginComponent implements OnInit {
   // Added audiologistUserName & changed (patientId --> audiologistID)
   public audiologistUserName: string = '';
   public audiologistPassword: string = '';
@@ -44,7 +44,7 @@ export class AudiologistLoginComponent {
     this.serverAuthenticationService.login(this.audiologistUserName, this.audiologistPassword).subscribe((response) => {
       this.router.navigateByUrl(this.nextURL);
     },
-      error => {
+      (error) => {
         this.authenticationFlag = false;
         this.audiologistPassword = '';
       });

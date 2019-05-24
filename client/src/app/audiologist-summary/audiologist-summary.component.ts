@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Utilities } from '../common/utlilities';
 import { ThsDataService } from '../services/ths-data.service';
 import { TsScreenerDataService } from '../services/ts-screener-data.service';
@@ -7,7 +7,7 @@ import { TsScreenerAnswerStrings, ThsAnswerStrings } from '../common/custom-reso
 import { TestsDataService } from '../services/tests-data.service';
 import { Subscription } from 'rxjs/Subscription';
 import { SurveySubmitHandler } from '../services/api-survey.submit.service';
-import { Appointment } from '../../../api-objects/Appointment';
+import { Appointment } from '../../../../api-objects/Appointment';
 
 export const tfiNames: string[] = ['overallTFI', 'intrusive', 'sense', 'cognitive', 'sleep', 'auditory', 'relaxation', 'quality', 'emotional'];
 const testRadioNames: string[] = ['audiogramType', 'leftHighSev', 'leftLowSev', 'rightHighSev', 'rightLowSev', 'otoscopyType', 'tympanometryType'];
@@ -37,8 +37,8 @@ export class AudiologistSummaryComponent implements OnInit {
    * @param testsDataService the data service for the test results
    */
   constructor(public thsDataService: ThsDataService, public tsDataService: TsScreenerDataService, public tfiDataService: TfiDataService,
-    public testsDataService: TestsDataService,
-    private surveySubmitHandler: SurveySubmitHandler) {
+              public testsDataService: TestsDataService,
+              private surveySubmitHandler: SurveySubmitHandler) {
     this.tsDataService.onInit();
     this.setTS();
     this.thsDataService.onInit();
@@ -50,7 +50,7 @@ export class AudiologistSummaryComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.subscription = this.testsDataService.observableData.subscribe(data => this.updateTestResults(data));
+    this.subscription = this.testsDataService.observableData.subscribe((data) => this.updateTestResults(data));
   }
 
   public submitSurvey() {
@@ -59,9 +59,26 @@ export class AudiologistSummaryComponent implements OnInit {
     try {
       surveySubmitHandler.submitSurvey(this.thsScoreVars, this.tfiVars, this.ts);
       alert('Survey submitted!');
-    }  catch(e) {
+    } catch (e) {
       alert(e);
     }
+  }
+
+  public loadAppointment(app: Appointment) {
+    let appointment = new Appointment(app);
+    this.patientID = appointment.patientid.toString();
+    this.ts = appointment.ts_type;
+    this.tfiVars = appointment.createTfiMap();
+    this.testRadioVars = appointment.testSeverityVars();
+    this.testCheckBoxVars = appointment.testConfigVars();
+
+    let ans: string[] = [
+      ThsAnswerStrings.NO, ThsAnswerStrings.SMALL_YES, ThsAnswerStrings.MODERATE_YES, ThsAnswerStrings.BIG_YES, ThsAnswerStrings.VERY_BIG_YES
+    ];
+    this.thsTxtVars.set('thsCtxt', ans[appointment.ths_sectionc]);
+    this.thsTxtVars.set('thsCex', appointment.ths_sectionc > 0 ? appointment.ths_sectionc_example : '');
+
+    this.thsScoreVars = appointment.createThsScoreMap();
   }
 
   //////////////
@@ -121,8 +138,8 @@ export class AudiologistSummaryComponent implements OnInit {
     let answers = this.tfiDataService.dataRecord;
     // Calculate overall TFI score
     let overall = 0;
-    for (let i = 0; i < answers.length; i++) {
-      overall += answers[i].choice;
+    for (const answer of answers) {
+      overall += answer.choice;
     }
     overall /= 25;
     overall *= 10;
@@ -131,14 +148,14 @@ export class AudiologistSummaryComponent implements OnInit {
     // Calculate subscores
     let start = 0;
     let length;
-    for(let i = 1; i < 9; i++) {
+    for (let i = 1; i < 9; i++) {
       length = (7 === i) ? 4 : 3;
       this.tfiVars.set(tfiNames[i], this.calcTFIsub(answers, start, length));
       start += length;
     }
   }
 
-  private sumTHS(array: { state: any; choice: any; }[], start: number, length: number): number {
+  private sumTHS(array: Array<{ state: any; choice: any; }>, start: number, length: number): number {
     let sum: number = 0;
     let end = start + length;
     for (let i = start; i < end; i++) {
@@ -147,18 +164,18 @@ export class AudiologistSummaryComponent implements OnInit {
     return sum;
   }
   private getTHSvalue(element: { state: number; choice: string; }): number {
-    let ans: Array<string> = [
+    let ans: string[] = [
       ThsAnswerStrings.NO, ThsAnswerStrings.SMALL_YES, ThsAnswerStrings.MODERATE_YES, ThsAnswerStrings.BIG_YES, ThsAnswerStrings.VERY_BIG_YES
     ];
     return ans.indexOf(element.choice);
   }
-  private calcTFIsub(array: { state: number; choice: number; }[], start: number, length: number): number {
+  private calcTFIsub(array: Array<{ state: number; choice: number; }>, start: number, length: number): number {
     let score: number = 0;
     if (array.length < 1) {
       return;
     }
     for (let i = start; i < start + length; i++) {
-      score += array[i].choice
+      score += array[i].choice;
     }
     score /= length;
     score *= 10;
@@ -171,14 +188,14 @@ export class AudiologistSummaryComponent implements OnInit {
     }
     for (let dat in data) {
       if (data.hasOwnProperty(dat)) {
-        if(testRadioNames.indexOf(data[dat].name) > -1) {
+        if (testRadioNames.indexOf(data[dat].name) > -1) {
           this.testRadioVars.set(data[dat].name, data[dat].value);
         }
       }
     }
 
-    for(let box in testCheckBoxNames) {
-      if(testCheckBoxNames.hasOwnProperty(box)) {
+    for (let box in testCheckBoxNames) {
+      if (testCheckBoxNames.hasOwnProperty(box)) {
         this.testCheckBoxVars.set(testCheckBoxNames[box], this.createConfigList(testCheckBoxNames[box], data));
       }
     }
@@ -198,30 +215,12 @@ export class AudiologistSummaryComponent implements OnInit {
       'Corner'
     ];
     let list: string = '';
-    configurations.forEach(config => {
-      if (data.some(x => (x.name === (prefix + config)) && (x.value === 'true'))) {
+    configurations.forEach((config) => {
+      if (data.some((x) => (x.name === (prefix + config)) && (x.value === 'true'))) {
         list += config + ', ';
       }
     });
     list = list.slice(0, -2);
     return list;
   }
-
-  public loadAppointment(app: Appointment) {
-    let appointment = new Appointment(app);
-    this.patientID = appointment.patientid.toString();
-    this.ts = appointment.ts_type;
-    this.tfiVars = appointment.createTfiMap();
-    this.testRadioVars = appointment.testSeverityVars();
-    this.testCheckBoxVars = appointment.testConfigVars();
-
-    let ans: Array<string> = [
-      ThsAnswerStrings.NO, ThsAnswerStrings.SMALL_YES, ThsAnswerStrings.MODERATE_YES, ThsAnswerStrings.BIG_YES, ThsAnswerStrings.VERY_BIG_YES
-    ];
-    this.thsTxtVars.set('thsCtxt', ans[appointment.ths_sectionc]);
-    this.thsTxtVars.set('thsCex', appointment.ths_sectionc > 0 ? appointment.ths_sectionc_example : '');
-
-    this.thsScoreVars = appointment.createThsScoreMap();
-  }
-
 }

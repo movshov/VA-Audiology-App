@@ -11,7 +11,7 @@ export class AudiogramTypeStrings {
 
 export class AudiogramSeverityStrings {
   public normal: string = 'Normal';
-  public moderate: string  = 'Moderate';
+  public moderate: string = 'Moderate';
   public moderateToSevere: string = 'Moderate/Severe';
   public severe: string = 'Severe';
   public profound: string = 'Profound';
