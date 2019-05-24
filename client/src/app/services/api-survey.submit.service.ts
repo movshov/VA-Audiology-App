@@ -1,55 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Utilities } from '../common/utlilities';
+import { ServerApiService } from './server-api.service';
+import { AppointmentSubmission, PatientSurveyJSON, PatientJSON } from '../../../../api-objects/AppointmentSubmission'
 
-class PatientJSON {
-  public patienID: string = '';
-  public isDeceased: boolean = false;
-}
 
-class PatientSurveyJSON {
-  public otoscopy: string = '';
-  public typanometry: string = '';
-
-  public rightEarLowFreqSeverity: string = '';
-  public rightEarLowFreqConfiguration: string = '';
-  public rightEarHighFreqSeverity: string = '';
-  public rightEarHighFreqConfiguration: string = '';
-
-  public leftEarLowFreqSeverity: string = '';
-  public leftEarLowFreqConfiguration: string = '';
-  public leftEarHighFreqSeverity: string = '';
-  public leftEarHighFreqConfiguration: string = '';
-
-  public audiogram: string = '';
-
-  public thsSectionATotal: number = 0;
-  public thsSectionBTotal: number = 0;
-  public thsSectionCSeverity: number = 0;
-
-  public tfiI: number = 0;
-  public tfiSc: number = 0;
-  public tfiC: number = 0;
-  public tfiSi: number = 0;
-  public tfiA: number = 0;
-  public tfiR: number = 0;
-  public tfiQ: number = 0;
-  public tfiE: number = 0;
-
-  public tfiOverallScore: number = 0;
-
-  public tsTinnitusType: string = '';
-}
-
-class SurveyInstanceJSON {
-  public patientSurvey: PatientSurveyJSON;
-  public patient: PatientJSON;
-}
 
 @Injectable()
 export class SurveySubmitHandler {
+
+  constructor(private serverApiService: ServerApiService) { }
+
   // Note that anything passed in here is data that is not
   // accessible via session storage.
-  public submitSurvey(thsScoreVars: Map<string, number>, tfiVars: Map<string, number>, tsType: string) {
+  public submitSurvey(thsScoreVars: Map<string, number>, thsTextVars: Map<string, string>, tfiVars: Map<string, number>, tsType: string) {
     if (thsScoreVars == null) {
       throw new Error('No THS Score Data');
     }
@@ -61,8 +24,8 @@ export class SurveySubmitHandler {
     let testDataString = Utilities.getSessionStorage('tests-data');
     let testData = JSON.parse(testDataString);
 
-    let result = new SurveyInstanceJSON();
-    result.patientSurvey = this.buildPatientSurveyJSON(testData, thsScoreVars, tfiVars, tsType);
+    let result = new AppointmentSubmission();
+    result.patientSurvey = this.buildPatientSurveyJSON(testData, thsScoreVars, thsTextVars, tfiVars, tsType);
     result.patient = this.buildPatientJSON();
 
     if (result.patientSurvey === null) {
@@ -72,11 +35,10 @@ export class SurveySubmitHandler {
     if (result.patient === null) {
       throw new Error('No patient data');
     }
-
-    console.log(JSON.stringify(result));
+    return this.serverApiService.post<string>('appointments', result);
   }
 
-  private buildPatientSurveyJSON(testData, thsScoreVars: Map<string, number>, tfiVars: Map<string, number>, tsType: string): PatientSurveyJSON {
+  private buildPatientSurveyJSON(testData, thsScoreVars: Map<string, number>, thsTextVars: Map<string, string>, tfiVars: Map<string, number>, tsType: string): PatientSurveyJSON {
     if (thsScoreVars === null || tsType === null || tsType === '') {
       return null;
     }
@@ -98,6 +60,7 @@ export class SurveySubmitHandler {
     result.thsSectionATotal = thsScoreVars.get('thsA');
     result.thsSectionBTotal = thsScoreVars.get('thsB');
     result.thsSectionCSeverity = thsScoreVars.get('thsC');
+    result.ths_sectionc_example = thsTextVars.get('thsCex');
 
     return result;
   }
@@ -107,10 +70,10 @@ export class SurveySubmitHandler {
       return false;
     }
 
-    storeIn.audiogram = this.getPropertyValue(testData, 'audiogramType');
+    storeIn.audiogramtype = this.getPropertyValue(testData, 'audiogramType');
 
-    storeIn.otoscopy = this.getPropertyValue(testData, 'otoscopyType');
-    storeIn.typanometry = this.getPropertyValue(testData, 'tympanometryType');
+    storeIn.otoscopytype = this.getPropertyValue(testData, 'otoscopyType');
+    storeIn.tympanometrytype = this.getPropertyValue(testData, 'tympanometryType');
 
     storeIn.rightEarHighFreqSeverity = this.getPropertyValue(testData, 'rightHighSev');
     storeIn.rightEarLowFreqSeverity = this.getPropertyValue(testData, 'rightLowSev');
@@ -133,7 +96,7 @@ export class SurveySubmitHandler {
     }
 
     let result = new PatientJSON();
-    result.patienID = patientID;
+    result.patientId = patientID;
 
     return result;
   }

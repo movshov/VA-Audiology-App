@@ -9,7 +9,7 @@ export default handler(async (request: any) => {
         if (request.query.id === undefined) {
             results = await connection.query('SELECT * FROM selectall');
         } else {
-            results = await connection.query('SELECT * FROM selectall WHERE selectall.appointmentid = $1', [request.query.id]);
+            results = await connection.query('SELECT * FROM selectall WHERE selectall.patientid = $1', [request.query.id]);
         }
         return results.rows;
     });

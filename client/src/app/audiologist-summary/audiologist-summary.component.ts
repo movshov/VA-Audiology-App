@@ -37,8 +37,8 @@ export class AudiologistSummaryComponent implements OnInit {
    * @param testsDataService the data service for the test results
    */
   constructor(public thsDataService: ThsDataService, public tsDataService: TsScreenerDataService, public tfiDataService: TfiDataService,
-              public testsDataService: TestsDataService,
-              private surveySubmitHandler: SurveySubmitHandler) {
+    public testsDataService: TestsDataService,
+    private surveySubmitHandler: SurveySubmitHandler) {
     this.tsDataService.onInit();
     this.setTS();
     this.thsDataService.onInit();
@@ -54,31 +54,7 @@ export class AudiologistSummaryComponent implements OnInit {
   }
 
   public submitSurvey() {
-    let surveySubmitHandler = new SurveySubmitHandler();
-
-    try {
-      surveySubmitHandler.submitSurvey(this.thsScoreVars, this.tfiVars, this.ts);
-      alert('Survey submitted!');
-    } catch (e) {
-      alert(e);
-    }
-  }
-
-  public loadAppointment(app: Appointment) {
-    let appointment = new Appointment(app);
-    this.patientID = appointment.patientid.toString();
-    this.ts = appointment.ts_type;
-    this.tfiVars = appointment.createTfiMap();
-    this.testRadioVars = appointment.testSeverityVars();
-    this.testCheckBoxVars = appointment.testConfigVars();
-
-    let ans: string[] = [
-      ThsAnswerStrings.NO, ThsAnswerStrings.SMALL_YES, ThsAnswerStrings.MODERATE_YES, ThsAnswerStrings.BIG_YES, ThsAnswerStrings.VERY_BIG_YES
-    ];
-    this.thsTxtVars.set('thsCtxt', ans[appointment.ths_sectionc]);
-    this.thsTxtVars.set('thsCex', appointment.ths_sectionc > 0 ? appointment.ths_sectionc_example : '');
-
-    this.thsScoreVars = appointment.createThsScoreMap();
+    return this.surveySubmitHandler.submitSurvey(this.thsScoreVars, this.thsTxtVars, this.tfiVars, this.ts);
   }
 
   //////////////
@@ -223,4 +199,23 @@ export class AudiologistSummaryComponent implements OnInit {
     list = list.slice(0, -2);
     return list;
   }
+
+  public loadAppointment(app: Appointment) {
+    let appointment = new Appointment(app);
+    this.patientID = appointment.patientid.toString();
+    this.ts = appointment.ts_type;
+    this.tfiVars = appointment.createTfiMap();
+    this.testRadioVars = appointment.testSeverityVars();
+    this.testCheckBoxVars = appointment.testConfigVars();
+
+
+    let ans: Array<string> = [
+      ThsAnswerStrings.NO, ThsAnswerStrings.SMALL_YES, ThsAnswerStrings.MODERATE_YES, ThsAnswerStrings.BIG_YES, ThsAnswerStrings.VERY_BIG_YES
+    ];
+    this.thsTxtVars.set('thsCtxt', ans[appointment.ths_sectionc]);
+    this.thsTxtVars.set('thsCex', appointment.ths_sectionc > 0 ? appointment.ths_sectionc_example : '');
+
+    this.thsScoreVars = appointment.createThsScoreMap();
+  }
+
 }
