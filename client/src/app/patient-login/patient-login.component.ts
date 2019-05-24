@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { TsScreenerDataService } from '../services/ts-screener-data.service';
 import { Router } from '@angular/router';
 import { Utilities } from '../common/utlilities';
-import { PatientResponse } from '../../../api-objects/patientResponse';
+import { PatientResponse } from '../../../../api-objects/patientResponse';
 import { AdminPatientService } from '../services/admin-patient.service';
-import { CreatePatientData } from '../../../api-objects/AdminPatient';
+import { CreatePatientData } from '../../../../api-objects/AdminPatient';
 import { NotificationService } from '../services/notification.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { NotificationService } from '../services/notification.service';
   styleUrls: ['./patient-login.component.css']
 })
 export class PatientLoginComponent implements OnInit {
-  public patients: Array<PatientResponse> = [];
+  public patients: PatientResponse[] = [];
   public newPatientData: CreatePatientData = new CreatePatientData();
 
   public currentPage: number = 0;
@@ -44,12 +44,27 @@ export class PatientLoginComponent implements OnInit {
         this.notificationService.showSuccess('Patient ID: ' + response.data.patientid + ' was successfully create.');
         this.router.navigateByUrl(this.nextURL);
       }
-    )
+    );
   }
 
   public loadPatient(patient: PatientResponse) {
     Utilities.setSessionStorage('patient-id', patient.patientid.toString());
     this.router.navigateByUrl(this.nextURL);
+  }
+
+  // pagination functions
+  public prevPage(amt: number) {
+    while (this.currentPage > 0 && amt > 0) {
+      this.currentPage--;
+      amt--;
+    }
+  }
+
+  public nextPage(amt: number) {
+    while ((this.currentPage + 1) * 10 < this.patients.length && amt > 0) {
+      this.currentPage++;
+      amt--;
+    }
   }
 
   private loadPatients() {
@@ -65,20 +80,6 @@ export class PatientLoginComponent implements OnInit {
         });
       }
     );
-  }
-
-  // pagination functions
-  public prevPage(amt: number) {
-    while (this.currentPage > 0 && amt > 0) {
-      this.currentPage--;
-      amt--;
-    }
-  }
-  public nextPage(amt: number) {
-    while ((this.currentPage + 1) * 10 < this.patients.length && amt > 0) {
-      this.currentPage++;
-      amt--;
-    }
   }
 
 }

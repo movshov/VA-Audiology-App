@@ -8,7 +8,7 @@ import { Utilities } from '../common/utlilities';
 export class TsScreenerStateflowService {
   private answerStrings: TsScreenerAnswerStrings = new TsScreenerAnswerStrings();
 
-  constructor(private dataService: TsScreenerDataService) {};
+  constructor(private dataService: TsScreenerDataService) { };
   public moveStateForward(state: number, choice: string): number {
     switch (state) {
       case 1:
@@ -51,11 +51,11 @@ export class TsScreenerStateflowService {
           return 7;
         }
       case 6:
-          this.dataService.saveData(7, choice);
-          return 7;
+        this.dataService.saveData(7, choice);
+        return 7;
       case 7:
-          let x: number = this.dataService.moveStateBackward(state);
-          return x;
+        let x: number = this.dataService.moveStateBackward(state);
+        return x;
       default:
         return 7;
     }

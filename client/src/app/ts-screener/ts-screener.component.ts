@@ -48,8 +48,7 @@ export class TsScreenerComponent implements OnInit {
   public questionStrings: TsScreenerQuestionStrings = new TsScreenerQuestionStrings();
   public answerStrings: TsScreenerAnswerStrings = new TsScreenerAnswerStrings();
 
-  constructor(private stateMachine: TsScreenerStateflowService,
-              public router: Router) {};
+  constructor(private stateMachine: TsScreenerStateflowService, public router: Router) { };
 
   public ngOnInit() {
     if (Utilities.getSessionStorage('ts-currentState')) {
@@ -83,9 +82,9 @@ export class TsScreenerComponent implements OnInit {
     this.updateSessionStorage();
 
     if (this.currentState === 7) {
-        let nextS: number = this.stateMachine.moveStateForward(this.currentState, choice);
-        this.currentState = nextS;
-        this.updateSessionStorage();
+      let nextS: number = this.stateMachine.moveStateForward(this.currentState, choice);
+      this.currentState = nextS;
+      this.updateSessionStorage();
 
       this.router.navigateByUrl('/ths');
     }

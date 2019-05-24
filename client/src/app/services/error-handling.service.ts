@@ -15,14 +15,14 @@ export class ErrorHandlingService {
     return (error: HttpErrorResponse): Observable<T> => {
       if ([400, 403, 409].includes(error.status)) {
         this.notificationService.showError(error.error.type + ': ' + error.error.message);
-      } else if (error.status == 401) {
-        if(this.router.url === '/aud-login') {
+      } else if (error.status === 401) {
+        if (this.router.url === '/aud-login') {
           this.notificationService.showError('Username or password is incorrect, please try again.');
         } else {
           this.popup.open(ReloginPopupComponent);
         }
-      }else if (error.status == 404) {
-        this.notificationService.showError("Server Not Found: Server was unable to find the requested endpoint: " + error.url);
+      } else if (error.status === 404) {
+        this.notificationService.showError('Server Not Found: Server was unable to find the requested endpoint: ' + error.url);
       } else {
         this.notificationService.showError('Unexpected Error: ' + error.message);
       }

@@ -18,7 +18,7 @@ import {
 } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule, MatSnackBarModule, MatDialogModule  } from '@angular/material';
+import { MatSliderModule, MatSnackBarModule, MatDialogModule } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -56,7 +56,7 @@ import { ThsStateflowService } from './services/ths-stateflow.service';
 import { ThsDataService } from './services/ths-data.service';
 import { ThsQuestionComponent } from './ths/ths-question/ths-question.component';
 
-import { RouterGuards }     from './services/router-guards.service';
+import { RouterGuards } from './services/router-guards.service';
 import { OtoscopyComponent } from './otoscopy/otoscopy.component';
 import { TympanometryComponent } from './tympanometry/tympanometry.component';
 import { AudiogramComponent } from './audiogram/audiogram.component';
@@ -76,7 +76,6 @@ import { NotesComponent } from './notes/notes.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { CustomerSearchComponent } from './customer-search/customer-search.component';
 import { CustomerSearchService } from './customer-search/customer-search.service';
-
 
 import { ServerApiService } from './services/server-api.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -115,7 +114,7 @@ type StoreType = {
  * `AppModule` is the main entry point into Angular4's bootstraping process
  */
 @NgModule({
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     HomeComponent,
@@ -153,7 +152,7 @@ type StoreType = {
     CurrentUsersComponent,
     ReloginPopupComponent,
     AdminPatientsListComponent,
-    AdminPatientListModalComponent
+    AdminPatientListModalComponent,
     PatientLoginComponent,
 
   ],
@@ -163,7 +162,7 @@ type StoreType = {
     MatInputModule,
     MatCheckboxModule,
     MatCardModule,
-    MatSnackBarModule ,
+    MatSnackBarModule,
 
   ],
   /**
@@ -177,7 +176,7 @@ type StoreType = {
     FormsModule,
     HttpModule,
     MatSliderModule,
-    MatSnackBarModule ,
+    MatSnackBarModule,
     MatRadioModule,
     MatInputModule,
     MatCheckboxModule,
@@ -222,7 +221,7 @@ export class AppModule {
   constructor(
     public appRef: ApplicationRef,
     public appState: AppState
-  ) {}
+  ) { }
 
   public hmrOnInit(store: StoreType) {
     if (!store || !store.state) {
@@ -260,7 +259,7 @@ export class AppModule {
     /**
      * Save input values
      */
-    store.restoreInputValues  = createInputTransfer();
+    store.restoreInputValues = createInputTransfer();
     /**
      * Remove styles
      */

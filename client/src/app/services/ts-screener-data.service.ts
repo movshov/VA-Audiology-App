@@ -5,9 +5,9 @@ import { Utilities } from '../common/utlilities';
 @Injectable()
 export class TsScreenerDataService {
   public history: number[] = [1];
-  public dataRecord: Array<{state, choice}> = [];
+  public dataRecord: Array<{ state, choice }> = [];
 
-  constructor() {}
+  constructor() { }
 
   public onInit() {
     if (JSON.parse(Utilities.getSessionStorage('ts-dataRecord'))) {
@@ -30,7 +30,7 @@ export class TsScreenerDataService {
       this.dataRecord.splice(index, 1);
     }
 
-    this.dataRecord.push({state: initialState, choice: selection});
+    this.dataRecord.push({ state: initialState, choice: selection });
     this.history.push(state);
 
     this.updateSessionStorage();
@@ -45,7 +45,7 @@ export class TsScreenerDataService {
     // If a record entry for the current state exists then remove.
     let index: number = this.dataRecord.findIndex((x) => x.state === currentState);
     if (index !== -1) {
-      //this.dataRecord.splice(index, 1);
+      // this.dataRecord.splice(index, 1);
     }
 
     this.history.pop();

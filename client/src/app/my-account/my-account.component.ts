@@ -12,8 +12,7 @@ export class MyAccountComponent implements OnInit {
   public passFields: { oldPassField: string, newPassField: string, verifyPassField: string };
   public submitDisabled: boolean = false;
 
-
-  //TODO: !!!!! REMOVE THIS WHEN CONNECTS TO DB!!!!!//
+  // TODO: !!!!! REMOVE THIS WHEN CONNECTS TO DB!!!!!//
   private pword: string = 'Passw0rd!';
   /////////////////////////////////////////////
 
@@ -22,7 +21,7 @@ export class MyAccountComponent implements OnInit {
     this.messages = { color: this.colors.red, display: false, message: '' };
     this.passColors = { oldPass: this.colors.blue, newPass: this.colors.blue, verifyPass: this.colors.blue };
     this.passFields = { oldPassField: '', newPassField: '', verifyPassField: '' };
-   }
+  }
 
   public ngOnInit() {
   }
@@ -35,9 +34,13 @@ export class MyAccountComponent implements OnInit {
     this.verifyPassChange();
   }
   public verifyPassChange(): void {
-    if (this.passFields.verifyPassField === '' && this.passFields.newPassField === '') { this.passColors.verifyPass = this.colors.blue; }
-    else if (this.passFields.verifyPassField === this.passFields.newPassField) { this.passColors.verifyPass = this.colors.green; }
-    else { this.passColors.verifyPass = this.colors.red; }
+    if (this.passFields.verifyPassField === '' && this.passFields.newPassField === '') {
+      this.passColors.verifyPass = this.colors.blue;
+    } else if (this.passFields.verifyPassField === this.passFields.newPassField) {
+      this.passColors.verifyPass = this.colors.green;
+    } else {
+      this.passColors.verifyPass = this.colors.red;
+    }
   }
   public onSubmit(): void {
     this.submitDisabled = true;
@@ -49,7 +52,7 @@ export class MyAccountComponent implements OnInit {
     } else if (this.passFields.newPassField === '') {
       this.messages.message = 'You Must Enter A New Password!';
     } else if (this.passFields.newPassField.length > 72) {
-      this.messages.message = 'Maximum Password Length of 72 Characters!'
+      this.messages.message = 'Maximum Password Length of 72 Characters!';
     } else if (this.passColors.newPass === this.colors.red) {
       this.messages.message = 'Choose A Stronger Password!';
     } else if (this.passFields.verifyPassField !== this.passFields.newPassField) {
@@ -90,13 +93,13 @@ export class MyAccountComponent implements OnInit {
     return this.colors.green;
   }
   private sixUnique(): boolean {
-    let array: Array<number> = [];
-    for(let char of this.passFields.newPassField) {
+    let array: number[] = [];
+    for (let char of this.passFields.newPassField) {
       array[char] = 1 + (array[char] || 0);
     }
     let unique = 0;
-    for(let num in array) {
-      if(array[num] === 1) {
+    for (let num in array) {
+      if (array[num] === 1) {
         unique++;
       }
     }

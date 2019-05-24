@@ -4,7 +4,7 @@ import { Utilities } from '../common/utlilities';
 // Holds the completed question numbers and their respective answers
 @Injectable()
 export class TfiDataService {
-  public dataRecord: Array <{state: number, choice: number}> = [];
+  public dataRecord: Array<{ state: number, choice: number }> = [];
   constructor() { }
   // Push the question number and answer onto the stack
 
@@ -22,7 +22,7 @@ export class TfiDataService {
         this.dataRecord.splice(index, 1);
       }
     }
-    this.dataRecord.push({state, choice});
+    this.dataRecord.push({ state, choice });
 
     this.updateSessionStorage();
     console.log(this.dataRecord);

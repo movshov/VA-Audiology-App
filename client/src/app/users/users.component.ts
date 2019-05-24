@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersObject, CreateUserRequest, authorityTypes } from '../../../api-objects/UsersObject';
+import { UsersObject, CreateUserRequest, authorityTypes } from '../../../../api-objects/UsersObject';
+import { Response } from '../../../../api-objects/GenericResponse';
+import { AccountCreateResponse } from '../../../../api-objects/accountCreateResponse';
 import { ApiUsersCrudService } from '../services/api-users-crud.service';
 
 @Component({
@@ -11,7 +13,7 @@ import { ApiUsersCrudService } from '../services/api-users-crud.service';
 export class UsersComponent implements OnInit {
 
   public username: string = '';
-  public userPassword: string = ''; 
+  public userPassword: string = '';
   public adminPassword: string = '';
   public authorityType: number;
   public userEmail: string = '';
@@ -33,25 +35,6 @@ export class UsersComponent implements OnInit {
    * to let them know the username is not available if the usernameTaken is set true.
    *  @Param UserRequest Object of type UsersObject which has fields {username,name,email,authorityType}
    */
-  
-  private userCreateRequest(userRequest: CreateUserRequest): void {
-    this.userService.createUser(userRequest).subscribe((result : Response<AccountCreateResponse>) => {
-      this.userPassword = result.data.password;
-      this.usernameTaken = false;
-      this.showUserInfo = true;
-    },(error) =>{
-       if (error.status === 409) {
-        this.usernameTaken = true;
-        console.log('Username not Available');
-       } else if (error.status === 400) {
-        this.usernameTaken = false;
-        console.log('Your password does not match');
-       } else {
-        this.usernameTaken = false;
-        console.log('Server Error Occurred please try again later!');
-      }
-    });
-  }
 
   /**
    * Does a regular expression to check whether the email has correct formatting
@@ -75,7 +58,7 @@ export class UsersComponent implements OnInit {
    */
   public createUser(): void {
 
-    if ( this.isInputValid(this.userEmail) && this.name !== '' && this.username !== '' && (this.authorityType === 0 || this.authorityType === 1)) {
+    if (this.isInputValid(this.userEmail) && this.name !== '' && this.username !== '' && (this.authorityType === 0 || this.authorityType === 1)) {
 
       this.validEmail = true;
       // Create new user object
@@ -86,12 +69,31 @@ export class UsersComponent implements OnInit {
         this.authorityType);
 
       this.userCreateRequest(new CreateUserRequest(userRequest, this.adminPassword));
-    } else if ( !this.isInputValid(this.userEmail)) {
+    } else if (!this.isInputValid(this.userEmail)) {
       this.validEmail = false;
       this.showUserInfo = false;
     } else {
       this.showUserInfo = false;
-      console.log('A reqired parameter is missing'); //TODO actually display this
+      console.log('A reqired parameter is missing'); // TODO actually display this
     }
+  }
+
+  private userCreateRequest(userRequest: CreateUserRequest): void {
+    this.userService.createUser(userRequest).subscribe((result: Response<AccountCreateResponse>) => {
+      this.userPassword = result.data.password;
+      this.usernameTaken = false;
+      this.showUserInfo = true;
+    }, (error) => {
+      if (error.status === 409) {
+        this.usernameTaken = true;
+        console.log('Username not Available');
+      } else if (error.status === 400) {
+        this.usernameTaken = false;
+        console.log('Your password does not match');
+      } else {
+        this.usernameTaken = false;
+        console.log('Server Error Occurred please try again later!');
+      }
+    });
   }
 }

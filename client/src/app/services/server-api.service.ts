@@ -2,7 +2,7 @@ import { Injectable, ErrorHandler } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Response } from '../../../api-objects/GenericResponse';
+import { Response } from '../../../../api-objects/GenericResponse';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Utilities } from '../common/utlilities';
@@ -18,7 +18,7 @@ export class ServerApiService {
   public get<T>(urlExtension: string, queryParams?: Map<string, string>): Observable<Response<T>> {
     return this.http.get<Response<T>>(baseUrl + urlExtension, this.createHeaders(queryParams)).pipe(
       catchError(this.errorHandler.handleServerError<Response<T>>())
-      );
+    );
   }
 
   public post<T>(urlExtension: string, body: any, queryParams?: Map<string, string>): Observable<Response<T>> {

@@ -14,7 +14,7 @@ export class AdminPatientListModalComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: AdminPatientListData) { }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
 }

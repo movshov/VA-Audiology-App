@@ -4,7 +4,7 @@ import { Utilities } from '../common/utlilities';
 @Injectable()
 export class ThsDataService {
   public history: number[] = [1];
-  public dataRecord: Array<{state, choice}> = [];
+  public dataRecord: Array<{ state, choice }> = [];
 
   public onInit() {
     console.log('INIT', sessionStorage);
@@ -20,15 +20,15 @@ export class ThsDataService {
   // Another array will be kept for the subtotals of points for each section
   public saveData(state: number, selection: string): void {
     let initialState = this.history[this.history.length - 1];
-    console.log("initialState: " + initialState);
+    console.log('initialState: ' + initialState);
 
     let index: number = this.dataRecord.findIndex((x) => x.state === initialState);
-    console.log("index: " + index);
+    console.log('index: ' + index);
     if (index !== -1) {
       this.dataRecord.splice(index, 1);
     }
 
-    this.dataRecord.push({state: initialState, choice: selection});
+    this.dataRecord.push({ state: initialState, choice: selection });
     this.history.push(state);
 
     this.updateSessionStorage();
@@ -47,7 +47,7 @@ export class ThsDataService {
 
     let index: number = this.dataRecord.findIndex((x) => x.state === currentState);
     if (index !== -1) {
-      //this.dataRecord.splice(index, 1);
+      // this.dataRecord.splice(index, 1);
     }
 
     this.history.pop();

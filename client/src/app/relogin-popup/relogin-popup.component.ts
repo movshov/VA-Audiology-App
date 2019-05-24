@@ -24,7 +24,7 @@ export class ReloginPopupComponent implements OnInit {
     private service: ReloginPopupService
     ) { }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
   private onLogout(): void {
@@ -57,7 +57,7 @@ export class ReloginPopupComponent implements OnInit {
       this.loginFail = false;
       this.diaglogRef.close();
     },
-      error => {
+      (error) => {
         this.loginFail = true;
         this.data.password = '';
         this.data.username = '';

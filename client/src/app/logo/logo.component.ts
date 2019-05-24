@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 import { Utilities } from '../common/utlilities';
 
 @Component({
-  selector: 'logo',
-  template: `
+    selector: 'logo',
+    template: `
       <div>
         <img  (click)="onClick()" class="logo {{this.view || ''}}" [src]="imgLink" alt="Logo"/>
       </div>
   `,
-  styleUrls: ['./logo.component.css']
+    styleUrls: ['./logo.component.css']
 })
 
 export class LogoComponent {
@@ -29,14 +29,13 @@ export class LogoComponent {
      * #2 indicating - the logo button is disabled, it stays on the current page.
      */
     public onClick() {
-      if (this.logoRouteOption === '1') {
-        Utilities.removeItemFromSessionStorage('audiologist-pin'); // this is for navigating away from audiologist page
-        this.router.navigateByUrl('/home');
-        console.log('back to home page.');
-      }
-      if (this.logoRouteOption === '2') {
-          console.log('stay put');
-      }
+        if (this.logoRouteOption === '1') {
+            Utilities.removeItemFromSessionStorage('audiologist-pin'); // this is for navigating away from audiologist page
+            this.router.navigateByUrl('/home');
+            console.log('back to home page.');
+        }
+        if (this.logoRouteOption === '2') {
+            console.log('stay put');
+        }
     }
-// tslint:disable-next-line:eofline
 }

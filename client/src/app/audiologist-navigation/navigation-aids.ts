@@ -1,5 +1,5 @@
 import { Utilities } from '../common/utlilities';
-import { authorityTypes, AuthorityEnum } from '../../../api-objects/UsersObject';
+import { authorityTypes, AuthorityEnum } from '../../../../api-objects/UsersObject';
 
 /*
     If you need to add a new option to the audiologist and/or admin:
@@ -52,9 +52,12 @@ export class State {
         fromDB: is that data from the database?
     */
     public determineState(loadedAppt: boolean, fromDB: boolean = false) {
-        if(loadedAppt) {
-            if(fromDB) { this.setupState(StatesEnum.LOADED_APPT); }
-            else { this.setupState(StatesEnum.FROM_QUEST); }
+        if (loadedAppt) {
+            if (fromDB) {
+                this.setupState(StatesEnum.LOADED_APPT);
+            } else {
+                this.setupState(StatesEnum.FROM_QUEST);
+            }
         } else {
             if (Utilities.getSessionStorage('permissions') === authorityTypes[AuthorityEnum.Audiologist]) {
                 this.setupState(StatesEnum.AUD_NO_DATA);
@@ -97,7 +100,7 @@ export class State {
                 this.tabAvailable.add(TabsEnum.CLOSE_BTN);
                 this.selectTab(TabsEnum.SUMMARY);
                 break;
-                default:
+            default:
                 throw new Error('No such state!');
         }
     }

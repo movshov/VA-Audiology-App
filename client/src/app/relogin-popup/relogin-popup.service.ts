@@ -2,11 +2,11 @@ import { Injectable, ErrorHandler } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Response } from '../../../api-objects/GenericResponse';
+import { Response } from '../../../../api-objects/GenericResponse';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Utilities } from '../common/utlilities';
-import { LoginSession } from '../../../api-objects/LoginSession';
-import { authorityTypes } from '../../../api-objects/UsersObject';
+import { LoginSession } from '../../../../api-objects/LoginSession';
+import { authorityTypes } from '../../../../api-objects/UsersObject';
 import baseUrl from '../common/base-url';
 
 @Injectable()
@@ -17,16 +17,16 @@ export class ReloginPopupService {
     // Using the server-authentication service causes a circular dependancy problem,
     // To solve, it along with some code from server-api service had to be duplicated here.
     public login(username: string, password: string): Observable<null> {
-        return this.post<LoginSession>('login', { 'username': username, 'password': password })
+        return this.post<LoginSession>('login', { username, password })
             .pipe(
-                tap((response) => {
+                tap((response: Response<LoginSession>) => {
 
                     Utilities.setSessionStorage('userId', response.data.user.toString());
                     Utilities.setSessionStorage('sessionId', response.data.session.toString());
                     console.log(authorityTypes[response.data.authorityType]);
                     Utilities.setSessionStorage('permissions', authorityTypes[response.data.authorityType]);
                 }),
-                map<Response<LoginSession>, null>(_ => null)
+                map<Response<LoginSession>, null>((_) => null)
             );
     }
 

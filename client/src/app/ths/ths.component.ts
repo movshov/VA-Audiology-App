@@ -35,8 +35,7 @@ export class ThsComponent implements OnInit {
 
   public questionStrings: ThsQuestionStrings = new ThsQuestionStrings();
 
-  constructor(private stateMachine: ThsStateflowService,
-              public router: Router) { };
+  constructor(private stateMachine: ThsStateflowService, public router: Router) { };
 
   public ngOnInit(): void {
     if (Utilities.getSessionStorage('ths-currentState')) {
@@ -58,16 +57,14 @@ export class ThsComponent implements OnInit {
 
     // Link up the two surveys with the back button
     if (!prevState) {
-        let tinscreenhistory = Utilities.getSessionStorage('ts-history');
-        let tinscreendata = Utilities.getSessionStorage('ts-dataRecord');
-        if (!tinscreendata || !tinscreenhistory) {
-            this.router.navigateByUrl('appointments');
-        }
-        else {
-            this.router.navigateByUrl('ts');
-        }
+      let tinscreenhistory = Utilities.getSessionStorage('ts-history');
+      let tinscreendata = Utilities.getSessionStorage('ts-dataRecord');
+      if (!tinscreendata || !tinscreenhistory) {
+        this.router.navigateByUrl('appointments');
+      } else {
+        this.router.navigateByUrl('ts');
+      }
     }
-
 
     if (prevState) {
       this.currentState = prevState;
@@ -85,7 +82,7 @@ export class ThsComponent implements OnInit {
     if (!choice) {
       return;
     }
-    
+
     let nextState: number = this.stateMachine.moveStateForward(this.currentState, choice);
 
     this.currentState = nextState;
@@ -94,14 +91,14 @@ export class ThsComponent implements OnInit {
     // if the no was not selected for Q1 on TS, routes to tfi like normal
     // If it was, then tfi is skipped
     if (this.currentState === 11) {
-        let nextComponent = Utilities.getSessionStorage('nextComponent'); // will be null if this doesn't exist (meaning it wasn't even set)
+      let nextComponent = Utilities.getSessionStorage('nextComponent'); // will be null if this doesn't exist (meaning it wasn't even set)
 
-        if (nextComponent === 'true') { // if it is finished
-            Utilities.removeItemFromSessionStorage('nextComponent'); // clears it right after use
-            this.router.navigateByUrl('/summary');
-        } else { // If it is not finished
-            this.router.navigateByUrl('/tfi');
-        }
+      if (nextComponent === 'true') { // if it is finished
+        Utilities.removeItemFromSessionStorage('nextComponent'); // clears it right after use
+        this.router.navigateByUrl('/summary');
+      } else { // If it is not finished
+        this.router.navigateByUrl('/tfi');
+      }
     }
   }
 
