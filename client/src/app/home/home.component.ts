@@ -36,4 +36,8 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/appointments');
     console.log('patient button to log in');
   }
+
+  public audioLoginClick() {
+    this.router.navigateByUrl('/aud-login');
+  }
 }
