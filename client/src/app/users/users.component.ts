@@ -3,7 +3,6 @@ import { UsersObject, CreateUserRequest, authorityTypes } from '../../../../api-
 import { Response } from '../../../../api-objects/GenericResponse';
 import { AccountCreateResponse } from '../../../../api-objects/accountCreateResponse';
 import { ApiUsersCrudService } from '../services/api-users-crud.service';
-import { AccountCreateResponse } from '../../../api-objects/accountCreateResponse';
 
 @Component({
   selector: 'users',
