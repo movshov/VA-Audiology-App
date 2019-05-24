@@ -18,7 +18,7 @@
         <td>{{user.authorityname}}</td>
         <td>{{user.authorityemail}}</td>
         <!-- <td>{{user.authorityType}}</td> -->
-        <td><button (click)="deleteUser(user)" class="deletebtn">Delete</button></td>
+        <!-- <td><button (click)="deleteUser(user)" class="deletebtn">Delete</button></td> -->
         <td>
           <form class="form-inline" #f="ngForm" (ngSubmit)="updateUser(f,user)">
             <input type="text" name="username" ngModel #username="ngModel" placeholder="Enter new Username..." required>

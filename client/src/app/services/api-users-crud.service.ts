@@ -32,7 +32,7 @@ export class ApiUsersCrudService {
 
   // Response data should be true if user was deleted
   public deleteUser(username: string): Observable<Response<boolean>> {
-    return this.serverApiService.delete<boolean>('accounts', new Map<string, string>([['username', username]]));
+    return this.serverApiService.delete<boolean>('accounts/' + username);
   }
 
   // Response data should be true if user was deleted
