@@ -59,6 +59,9 @@ export class MyAccountComponent implements OnInit {
           this.messages.message = 'Password Changed';
           warn = false;
           this.passColors.oldPass = this.colors.green;
+        }, () => {
+          this.passColors.oldPass = this.colors.red;
+          this.messages.message = 'Old Password Is Invalid!';
         });
     }
     this.animWarn(warn);
