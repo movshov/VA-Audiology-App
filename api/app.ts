@@ -7,11 +7,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import path from 'path';
 
 // Globals
 const app = express(); // Creates express app object
 const port = 3333;
 
+app.use(express.static(path.join(__dirname,'..', 'dist')));
 app.use(cors());
 app.use(bodyParser.json())
 app.use(
@@ -63,7 +65,7 @@ app.delete('/patient/:patientId', patientDelete);
 // -- CLIENT ENDPOINTS END --
 
 import indexEndpoint from './index';
-app.get('/', indexEndpoint);
+app.get('/*', indexEndpoint);
 
 // Set app to listen on a given port
 app.listen(port, () => {

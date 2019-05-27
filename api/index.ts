@@ -1,5 +1,5 @@
-import handler from './handler';
+import path from 'path';
 
-export default handler((request) => {
-  return 'Hello, world!';
-});
+export default (request, res) => {
+  res.sendFile('index.html', {root: path.join(__dirname,'..', 'dist')});
+}
