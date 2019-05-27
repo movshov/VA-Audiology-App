@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UsersObject, authorityTypes } from '../../../../api-objects/UsersObject';
+import { AdminPasswordConfirm } from '../admin-password-confirm/admin-password-confirm.component';
 import { ApiUsersCrudService } from '../services/api-users-crud.service';
 import { NotificationService } from '../services/notification.service';
+import { MatDialog } from '@angular/material';
 
 const PAGE_COUNT: number = 10;
 
@@ -17,7 +19,7 @@ export class CurrentUsersComponent implements OnInit {
   public pageCounter: number = 0;
   public authorityTypes = authorityTypes;
 
-  constructor(private apiUsersCrudService: ApiUsersCrudService, private notificationService: NotificationService) { }
+  constructor(private apiUsersCrudService: ApiUsersCrudService, private notificationService: NotificationService, private passwordDialog: MatDialog) { }
 
   public ngOnInit() {
     this.getAllUsers();
@@ -77,9 +79,14 @@ export class CurrentUsersComponent implements OnInit {
   }
 
   public resetPassword(user: UsersObject) {
-    this.apiUsersCrudService.resetPassword(user.username).subscribe(
-      (result) => {
-        this.notificationService.showSuccess('NEW PASSWORD FOR ' + user.username + ' IS: ' + result.data);
+    const passwordPopup = this.passwordDialog.open(AdminPasswordConfirm);
+    passwordPopup.afterClosed().subscribe(
+      (confirmedPassword) => {
+        this.apiUsersCrudService.resetPassword(user.username, confirmedPassword).subscribe(
+          (result) => {
+            this.notificationService.showSuccess('NEW PASSWORD FOR ' + user.username + ' IS: ' + result.data);
+          }
+        );
       }
     );
   }
