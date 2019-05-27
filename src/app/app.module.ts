@@ -151,7 +151,7 @@ type StoreType = {
     CurrentUsersComponent,
     ReloginPopupComponent,
     AdminPatientsListComponent,
-    AdminPatientListModalComponent
+    AdminPatientListModalComponent,
     PatientLoginComponent,
 
   ],
