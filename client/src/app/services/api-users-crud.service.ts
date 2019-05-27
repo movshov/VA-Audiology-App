@@ -26,8 +26,8 @@ export class ApiUsersCrudService {
   }
 
   // Response data should be the new generated password
-  public resetPassword(username: string): Observable<Response<string>> {
-    return this.serverApiService.post<string>('accounts/resetPassword', { username });
+  public resetPassword(username: string, adminPassword: string): Observable<Response<string>> {
+    return this.serverApiService.post<string>('accounts/resetPassword', { username, adminPassword });
   }
 
   // Response data should be true if user was deleted
