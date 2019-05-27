@@ -96,7 +96,6 @@ export class State {
             case StatesEnum.LOADED_APPT:
                 this.tabAvailable.add(TabsEnum.SUMMARY);
                 this.tabAvailable.add(TabsEnum.NOTES);
-                this.tabAvailable.add(TabsEnum.SUBMIT_BTN);
                 this.tabAvailable.add(TabsEnum.CLOSE_BTN);
                 this.selectTab(TabsEnum.SUMMARY);
                 break;
