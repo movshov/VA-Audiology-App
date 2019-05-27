@@ -1,16 +1,22 @@
 export enum AuthorityEnum { 
 	Audiologist, 
-	Statistician, 
 	Admin,
 }
 
-export const authorityTypes: Array<string> = ['Audiologist', 'Statistician', 'Admin'];
+export const authorityTypes: Array<string> = ['Audiologist', 'Admin'];
 
 export class UsersObject {
-	public username: string;
-	public name: string;
-	public email: string;
-	public password: string;
-	public authorityType: number;
+    constructor(
+        public username: string,
+        public name: string,
+        public email: string,
+        public authorityType: number,
+    ) {}
 }
 
+export class CreateUserRequest {
+    constructor(
+        public user: UsersObject,
+        public adminPassword: string,
+    ) {}
+}

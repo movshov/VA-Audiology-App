@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersObject, authorityTypes } from '../../../api-objects/UsersObject';
-// import APIUsersCrudService from '../services/api-users-crud.services';
+import { UsersObject, CreateUserRequest, authorityTypes } from '../../../api-objects/UsersObject';
+import { ApiUsersCrudService } from '../services/api-users-crud.service';
 
 @Component({
   selector: 'users',
@@ -11,7 +11,8 @@ import { UsersObject, authorityTypes } from '../../../api-objects/UsersObject';
 export class UsersComponent implements OnInit {
 
   public username: string = '';
-  public userPassword: string = 'htxliwq7ja'; // example temp password to be displayed to the user(Remove later)
+  public userPassword: string = ''; 
+  public adminPassword: string = '';
   public authorityType: number;
   public userEmail: string = '';
   public name: string = '';
@@ -19,9 +20,7 @@ export class UsersComponent implements OnInit {
   public showUserInfo: boolean = false;
   public validEmail: boolean = true;
 
-  // UNCOMMENT when Admin CRUD service is available
-  constructor(/*
-    private UserServices: APICrudService*/) { }
+  constructor(private userService: ApiUsersCrudService) { }
 
   public ngOnInit() {
   }
@@ -34,22 +33,25 @@ export class UsersComponent implements OnInit {
    * to let them know the username is not available if the usernameTaken is set true.
    *  @Param UserRequest Object of type UsersObject which has fields {username,name,email,authorityType}
    */
-  /*
-    private userCreateRequest(UserRequest: UsersObject): void {
-      this.UserServices.createUsers(UserRequest).subscribe((result)=> {
-        this.userPassword = result.password;
+  
+  private userCreateRequest(userRequest: CreateUserRequest): void {
+    this.userService.createUser(userRequest).subscribe((result : Response<AccountCreateResponse>) => {
+      this.userPassword = result.data.password;
+      this.usernameTaken = false;
+      this.showUserInfo = true;
+    },(error) =>{
+       if (error.status === 409) {
+        this.usernameTaken = true;
+        console.log('Username not Available');
+       } else if (error.status === 400) {
         this.usernameTaken = false;
-      },(error) =>{
-         if(error is instanceof duplicateInsertion) {
-          this.usernameTaken = true;
-          console.log('Username not Available');
-         if(error is instanceof APIError) {
-          this.usernameTaken = true;
-          console.log('Server Error Occurred please try again later!');
-        }
-      });
-    }
-    */
+        console.log('Your password does not match');
+       } else {
+        this.usernameTaken = false;
+        console.log('Server Error Occurred please try again later!');
+      }
+    });
+  }
 
   /**
    * Does a regular expression to check whether the email has correct formatting
@@ -77,33 +79,19 @@ export class UsersComponent implements OnInit {
 
       this.validEmail = true;
       // Create new user object
-      let UserRequest = new UsersObject(
+      let userRequest = new UsersObject(
         this.username,
         this.name,
         this.userEmail,
         this.authorityType);
 
-      // TODO: Uncomment once service is connected
-      // this.userCreateRequest(UserRequest);
-
-      // if(!this.usernameTaken) {
-      //   this.showUserInfo = true;
-      // } else {
-        // this.showUserInfo = false;
-      // }
-
-      // TODO: Remove once service is connected
-      this.showUserInfo = true;
-      this.usernameTaken = false;
-
+      this.userCreateRequest(new CreateUserRequest(userRequest, this.adminPassword));
     } else if ( !this.isInputValid(this.userEmail)) {
       this.validEmail = false;
       this.showUserInfo = false;
-      console.log('else if block');
     } else {
       this.showUserInfo = false;
-      this.usernameTaken = true; // TODO: Remove once service is connected
-      console.log('else block');
+      console.log('A reqired parameter is missing'); //TODO actually display this
     }
   }
 }

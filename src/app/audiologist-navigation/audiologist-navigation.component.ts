@@ -6,6 +6,7 @@ import { State, StatesEnum, TabsEnum } from './navigation-aids';
 import { Appointment } from 'api-objects/Appointment';
 import { parse } from 'json2csv';
 import { CustomerSearchService } from '../customer-search/customer-search.service';
+import { NotesComponent } from '../notes/notes.component';
 
 @Component({
   selector: 'audio-navigation',
@@ -25,6 +26,7 @@ export class AudiologistNavigationComponent {
   public scale: number = 0.55;
   public state: State = new State();
   @ViewChild(AudiologistSummaryComponent) private summaryComponent: AudiologistSummaryComponent;
+  @ViewChild(NotesComponent) private notesComponent: NotesComponent;
   
 
   constructor(private router: Router, private customerSearchService: CustomerSearchService) {
@@ -35,6 +37,9 @@ export class AudiologistNavigationComponent {
       this.state.determineState(false);
     } else {
       this.state.determineState(true, false);
+    }
+    if (this.patientID) {
+      this.notesComponent.loadNotes(parseInt(this.patientID));
     }
   }
 
@@ -50,6 +55,7 @@ export class AudiologistNavigationComponent {
 
   public submitSurvey() {
     if (this.summaryComponent != null) {
+      this.notesComponent.submitNote(parseInt(this.patientID));
       this.summaryComponent.submitSurvey();
     }
   }
@@ -63,7 +69,8 @@ export class AudiologistNavigationComponent {
       'ths-dataRecord',
       'ths-history',
       'ts-dataRecord',
-      'ts-history'
+      'ts-history',
+      'appt'
     ];
     sessionKeys.forEach((value) => {
       Utilities.removeItemFromSessionStorage(value);
@@ -82,9 +89,9 @@ export class AudiologistNavigationComponent {
 
   public onApptLoad(appt: Appointment) {
     this.patientID = appt.patientid.toString();
-    this.summaryComponent.patientID = appt.patientid.toString();
-    this.summaryComponent.ts = appt.ts_type;
-    // Load the rest of the summary...
+    Utilities.setSessionStorage('patient-id', appt.patientid.toString());
+    this.notesComponent.loadNotes(appt.patientid);
+    this.summaryComponent.loadAppointment(appt);
     this.state.determineState(true, true);
   }
 

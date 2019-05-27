@@ -18,7 +18,7 @@ import {
 } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule, MatSnackBarModule  } from '@angular/material';
+import { MatSliderModule, MatSnackBarModule, MatDialogModule  } from '@angular/material';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -88,7 +88,13 @@ import { ApiUsersCrudService } from './services/api-users-crud.service';
 import { ServerAuthenticationService } from './services/server-authentication.service';
 import { NotificationService } from './services/notification.service';
 import { ErrorHandlingService } from './services/error-handling.service';
+import { AdminPatientService } from './services/admin-patient.service.ts';
+import { AdminPatientsListComponent } from './admin-patients-list/admin-patients-list.component';
+import { AdminPatientListModalComponent } from './admin-patients-list/admin-patient-list-modal/admin-patient-list-modal.component';
+import { PatientLoginComponent } from './patient-login/patient-login.component';
 
+import { ReloginPopupComponent } from './relogin-popup/relogin-popup.component';
+import { ReloginPopupService } from './relogin-popup/relogin-popup.service';
 
 import { CurrentUsersComponent } from './current-users/current-users.component';
 
@@ -142,7 +148,11 @@ type StoreType = {
     MyAccountComponent,
     CustomerSearchComponent,
     UsersComponent,
-    CurrentUsersComponent
+    CurrentUsersComponent,
+    ReloginPopupComponent,
+    AdminPatientsListComponent,
+    AdminPatientListModalComponent
+    PatientLoginComponent,
 
   ],
   exports: [
@@ -175,6 +185,7 @@ type StoreType = {
       preloadingStrategy: PreloadAllModules
     }),
     PDFExportModule,
+    MatDialogModule
   ],
   /**
    * Expose our Services and Providers into Angular's dependency injection.
@@ -190,12 +201,18 @@ type StoreType = {
     RouterGuards,
     TestsDataService,
     SurveySubmitHandler,
+    AdminPatientService,
     CustomerSearchService,
     ServerApiService,
     ApiUsersCrudService,
     ServerAuthenticationService,
     NotificationService,
     ErrorHandlingService,
+    ReloginPopupService,
+  ],
+  entryComponents: [
+    ReloginPopupComponent,
+    AdminPatientListModalComponent
   ]
 })
 export class AppModule {
