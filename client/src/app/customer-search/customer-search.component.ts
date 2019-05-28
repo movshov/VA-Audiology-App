@@ -23,6 +23,11 @@ export class CustomerSearchComponent implements OnInit {
     public ngOnInit() {
     }
 
+    public loadCustomerSearch(patientId: number) {
+        this.idSearch = patientId.toString();
+        this.getAppointments();
+    }
+
     // Gets JSON from queryDB() puts it into an array to create the table of appointments
     // sorts by date, most recent first.
     public patientSearch() {
