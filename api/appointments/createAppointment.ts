@@ -1,6 +1,6 @@
-import handler from './handler';
-import db from './db';
-import * as auth from './authenticate';
+import handler from '../handler';
+import db from '../db';
+import * as auth from '../authenticate';
 
 let tfi_datapoints : string[]  = [
   'patientid',
