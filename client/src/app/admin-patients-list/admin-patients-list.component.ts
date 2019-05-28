@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PatientResponse } from '../../../../api-objects/PatientResponse';
 import { Response } from '../../../../api-objects/GenericResponse';
 import { MatDialog } from '@angular/material';
@@ -12,6 +12,7 @@ import { NotificationService } from '../services/notification.service';
   styleUrls: ['./admin-patients-list.component.css']
 })
 export class AdminPatientsListComponent implements OnInit {
+  @Output() public patient = new EventEmitter<Object>();
   public patients: PatientResponse[] = [];
   public currentPage: number = 0;
   public patientNotes: string = 'Patient Notes...';
@@ -42,7 +43,8 @@ export class AdminPatientsListComponent implements OnInit {
   }
 
   public loadPatient(patient: PatientResponse) {
-    // Load version of customer search with this patient ID and ability to delete an appointment
+    // Load version of customer search with this patient ID
+    this.patient.emit(patient);
     console.log('load patient: ' + patient.patientid);
   }
 
