@@ -15,15 +15,15 @@
         <th>Patient ID</th>
         <th>Appointment Date</th>
         <th>Load Appointment</th>
-        <th>Delete Appointment</th>
+        <th *ngIf=canDelete>Delete Appointment</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let row of resultsTable | slice:(currentPage * 10):(currentPage + 1) * 10">
         <td>{{row.patientid}}</td>
-        <td>{{row.appointmentdatetime}}</td>
+        <td>{{row.appointmentdatetime | date: 'hh:mm a - MMM dd, yyyy'}}</td>
         <td><button (click)="loadAppt(row)" class="loadBtn">Load</button></td>
-        <td><button class="delete" (click)="deleteAppointment(row)" class="loadBtn">Delete</button></td>
+        <td *ngIf=canDelete><button class="delete" (click)="deleteAppointment(row)" class="loadBtn">Delete</button></td>
       </tr>
     </tbody>
   </table>

@@ -3,6 +3,7 @@ import { Utilities } from '../common/utlilities';
 import { CustomerSearchService } from './customer-search.service';
 import { Appointment } from '../../../../api-objects/Appointment';
 import { NotificationService } from '../services/notification.service';
+import { authorityTypes } from '../../../../api-objects/UsersObject';
 
 @Component({
     selector: 'customer-search',
@@ -12,6 +13,7 @@ import { NotificationService } from '../services/notification.service';
 export class CustomerSearchComponent implements OnInit {
     @Output() public appointment = new EventEmitter<Object>();
     public idSearch: string;
+    public canDelete: boolean = false;
     public searchBtn: boolean = true; // Search button is disabled while querying DB
     public invalidID: boolean = false;
     public resultsTable: Appointment[] = [];
@@ -23,6 +25,7 @@ export class CustomerSearchComponent implements OnInit {
         private notificationService: NotificationService) { }
 
     public ngOnInit() {
+        this.canDelete = (Utilities.getSessionStorage('permissions')===authorityTypes[1]);
     }
 
     public loadCustomerSearch(patientId: number) {
