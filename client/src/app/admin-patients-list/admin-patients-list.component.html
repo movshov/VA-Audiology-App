@@ -7,6 +7,9 @@
       <table *ngIf="patients.length !== 0 else notFound" class="resultsTable" border="1">
         <thead>
           <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
           <th>Deceased</th>
           <!-- <th>Load</th> -->
           <th>Delete</th>
@@ -18,6 +21,9 @@
             patientNotSelected: selectedPat !== patient.patientid
           }">
             <td>{{patient.patientid}}</td>
+            <td>{{patient.firstname}}</td>
+            <td>{{patient.lastname}}</td>
+            <td>{{patient.email}}</td>
             <td>{{patient.deceased}}</td>
             <!-- <td><button (click)="loadPatient(patient)" class="loadbtn">Load</button></td> -->
             <td><button (click)="deletePatient(patient)" class="deletebtn">Delete</button></td>
@@ -28,7 +34,7 @@
       <ng-template #notFound>
         <p>No patients found.</p>
       </ng-template>
-      
+
       <div class="page-buttons-container">
         <button [disabled]="currentPage === 0" (click)="prevPage(1)" class="pagination">
           <</button> <button [disabled]="patients.length <= (currentPage + 1) * 10" (click)="nextPage(1)"
