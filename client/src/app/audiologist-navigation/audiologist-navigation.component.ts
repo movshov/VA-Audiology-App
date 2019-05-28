@@ -59,7 +59,8 @@ export class AudiologistNavigationComponent implements OnInit {
         (_) => {
           this.notificationService.showSuccess('Survey was successfuly Submitted');
           this.logout();
-        });    }
+        });
+    }
   }
 
   public clearData() {
