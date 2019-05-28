@@ -37,8 +37,8 @@ export class AudiologistSummaryComponent implements OnInit {
    * @param testsDataService the data service for the test results
    */
   constructor(public thsDataService: ThsDataService, public tsDataService: TsScreenerDataService, public tfiDataService: TfiDataService,
-              public testsDataService: TestsDataService,
-              private surveySubmitHandler: SurveySubmitHandler) {
+    public testsDataService: TestsDataService,
+    private surveySubmitHandler: SurveySubmitHandler) {
     this.tsDataService.onInit();
     this.setTS();
     this.thsDataService.onInit();
@@ -54,14 +54,7 @@ export class AudiologistSummaryComponent implements OnInit {
   }
 
   public submitSurvey() {
-    let surveySubmitHandler = new SurveySubmitHandler();
-
-    try {
-      surveySubmitHandler.submitSurvey(this.thsScoreVars, this.tfiVars, this.ts);
-      alert('Survey submitted!');
-    } catch (e) {
-      alert(e);
-    }
+    return this.surveySubmitHandler.submitSurvey(this.thsScoreVars, this.thsTxtVars, this.tfiVars, this.ts);
   }
 
   public loadAppointment(app: Appointment) {
