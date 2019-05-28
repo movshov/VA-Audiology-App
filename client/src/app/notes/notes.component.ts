@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminPatientService } from '../services/admin-patient.service';
+import { Utilities } from '../common/utlilities';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
     selector: 'notes',
@@ -11,7 +13,7 @@ export class NotesComponent implements OnInit {
 
     public content: string = '';
 
-    constructor(private adminPatientService: AdminPatientService) { }
+    constructor(private adminPatientService: AdminPatientService, private notificationService: NotificationService) { }
 
     public ngOnInit() { }
 
@@ -24,13 +26,18 @@ export class NotesComponent implements OnInit {
         });
     }
     // calls the updateNotes service from patientAdminService
-    public submitNote(patinetID: number): void {
+    public submitNote(patinetID: number, displayPopup?: boolean): void {
         if (typeof (this.content) === 'string') {
             this.adminPatientService.updateNotes(patinetID, this.content).subscribe((_) => {
-                console.log('Notes Updated Successfully');
-            }, (error) => {
-                console.log('Error Updating Notes', error.error);
+                if (displayPopup) {
+                    this.notificationService.showSuccess('Notes For Patient ' + patinetID + ' updated successfully');
+                }
             });
         }
+    }
+
+    public updateNote() {
+        let patientId: number = parseInt(Utilities.getSessionStorage('patient-id'));
+        this.submitNote(patientId, true);
     }
 }
