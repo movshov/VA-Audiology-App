@@ -16,6 +16,10 @@ export class CustomerSearchService {
         return this.service.get<Appointment[]>('appointments', new Map([['id', PatientId]]));
     }
 
+    public deleteAppointment(appointmnetId: number): Observable<Response<null>> {
+        return this.service.delete<null>('appointments/' + appointmnetId);
+    }
+
     public getAllAppointments(): Observable<Response<Appointment[]>> {
         return this.service.get<Appointment[]>('appointments').pipe(
             tap(

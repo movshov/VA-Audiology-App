@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Utilities } from '../common/utlilities';
 import { CustomerSearchService } from './customer-search.service';
 import { Appointment } from '../../../../api-objects/Appointment';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
     selector: 'customer-search',
@@ -18,7 +19,8 @@ export class CustomerSearchComponent implements OnInit {
     public currentPage: number = 0;
 
     constructor(
-        private customerSearchService: CustomerSearchService) { }
+        private customerSearchService: CustomerSearchService,
+        private notificationService: NotificationService) { }
 
     public ngOnInit() {
     }
@@ -78,5 +80,17 @@ export class CustomerSearchComponent implements OnInit {
                 return 0;
             });
         });
+    }
+
+    private deleteAppointment(appointment: Appointment) {
+        let confirmation: boolean = confirm("Are you sure you want to delete this appoitnment?");
+        if (confirmation) {
+            this.customerSearchService.deleteAppointment(appointment.appointmentid).subscribe(
+                (_) => {
+                    this.notificationService.showSuccess("Success, Appointment deleted");
+                    this.getAppointments();
+                }
+            );
+        }
     }
 }

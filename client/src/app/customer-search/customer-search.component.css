@@ -51,6 +51,17 @@ button:disabled {
 .resultsTable tr td:last-child, .resultsTable tr th:last-child {
     width: 10em;
 }
+
+.delete button {
+    /* width: 100%;
+    height: auto;
+    background-color: red; */
+    padding: 1px 20px;
+    background-color: rgba(216, 9, 9, 0.986);
+    border: 1px solid #ddd;
+    color: black;
+}
+
 .resultsTable button {
     width: 100%;
     background-color: #44ad44;
