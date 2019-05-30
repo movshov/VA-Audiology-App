@@ -64,22 +64,25 @@ export class AudiologistNavigationComponent implements OnInit {
   }
 
   public clearData() {
-    // clear all patient data in memory
-    let sessionKeys: string[] = [
-      'patient-id',
-      'tests-data',
-      'tfi-dataRecord',
-      'ths-dataRecord',
-      'ths-history',
-      'ts-dataRecord',
-      'ts-history',
-      'appt'
-    ];
-    sessionKeys.forEach((value) => {
-      Utilities.removeItemFromSessionStorage(value);
-    });
-    this.patientID = null;
-    this.state.determineState(false);
+    if (confirm('Are you sure you want to discard all data?')) {
+      // clear all patient data in memory
+      let sessionKeys: string[] = [
+        'patient-id',
+        'tests-data',
+        'tfi-dataRecord',
+        'ths-dataRecord',
+        'ths-history',
+        'ts-dataRecord',
+        'ts-history',
+        'appt'
+      ];
+      sessionKeys.forEach((value) => {
+        Utilities.removeItemFromSessionStorage(value);
+      });
+      this.patientID = null;
+      this.state.determineState(false);
+
+    }
   }
 
   public logout() {

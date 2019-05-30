@@ -5,7 +5,6 @@ import { ThsAnswerStrings } from '../common/custom-resource-strings';
 @Injectable()
 export class ThsStateflowService {
   private history: number[] = [0];
-  
 
   constructor(private dataService: ThsDataService) { };
 

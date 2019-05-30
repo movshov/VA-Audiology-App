@@ -88,7 +88,6 @@ export class State {
                 this.tabAvailable.add(TabsEnum.QUERIES);
                 this.tabAvailable.add(TabsEnum.SPREAD);
                 this.tabAvailable.add(TabsEnum.ACCOUNT);
-                this.tabAvailable.add(TabsEnum.LIST_PATIENTS);
                 this.tabAvailable.add(TabsEnum.CURRENT_USERS);
                 this.tabAvailable.add(TabsEnum.LIST_PATIENTS);
                 this.selectTab(TabsEnum.USERS);

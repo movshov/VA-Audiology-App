@@ -29,17 +29,16 @@
             <div *ngIf="state.tabIsAvailable(TabsEnum.SEARCH)" class="row">
                 <button class="btn main-tab" (click)="state.selectTab(TabsEnum.SEARCH)">Search</button>
             </div>
-            <div *ngIf="state.tabIsAvailable(TabsEnum.CURRENT_USERS)" class="row">
-                <button class="btn main-tab" (click)="state.selectTab(TabsEnum.CURRENT_USERS)">Current Users</button>
+            <div *ngIf="state.tabIsAvailable(TabsEnum.USERS)" class="row">
+                <button class="btn main-tab" (click)="state.selectTab(TabsEnum.USERS)">Create Users</button>
             </div>
-            <!--
-      <div *ngIf="state.tabIsAvailable(TabsEnum.USERS)" class="row">
-        <button class="btn main-tab" (click)="state.selectTab(TabsEnum.USERS)">Users</button>
-      </div>
-      <div *ngIf="state.tabIsAvailable(TabsEnum.QUERIES)" class="row">
+            <div *ngIf="state.tabIsAvailable(TabsEnum.CURRENT_USERS)" class="row">
+                <button class="btn main-tab" (click)="state.selectTab(TabsEnum.CURRENT_USERS)">Users</button>
+            </div>
+      <!-- <div *ngIf="state.tabIsAvailable(TabsEnum.QUERIES)" class="row">
         <button class="btn main-tab" (click)="state.selectTab(TabsEnum.QUERIES)">Queries</button>
-      </div>
-      -->
+      </div> -->
+     
             <div *ngIf="state.tabIsAvailable(TabsEnum.LIST_PATIENTS)" class="row">
                 <button class="btn main-tab" (click)="state.selectTab(TabsEnum.LIST_PATIENTS);adminPatientsList.loadPatients()">Patients</button>
             </div>
