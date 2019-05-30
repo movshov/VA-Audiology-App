@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <nav class="navbar navbar-fixed-top" id="navigation">
-      <div class="container-fluid">
+    <div class="container-fluid">
         <div class="navbar-header">
-          <a href="#" class="btn btn-info btn-lg">
-            <span class="glyphicon glyphicon-home"></span> Home
-          </a>
+            <button (click)="this.router.navigateByUrl('/home')" type="button" class="btn btn-primary btn-sm home-button">
+                <span class="glyphicon glyphicon-home"></span> Home
+            </button>
         </div>
-      </div>
+    </div>
 </nav>
 
 <div class="container">
@@ -19,19 +19,22 @@
       </div>
     </div>-->
 
-      <div class="row">
-          <div class="col-sm-8 col-md-8 col-lg-6 col-lg-offset-3 col-md-offset-2 col-sm-offset-2 ">
-              <h2> {{title}} </h2>
-              <h3><iframe width="560" height="315" src="https://www.youtube.com/embed/ZZ5LpwO-An4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></h3>
-          </div>
+    <div class="row">
+        <div class="col-sm-8 col-md-8 col-lg-6 col-lg-offset-3 col-md-offset-2 col-sm-offset-2 ">
+            <h2> {{title}} </h2>
+            <h3><iframe width="560" height="315" src="https://www.youtube.com/embed/ZZ5LpwO-An4" frameborder="0"
+                    allow="autoplay; encrypted-media" allowfullscreen></iframe></h3>
         </div>
+    </div>
 
     <div class="row">
-      <div class="hidden-xs col-sm-3 col-md-3 col-lg-3">
-        <footer class="navbar-fixed-bottom">
-          <logo logoRouteOption="2"></logo> <!--Makes it so logo cannot click-->
-        </footer>
-      </div>
+        <div class="hidden-xs col-sm-3 col-md-3 col-lg-3">
+            <footer class="navbar-fixed-bottom">
+                <logo logoRouteOption="2"></logo>
+                <!--Makes it so logo cannot click-->
+            </footer>
+        </div>
     </div>
-  </div>
-  </html>
+</div>
+
+</html>

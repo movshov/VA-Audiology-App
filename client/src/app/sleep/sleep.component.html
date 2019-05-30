@@ -1,10 +1,12 @@
 <nav class="navbar navbar-fixed-top" id="navigation">
-	<div class="container-fluid">
-    <div class="btn btn-info btn-lg" style="float: left" id="landing">
-      <a href="landing">Back</a>
+    <div class="container-fluid">
+      <div>
+          <button (click)="this.router.navigateByUrl('/landing')" type="button" class="btn btn-primary btn-sm">
+            Back
+          </button>
+      </div>
     </div>
-	</div>
-</nav>
+  </nav>
 
 <div class="text-section">
 	<div>

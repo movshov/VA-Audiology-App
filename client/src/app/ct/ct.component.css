@@ -19,3 +19,21 @@ logo {
 a{
 	color:white;
 }
+
+button {
+  height: 60%;
+  background-color: #3a9202; /*Changed the original color #004273*/
+  font-family: 'Roboto';
+  font-size: 1em;
+  color: white;
+  border: 2px solid #93b9dd;
+  border-radius: 8px;
+  margin-bottom: 10%;
+  display: inline-block;
+}
+
+button:hover {
+  background-repeat: no-repeat;
+  background: linear-gradient(to right, #0086D1, #0098DB);
+  cursor: pointer;
+}
