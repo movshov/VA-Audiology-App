@@ -1,13 +1,9 @@
 import { TsScreenerAnswerStrings } from './../common/custom-resource-strings';
 import { Component, OnInit } from '@angular/core';
-import { SurveyTitle, SectionTitle, SectionFooter, Question, SumString } from './summaryItem';
+import { SurveyTitle, SumString } from './summaryItem';
 import { ThsDataService } from '../services/ths-data.service';
 import { TsScreenerDataService } from '../services/ts-screener-data.service';
-import { constructDependencies } from '@angular/core/src/di/reflective_provider';
 import { ThsQuestionStrings, TsScreenerQuestionStrings, ThsAnswerStrings, TfiQuestionStrings, TfiSectionStrings } from '../common/custom-resource-strings';
-import { ThsQuestionComponent } from 'src/app/ths/ths-question/ths-question.component';
-import { SummaryResolver } from '@angular/compiler';
-import { HighlightDelayBarrier } from 'blocking-proxy/built/lib/highlight_delay_barrier';
 import { TfiDataService } from '../services/tfi-data.service';
 import { Utilities } from '../common/utlilities';
 import { Router } from '@angular/router';
@@ -122,46 +118,69 @@ export class SummaryComponent implements OnInit {
     // Display the summary information
     if (sectionAScore > sectionBScore || sectionBScore === 0) {
       let ans: String =
-        '&emsp; &emsp;- Hearing aid/combination instrument consultation <br/> ' +
-        '&emsp; &emsp;- Counseling for both hearing and tinnitus management options <br/> ' +
-        '&emsp; &emsp;- Specific tinnitus management options, such as: <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Progressive Tinnitus Management <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Cognitive Behavioral Therapy <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Stress Relief';
+        '<ul>' +
+          '<li>Hearing aid/combination instrument consultation</li>' +
+          '<li>Counseling for both hearing and tinnitus management options</li>' +
+          '<li>Specific tinnitus management options, such as:' +
+            '<ul>' +
+              '<li>Progressive Tinnitus Management</li>' +
+              '<li>Cognitive Behavioral Therapy</li>' +
+              '<li>Stress Relief</li>' +
+            '</ul>' +
+          '</li>' +
+        '</ul>';
       this.summaryItems.push(new SumString(ans));
     }
     if (sectionAScore < sectionBScore) {
       let ans1: String =
-        '&emsp; &emsp;- Hearing aid/combination instrument consultation <br/> ' +
-        '&emsp; &emsp;- counseling for both hearing and tinnitus management options <br/> ' +
-        '&emsp; &emsp;- Specific hearing management options, such as: <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Hearing aids <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Hearing strategies in different environments <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Hearing aid accessories';
+        '<ul>' +
+          '<li>Hearing aid/combination instrument consultation</li>' +
+          '<li>counseling for both hearing and tinnitus management options</li>' +
+          '<li>Specific hearing management options, such as:' +
+            '<ul>' +
+              '<li>Hearing aids</li>' +
+              '<li>Hearing strategies in different environments</li>' +
+              '<li>Hearing aid accessories</li>' +
+            '</ul>' +
+          '</li>' +
+        '</ul>';
       this.summaryItems.push(new SumString(ans1));
     }
     if (sectionAScore === 0) {
       let ans2: String =
-        '&emsp; &emsp;- Hearing aids <br/>' +
-        '&emsp; &emsp;- Hearing aid fitting <br/>' +
-        '&emsp; &emsp;- Specific hearing management options, such as: <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Hearing aid counseling <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Hearing strategies in different environments <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Hearing aid accessories';
+        '<ul>' +
+          '<li>Hearing aids<li>' +
+          '<li>Hearing aid fitting</li>>' +
+          '<li>Specific hearing management options, such as:' +
+            '<ul>' +
+              '<li>Hearing aid counseling</li>' +
+              '<li>Hearing strategies in different environments</li>' +
+              '<li>Hearing aid accessories</li>' +
+            '</ul>' +
+          '</li>' +
+        '</ul>';
       this.summaryItems.push(new SumString(ans2));
     }
     if (sectionAScore === sectionBScore) {
       let ans3: String =
-        '&emsp; &emsp;- Hearing aid/combination instrument consultation <br/>' +
-        '&emsp; &emsp;- Information about hearing and tinnitus management options <br/>' +
-        '&emsp; &emsp;- Specific tinnitus management options, such as: <br/>' +
-        '&emsp; &emsp;- Progressive Tinnitus Management <br/>' +
-        '&emsp; &emsp;- Cognitive Behavioral Therapy <br/>' +
-        '&emsp; &emsp;- Stress Relief <br/>' +
-        '&emsp; &emsp;- Specific hearing management options, such as: <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Hearing aids <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Hearing strategies in different environments <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Hearing aid accessories ';
+        '<ul>' +
+          '<li>Hearing aid/combination instrument consultation</li>' +
+          '<li>Information about hearing and tinnitus management options</li>' +
+          '<li>Specific tinnitus management options, such as:' +
+            '<ul>' +
+              '<li>Progressive Tinnitus Management</li>' +
+              '<li>Cognitive Behavioral Therapy</li>' +
+              '<li>Stress Relief</li>' +
+            '</ul>' +
+          '</li>' +
+          '<li>Specific hearing management options, such as:' +
+            '<ul>' +
+              '<li>Hearing aids</li>' +
+              '<li>Hearing strategies in different environments</li>' +
+              '<li>Hearing aid accessories</li>' +
+            '</ul>' +
+          '</li>' +
+        '</ul>';
       this.summaryItems.push(new SumString(ans3));
     }
   }
@@ -259,36 +278,58 @@ export class SummaryComponent implements OnInit {
     // Both sections can be displayed, which is why both if statements can be reached
     if (maxi1 <= 3 && maxi2 <= 3 && maxi3 <= 3) {
       let TFIans1: String =
-        '&emsp; &emsp;-	You consider your tinnitus intrusive to your daily life and your audiologist may suggest these options for you: <br/>' +
-        '&emsp; &emsp;- A hearing aid consultation for hearing difficulties<br/>' +
-        '&emsp; &emsp;- Educational counseling about tinnitus including: <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Why do we think tinnitus occurs? <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Association with hearing loss <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Using sound as management<br/>' +
-        '&emsp; &emsp;- Specific sound options that may help to manage your tinnitus: <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Apps: Calm, ReSound Relief, Mindfulness, Pandora Radio, Spotify, YouTube, Audible  <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Soothing sounds: babbling brook, ocean waves, forest sounds, etc. <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Interesting sounds: audio books, TV, radio <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Background sounds: environmental sounds, TV, music<br/>' +
-        '&emsp; &emsp;- Progressive Tinnitus Management  ';
+        '<ul>' +
+          '<li>You consider your tinnitus intrusive to your daily life and your audiologist may suggest these options for you:' +
+            '<ul>' +
+              '<li>A hearing aid consultation for hearing difficulties</li>' +
+              '<li>Educational counseling about tinnitus including:' +
+                '<ul>' +
+                  '<li>Why do we think tinnitus occurs?</li>' +
+                  '<li>Association with hearing loss</li>' +
+                  '<li>Using sound as management</li>' +
+                '</ul>' +
+              '</li>' +
+              '<li>Specific sound options that may help to manage your tinnitus:' +
+                '<ul>' +
+                  '<li>Apps: Calm, ReSound Relief, Mindfulness, Pandora Radio, Spotify, YouTube, Audible</li>' +
+                  '<li>Soothing sounds: babbling brook, ocean waves, forest sounds, etc.</li>' +
+                  '</li>Interesting sounds: audio books, TV, radio</li>' +
+                  '</li>Background sounds: environmental sounds, TV, music</li>' +
+                '</ul>' +
+              '</li>' +
+              '<li>Progressive Tinnitus Management</li>' +
+            '</ul>' +
+          '</li>' +
+        '</ul>';
 
       this.summaryItems.push(new SumString(TFIans1));
     } else {
       let TFIans2: String =
-        '&emsp; &emsp;-	You consider your tinnitus intrusive to your daily life and your audiologist may suggest these options for you: <br/>' +
-        '&emsp; &emsp;- A hearing aid consultation for hearing difficulties<br/>' +
-        '&emsp; &emsp;- Educational counseling about tinnitus including: <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Hearing aids/combination units <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Why do we think tinnitus occurs? <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Association with hearing loss <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Using sound as management<br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- What combination units offer<br/>' +
-        '&emsp; &emsp;- Specific sound options that may help to manage your tinnitus: <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Apps: Calm, ReSound Relief, Mindfulness, Pandora Radio, Spotify, YouTube, Audible  <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Soothing sounds: babbling brook, ocean waves, forest sounds, etc. <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Interesting sounds: audio books, TV, radio <br/>' +
-        '&emsp; &emsp; &emsp; &emsp;- Background sounds: environmental sounds, TV, music<br/>' +
-        '&emsp; &emsp;- Progressive Tinnitus Management  ';
+        '<ul>' +
+          '<li>You consider your tinnitus intrusive to your daily life and your audiologist may suggest these options for you:' +
+            '<ul>' +
+              '<li>A hearing aid consultation for hearing difficulties</li>' +
+              '<li>Educational counseling about tinnitus including:' +
+                '<ul>' +
+                  '<li>Hearing aids/combination units</li>' +
+                  '<li>Why do we think tinnitus occurs?</li>' +
+                  '<li>Association with hearing loss</li>' +
+                  '<li>Using sound as management</li>' +
+                  '<li>What combination units offer</li>' +
+                '</ul>' +
+              '</li>' +
+              '<li>Specific sound options that may help to manage your tinnitus:' +
+                '<ul>' +
+                  '<li>Apps: Calm, ReSound Relief, Mindfulness, Pandora Radio, Spotify, YouTube, Audible</li>' +
+                  '<li>Soothing sounds: babbling brook, ocean waves, forest sounds, etc.</li>' +
+                  '<li>Interesting sounds: audio books, TV, radio</li>' +
+                  '<li>Background sounds: environmental sounds, TV, music</li>' +
+                '</ul>' +
+              '</li>' +
+              '<li>Progressive Tinnitus Management</li>' +
+            '</ul>' +
+          '</li>' +
+        '</ul>';
       this.summaryItems.push(new SumString(TFIans2));
     }
   }

@@ -1,141 +1,134 @@
-html {
-    overflow-x: hidden;
-}
-
-nav{
-  margin-top: 2%;
-}
-
 button {
-  background-color: #004273;
-  font-family: 'Roboto';
-  color: white;
-  border: 2px solid #93b9dd;
-  border-radius: 8px;
-  padding-top: 2%;
-  padding-bottom: 2%;
-  font-size: 1em;
+    background-color: #004273;
+    font-family: 'Roboto';
+    color: white;
+    border: 2px solid #93b9dd;
+    border-radius: 8px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    font-size: 1em;
 }
 
-.container {
-    width: 100%;
-    height: 100%;
+.sticky {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 1%;
+    align-self: flex-start;
 }
 
-
-.container::-webkit-scrollbar-thumb {
-background-color: darkgrey;
-outline: 1px solid slategrey;
+.container-row {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 1%;
+    min-width: 320px;
 }
 
-.summary-container {
-    width: 100%;
-    height: 10%;
+.container-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 1%;
+    background-color: rgba(255, 255, 255, 90%);
+    border-radius: 10px;
+    color: black;
 }
 
-.container .summary-container .title {
-    /* text-align: left; */
-    color: white/*rgb(36, 50, 97)*/;
-    font-size: 1.2em;
+.col {
+    flex-grow: 0;
 }
+
+.col-1 {
+    flex-grow: 1;
+}
+
+.text-center {
+    text-align: center;
+    margin: 0 auto;
+}
+
 .title {
-  color: white /*rgb(36, 50, 97)*/;
-  font-size: 1em;
-  margin-top: 5%;
-  text-decoration: underline;   
+    font-size: 1.5em;
+    text-decoration: underline;
+    color: #02375f;
 }
 
-.container .summary-container .patientID {
-    text-align: center;
+.appointmentType {
     font-size: 0.7em;
-    color: white;
-    /* padding-left: 20%; */
 }
 
-.container .surveyTitle{
+.surveyTitle {
     text-align: left;
-    color: white /*rgb(36, 50, 97)*/;
 }
 
-.container .question {
-    text-align: left;
-    font-size: 0.7em;
-    margin-bottom: 5%;
-    color: white;
-
-}
-
-.container .totalScore {
-    text-align: right;
-    color: white;
-}
-
-.container .questionScore {
-  font-size: 0.9em;
-  color: white;
-  text-align: right;
-  margin-bottom: 5%;
-}
-
-.THSscore {
-  color: white;
-  margin-bottom: 5%;
-  font-size: 0.9em;
-}
-
-
-.question-content {
-  font-size: 0.9em;
-  color: white;
-}
-
-.answer {
-  font-size: 0.9em;
-  color: white;
-}
-
-.video{
+.video {
     text-align: center;
+    border: 2px solid #02375f;
+    border-radius: 2px;
+    margin: 20px auto;
+    padding: 0;
+}
+
+.video iframe {
+    display: block;
+    width: 500px;
+    height: 281px;
+    min-width: 50%;
+    max-width: 100%;
 }
 
 .button-landing {
-	width: 48%;
-	margin-right: -4px;
-	margin-bottom: 10%
+    padding: 10px;
+    margin: 20px auto;
 }
-
-/*hr {
-    margin-top: 2%;
-    margin-bottom: 1%;
-    border: 0;
-    border-top: 1px solid #eeeeee;
-}*/
 
 hr {
     visibility: hidden;
 }
 
-#sum_text{
-    color: white;
-    padding-left: 10px;
-    border-left: 4px solid white;
+.summary-items {
+    width: 100%;
+}
+
+.summary-item {
+    margin: 5px 20px;
+    padding-left: 15px;
+    border-left: 4px solid #02375f;
     border-spacing: 5px;
     font-size: .9em;
 }
 
+.summary-title {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #004273;
+    text-decoration: underline;
+}
 
-#sum_text_header{
-    margin: 0 -9999rem;
-    padding: 0.25rem 9999rem;
-    background: #0098DB;
-    color: white;
+#sum_text_header {
+    margin: 0 auto;
+    padding: 0.25rem;
     margin-bottom: 5;
+    font-size: 1.2em;
+    color: #02375f;
+    font-weight: bold;
 }
 
-a {
-    color: #0098DB;
-}
-
-a:hover {
-    color: white;
+@media only screen and (max-width: 815px) {
+    .container-row {
+        display: block;
+        margin: 0;
+        padding-top: 0;
+    }
+    .sticky {
+        background-color: #004273;
+        margin: 0 0 1% 0;
+        padding: 5px 0;
+        text-align: center;
+        display: block;
+        top: 0;
+    }
 }
