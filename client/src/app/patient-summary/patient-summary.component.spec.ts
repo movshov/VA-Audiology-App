@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SummaryComponent } from './summary.component';
+import { PatientSummaryComponent } from './patient-summary.component';
 import {
   TfiQuestionStrings,
   ThsAnswerStrings,
@@ -12,18 +12,18 @@ import { ThsDataService } from '../services/ths-data.service';
 import { TsScreenerDataService } from '../services/ts-screener-data.service';
 import { TfiDataService } from '../services/tfi-data.service';
 describe('SummaryComponent', () => {
-  let component: SummaryComponent;
-  let fixture: ComponentFixture<SummaryComponent>;
+  let component: PatientSummaryComponent;
+  let fixture: ComponentFixture<PatientSummaryComponent>;
 
   beforeEach(async() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [ThsDataService, TsScreenerDataService, TfiDataService],
-      declarations: [SummaryComponent],
+      declarations: [PatientSummaryComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SummaryComponent);
+    fixture = TestBed.createComponent(PatientSummaryComponent);
     component = fixture.debugElement.componentInstance;
     fixture.detectChanges();
     // service = TestBed.get(SummaryComponent);

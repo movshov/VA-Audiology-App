@@ -1,4 +1,4 @@
-import { TsScreenerAnswerStrings } from './../common/custom-resource-strings';
+import { TsScreenerAnswerStrings } from '../common/custom-resource-strings';
 import { Component, OnInit } from '@angular/core';
 import { SurveyTitle, SumString } from './summaryItem';
 import { ThsDataService } from '../services/ths-data.service';
@@ -9,11 +9,11 @@ import { Utilities } from '../common/utlilities';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-summary',
-  templateUrl: './summary.component.html',
-  styleUrls: ['./summary.component.css']
+  selector: 'patient-summary',
+  templateUrl: './patient-summary.component.html',
+  styleUrls: ['./patient-summary.component.css']
 })
-export class SummaryComponent implements OnInit {
+export class PatientSummaryComponent implements OnInit {
 
   /**
    * the patiend id that will be displayed in the summary report.

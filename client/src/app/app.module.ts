@@ -42,7 +42,7 @@ import { CheckInComponent } from './check-in/check-in.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AudiologistNavigationComponent } from './audiologist-navigation/audiologist-navigation.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
-import { SummaryComponent } from './summary/summary.component';
+import { PatientSummaryComponent } from './patient-summary/patient-summary.component';
 
 import { TfiComponent } from './tfi/tfi.component';
 import { TfiQuestionComponent } from './tfi/tfi-question/tfi-question.component';
@@ -129,7 +129,7 @@ type StoreType = {
     ThsQuestionComponent,
     TfiComponent,
     TfiQuestionComponent,
-    SummaryComponent,
+    PatientSummaryComponent,
     TsScreenerQuestionComponent,
     OtoscopyComponent,
     TympanometryComponent,
