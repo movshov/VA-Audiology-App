@@ -5,7 +5,7 @@ import { ThsAnswerStrings } from '../common/custom-resource-strings';
 @Injectable()
 export class ThsStateflowService {
   private history: number[] = [0];
-  private answerStrings: ThsAnswerStrings = new ThsAnswerStrings();
+  
 
   constructor(private dataService: ThsDataService) { };
 
@@ -15,7 +15,7 @@ export class ThsStateflowService {
   public moveStateForward(state: number, choice: string): number {
     this.dataService.saveData(state + 1, choice);
     if (state === 9) {
-      if (choice[0] !== '0') {
+      if (choice !== ThsAnswerStrings.NO) {
         return 10;
       } else {
         return 11;
