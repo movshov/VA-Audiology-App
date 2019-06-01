@@ -15,6 +15,11 @@ export class LandingComponent implements OnInit {
   public ngOnInit() {
   }
 
+  public backOnClick(){
+    this.router.navigateByUrl('/summary');
+    console.log('button to go back to  summary page');
+  }
+
   public pleasantActivitiesOnClick() {
     this.router.navigateByUrl('/pa');
     console.log('button to pleasant activities page');
