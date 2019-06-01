@@ -7,6 +7,9 @@ import { Appointment } from '../../../../api-objects/Appointment';
 import { CustomerSearchService } from '../customer-search/customer-search.service';
 import { NotesComponent } from '../notes/notes.component';
 import { NotificationService } from '../services/notification.service';
+import { TsScreenerDataService } from '../services/ts-screener-data.service';
+import { ThsDataService } from '../services/ths-data.service';
+import { TfiDataService } from '../services/tfi-data.service';
 
 @Component({
   selector: 'audio-navigation',
@@ -28,7 +31,8 @@ export class AudiologistNavigationComponent implements OnInit {
   @ViewChild(AudiologistSummaryComponent) private summaryComponent: AudiologistSummaryComponent;
   @ViewChild(NotesComponent) private notesComponent: NotesComponent;
 
-  constructor(private router: Router, private customerSearchService: CustomerSearchService, private notificationService: NotificationService) {
+  constructor(private router: Router, private customerSearchService: CustomerSearchService, private notificationService: NotificationService,
+    private tsDataService: TsScreenerDataService, private  thsDataService: ThsDataService, private  tfiDataService: TfiDataService) {
   }
 
   public ngOnInit() {
@@ -80,6 +84,9 @@ export class AudiologistNavigationComponent implements OnInit {
     });
     this.patientID = null;
     this.state.determineState(false);
+    this.tsDataService.clearHistory();
+    this.thsDataService.clearHistory();
+    this.tfiDataService.clearHistory();
   }
 
   public logout() {
