@@ -1,18 +1,16 @@
 <nav class="navbar navbar-fixed-top" id="navigation">
 	<div class="container-fluid">
-		<div class="navbar-header">
-			<button (click)="this.router.navigateByUrl('/home')" type="button" class="btn btn-primary btn-sm home-button">
-				<span class="glyphicon glyphicon-home"></span> Home
+		<div>
+				<b (click)="backOnClick()" type="b" class="btn btn-primary btn-sm">
+					Back
+				</b>
+		</div>
+
+		<div class = "right-top">
+			<button (click)="audioLoginClick()" type="button" class="btn btn-primary btn-sm">
+				Log In
 			</button>
 		</div>
-	</div>
-</nav>
-
-<nav class="navbar navbar-fixed-top" id="navigation">
-	<div class="container-fluid">
-    <div class="btn btn-info btn-lg" style="float: left" id="summary">
-      <a href="summary">Back</a>
-    </div>
 	</div>
 </nav>
 

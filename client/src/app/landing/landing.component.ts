@@ -15,6 +15,10 @@ export class LandingComponent implements OnInit {
   public ngOnInit() {
   }
 
+  public audioLoginClick() {
+    this.router.navigateByUrl('/aud-login');
+    console.log('button to go to audiologist login page');
+  }
   public backOnClick(){
     this.router.navigateByUrl('/summary');
     console.log('button to go back to  summary page');
