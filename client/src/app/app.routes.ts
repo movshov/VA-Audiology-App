@@ -6,7 +6,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home';
 import { NoContentComponent } from './no-content';
 import { ThankYouComponent } from './thank-you/thank-you.component';
-import { SummaryComponent } from './summary/summary.component';
+import { PatientSummaryComponent } from './patient-summary/patient-summary.component';
 
 import { DataResolver } from './app.resolver';
 import { TsScreenerComponent } from './ts-screener/ts-screener.component';
@@ -34,7 +34,7 @@ export const ROUTES: Routes = [
     { path: 'appointments', component: AppointmentsComponent, canActivate: [RouterGuards] },
     { path: 'audiologist', component: AudiologistNavigationComponent, canActivate: [RouterGuards] },
     { path: 'thank-you', component: ThankYouComponent, canActivate: [RouterGuards] },
-    { path: 'summary', component: SummaryComponent, canActivate: [RouterGuards] },
+    { path: 'summary', component: PatientSummaryComponent, canActivate: [RouterGuards] },
     { path: 'ts', component: TsScreenerComponent, canActivate: [RouterGuards] },
     { path: 'tfi', component: TfiComponent, canActivate: [RouterGuards] },
     { path: 'ths', component: ThsComponent, canActivate: [RouterGuards] },

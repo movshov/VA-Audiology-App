@@ -1,0 +1,46 @@
+<div class="container-row">
+
+    <div class="sticky col">
+        <button 
+        id="aud-button" 
+        (click)="audioLoginClick()" 
+        type="button" 
+        class="btn btn-primary btn-sm">Log In</button>
+    </div>
+
+    <div class="container-column col-1">
+        <div class="text-center">
+            <label class="title">
+                SUMMARY
+            </label>
+            <br />
+            <label class="appointmentType">
+                <u class="title">Appointment Type</u>: {{appointmentType}}
+            </label>
+        </div>
+        <hr>
+
+        <div id="sum_text_header">Your audiologist will talk with you about your survey results</div>
+        <div class="summary-items" *ngFor="let item of summaryItems">
+            <div class="summary-title" *ngIf="item.type == 'SurveyTitle'">
+                <div>
+                    {{item.title}}
+                </div>
+            </div>
+
+            <div class="summary-item" *ngIf="item.type == 'SumString'">
+                <div [innerHTML]="item.title"></div>
+            </div>
+
+        </div>
+        <div class="video">
+            <iframe src="https://www.youtube.com/embed/ImULl9oS9SE"
+                allow="autoplay; encrypted-media" allowfullscreen>
+            </iframe>
+        </div>
+
+        <button class="button-landing btn btn-primary" (click)="patientOnClick()">TINNITUS EXERCISES</button>
+
+    </div>
+
+</div>

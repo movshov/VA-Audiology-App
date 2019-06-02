@@ -19,8 +19,8 @@ export class HomePage {
     return element(by.buttonText('Patient Check In'));
   }
 
-  public getAudiologistLoginBtn() {
-    return element(by.buttonText('Audiologist Log In'));
+  public getLoginBtn() {
+    return element(by.buttonText('Log In'));
   }
 
 }
