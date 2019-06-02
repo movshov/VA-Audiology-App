@@ -27,7 +27,7 @@ describe('Home', function() {
   });
 
   it('Should navigate to Audiologist Login page', async function() {
-    await home.getAudiologistLoginBtn().click();
+    await home.getLoginBtn().click();
     await expect(browser.getCurrentUrl()).toEqual('http://localhost:3000/login');
   });
 
