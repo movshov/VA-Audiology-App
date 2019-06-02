@@ -7,6 +7,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import * as account from './account';
+import * as appointment from './appointment';
 
 // Globals
 const app = express(); // Creates express app object
@@ -28,20 +30,14 @@ import changePasswordEndpoint from './account/password/change';
 app.post('/changePassword', changePasswordEndpoint);
 
 // -- ACCOUNTS --
-import accountsGetEndpoint from './account/getAll';
-app.get('/accounts', accountsGetEndpoint);
-import accountCreate from './account/create';
-app.post('/accounts/create', accountCreate);
-import resetPassword from './account/password/reset';
-app.post('/accounts/resetPassword', resetPassword);
+app.get('/accounts', account.get);
+app.post('/accounts/create', account.create);
+app.post('/accounts/resetPassword', account.resetPassword);
+app.post('/accounts/changeUsername', account.changeUsername);
 
-import changeUsername from './account/username/change';
-app.post('/accounts/changeUsername', changeUsername);
-
-import appointmentsEndpoint from './appointment/get';
-import appointmentsPostEndpoint from './appointment/create';
-app.get('/appointments', appointmentsEndpoint);
-app.post('/appointments', appointmentsPostEndpoint);
+// -- APPOINTMENTS --
+app.get('/appointments', appointment.get);
+app.post('/appointments', appointment.create);
 
 // -- CLIENT ENDPOINTS START --
 
