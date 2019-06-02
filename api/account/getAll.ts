@@ -1,6 +1,6 @@
-import * as auth from './authenticate';
-import db from './db';
-import handler from './handler';
+import * as auth from '../authenticate';
+import db from '../db';
+import handler from '../handler';
 import { QueryResult } from 'pg';
 
 export default handler(async (request: any) => {

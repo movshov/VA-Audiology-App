@@ -24,22 +24,22 @@ import heartbeatEndpoint from './heartbeat';
 app.get('/heartbeat', heartbeatEndpoint);
 import loginEndpoint from './login';
 app.post('/login', loginEndpoint);
-import changePasswordEndpoint from './changePassword';
+import changePasswordEndpoint from './account/password/change';
 app.post('/changePassword', changePasswordEndpoint);
 
 // -- ACCOUNTS --
-import accountsGetEndpoint from './accountsGET';
+import accountsGetEndpoint from './account/getAll';
 app.get('/accounts', accountsGetEndpoint);
-import accountCreate from './accounts/create';
+import accountCreate from './account/create';
 app.post('/accounts/create', accountCreate);
-import resetPassword from './accounts/resetPassword';
+import resetPassword from './account/password/reset';
 app.post('/accounts/resetPassword', resetPassword);
 
-import changeUsername from './accounts/changeUsername';
+import changeUsername from './account/username/change';
 app.post('/accounts/changeUsername', changeUsername);
 
-import appointmentsEndpoint from './appointments';
-import appointmentsPostEndpoint from './appointmentsPOST';
+import appointmentsEndpoint from './appointment/get';
+import appointmentsPostEndpoint from './appointment/create';
 app.get('/appointments', appointmentsEndpoint);
 app.post('/appointments', appointmentsPostEndpoint);
 
