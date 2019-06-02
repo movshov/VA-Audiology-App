@@ -1,7 +1,7 @@
-import handler from './handler';
-import db from './db';
-import { AppointmentSubmission } from '../api-objects/AppointmentSubmission';
-import * as auth from './authenticate';
+import handler from '../handler';
+import db from '../db';
+import { AppointmentSubmission } from '../../api-objects/AppointmentSubmission';
+import * as auth from '../authenticate';
 
 let tfi_datapoints: string[] = [
   'patientid',
