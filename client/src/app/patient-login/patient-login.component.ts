@@ -28,7 +28,7 @@ export class PatientLoginComponent implements OnInit {
   }
 
   public ngOnInit() {
-    let noData: boolean = this.tsDataService.dataRecord === null || this.tsDataService.dataRecord.length < 1;
+    let noData: boolean = Utilities.getSessionStorage('ts-dataRecord') === null || Utilities.getSessionStorage('ts-dataRecord').length < 1;
     let noID: boolean = Utilities.getSessionStorage('patient-id') === null || Utilities.getSessionStorage('patient-id').length < 1;
     if (noData || !noID) {
       this.router.navigateByUrl(this.nextURL);
