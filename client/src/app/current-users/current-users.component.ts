@@ -4,6 +4,8 @@ import { UsersObject, authorityTypes } from '../../../../api-objects/UsersObject
 import { ApiUsersCrudService } from '../services/api-users-crud.service';
 import { NotificationService } from '../services/notification.service';
 
+const PAGE_COUNT: number = 10;
+
 @Component({
   selector: 'current-users',
   templateUrl: './current-users.component.html',
@@ -37,7 +39,7 @@ export class CurrentUsersComponent implements OnInit {
   }
 
   public nextPage(pageNum: number): void {
-    if ((this.pageCounter + 1) * 10 < this.usersTable.length && pageNum > 0) {
+    if ((this.pageCounter + 1) * PAGE_COUNT < this.usersTable.length && pageNum > 0) {
       this.pageCounter += 1;
       pageNum += 1;
     }
