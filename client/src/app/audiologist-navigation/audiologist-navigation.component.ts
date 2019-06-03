@@ -7,9 +7,7 @@ import { Appointment } from '../../../../api-objects/Appointment';
 import { CustomerSearchService } from '../customer-search/customer-search.service';
 import { NotesComponent } from '../notes/notes.component';
 import { NotificationService } from '../services/notification.service';
-import { TsScreenerDataService } from '../services/ts-screener-data.service';
-import { ThsDataService } from '../services/ths-data.service';
-import { TfiDataService } from '../services/tfi-data.service';
+import GenericClearMemory from '../common/generic-clear-memory';
 
 @Component({
   selector: 'audio-navigation',
@@ -32,7 +30,7 @@ export class AudiologistNavigationComponent implements OnInit {
   @ViewChild(NotesComponent) private notesComponent: NotesComponent;
 
   constructor(private router: Router, private customerSearchService: CustomerSearchService, private notificationService: NotificationService,
-    private tsDataService: TsScreenerDataService, private  thsDataService: ThsDataService, private  tfiDataService: TfiDataService) {
+    private clearMemory: GenericClearMemory) {
   }
 
   public ngOnInit() {
@@ -67,30 +65,16 @@ export class AudiologistNavigationComponent implements OnInit {
     }
   }
 
-  public clearData() {
+  public clearData(warn: boolean) {
     // clear all patient data in memory
-    let sessionKeys: string[] = [
-      'patient-id',
-      'tests-data',
-      'tfi-dataRecord',
-      'ths-dataRecord',
-      'ths-history',
-      'ts-dataRecord',
-      'ts-history',
-      'appt'
-    ];
-    sessionKeys.forEach((value) => {
-      Utilities.removeItemFromSessionStorage(value);
+    this.clearMemory.clearMemory(warn, () => {
+      this.patientID = null;
+      this.state.determineState(false);
     });
-    this.patientID = null;
-    this.state.determineState(false);
-    this.tsDataService.clearHistory();
-    this.thsDataService.clearHistory();
-    this.tfiDataService.clearHistory();
   }
 
   public logout() {
-    this.clearData();
+    this.clearData(false);
     Utilities.removeItemFromSessionStorage('userId');
     Utilities.removeItemFromSessionStorage('sessionId');
     Utilities.removeItemFromSessionStorage('permissions');
