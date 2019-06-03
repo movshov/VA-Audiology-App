@@ -45,7 +45,6 @@ export class AdminPatientsListComponent implements OnInit {
   public loadPatient(patient: PatientResponse) {
     // Load version of customer search with this patient ID
     this.patient.emit(patient);
-    console.log('load patient: ' + patient.patientid);
   }
 
   public loadPatients() {
