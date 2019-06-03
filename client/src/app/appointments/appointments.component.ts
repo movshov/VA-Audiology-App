@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Utilities } from '../common/utlilities';
-import { TsScreenerDataService } from '../services/ts-screener-data.service';
-import { ThsDataService } from '../services/ths-data.service';
-import { TfiDataService } from '../services/tfi-data.service';
+import GenericClearMemory from '../common/generic-clear-memory';
 
-@Component ({
+@Component({
   selector: 'appointments',
   styleUrls: ['./appointments.component.css'],
   templateUrl: './appointments.component.html'
@@ -14,7 +11,7 @@ import { TfiDataService } from '../services/tfi-data.service';
 
 export class AppointmentsComponent {
 
-  constructor(private router: Router, private tsDataService: TsScreenerDataService, private  thsDataService: ThsDataService, private  tfiDataService: TfiDataService) {
+  constructor(private router: Router, private clearMemory: GenericClearMemory) {
   };
 
   /**
@@ -24,9 +21,12 @@ export class AppointmentsComponent {
    */
   public onInitialAssessment() {
     console.log('Initial Assessment');
-    this.clearData();
-    Utilities.setSessionStorage('appt', 'Initial Assessment');
-    this.router.navigateByUrl('/ts');
+    this.clearMemory.clearMemory(true, () => {
+      Utilities.setSessionStorage('appt', 'Initial Assessment');
+      this.router.navigateByUrl('/ts');
+    }, () => {
+      this.router.navigateByUrl('/home');
+    });
   }
   /**
    * This function will be triggered when the "Hearing Aids Fitting" button is clicked
@@ -35,9 +35,12 @@ export class AppointmentsComponent {
    */
   public onHearingAidsFitting() {
     console.log('Hearing Aids Fitting');
-    this.clearData();
-    Utilities.setSessionStorage('appt', 'Hearing Aids Fitting');
-    this.router.navigateByUrl('/ts');
+    this.clearMemory.clearMemory(true, () => {
+      Utilities.setSessionStorage('appt', 'Hearing Aids Fitting');
+      this.router.navigateByUrl('/ts');
+    }, () => {
+      this.router.navigateByUrl('/home');
+    });
   }
   /**
    * This function will be triggered when the "Hearing Aids Evaluation" button is clicked
@@ -46,28 +49,11 @@ export class AppointmentsComponent {
    */
   public onHearingAidsEvaluation() {
     console.log('Hearing Aids Evaluation');
-    this.clearData();
-    Utilities.setSessionStorage('appt', 'Hearing Aids Evaluation');
-    this.router.navigateByUrl('/ts');
-  }
-
-  private clearData(): void {
-    // clear all patient data in memory
-    let sessionKeys: string[] = [
-      'patient-id',
-      'tests-data',
-      'tfi-dataRecord',
-      'ths-dataRecord',
-      'ths-history',
-      'ts-dataRecord',
-      'ts-history',
-      'appt'
-    ];
-    sessionKeys.forEach((value) => {
-      Utilities.removeItemFromSessionStorage(value);
+    this.clearMemory.clearMemory(true, () => {
+      Utilities.setSessionStorage('appt', 'Hearing Aids Evaluation');
+      this.router.navigateByUrl('/ts');
+    }, () => {
+      this.router.navigateByUrl('/home');
     });
-    this.tsDataService.clearHistory();
-    this.thsDataService.clearHistory();
-    this.tfiDataService.clearHistory();
   }
 }
