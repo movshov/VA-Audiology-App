@@ -42,6 +42,8 @@ import appointmentsEndpoint from './appointments';
 import appointmentsPostEndpoint from './appointmentsPOST';
 app.get('/appointments', appointmentsEndpoint);
 app.post('/appointments', appointmentsPostEndpoint);
+import appointmentDelete from './appointment/delete';
+app.delete('/appointments/:appointmentId', appointmentDelete);
 
 // -- CLIENT ENDPOINTS START --
 

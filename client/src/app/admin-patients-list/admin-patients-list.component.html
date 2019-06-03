@@ -11,7 +11,7 @@
           <th>Last Name</th>
           <th>Email</th>
           <th>Deceased</th>
-          <!-- <th>Load</th> -->
+          <th>Load</th>
           <th>Delete</th>
         </thead>
         <tbody>
@@ -25,7 +25,7 @@
             <td>{{patient.lastname}}</td>
             <td>{{patient.email}}</td>
             <td>{{patient.deceased}}</td>
-            <!-- <td><button (click)="loadPatient(patient)" class="loadbtn">Load</button></td> -->
+            <td><button (click)="loadPatient(patient)" class="loadbtn">Load</button></td>
             <td><button (click)="deletePatient(patient)" class="deletebtn">Delete</button></td>
           </tr>
         </tbody>
