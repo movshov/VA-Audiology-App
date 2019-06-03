@@ -82,11 +82,13 @@ export class CurrentUsersComponent implements OnInit {
     const passwordPopup = this.passwordDialog.open(AdminPasswordConfirm);
     passwordPopup.afterClosed().subscribe(
       (confirmedPassword) => {
-        this.apiUsersCrudService.resetPassword(user.username, confirmedPassword).subscribe(
-          (result) => {
-            this.notificationService.showSuccess('NEW PASSWORD FOR ' + user.username + ' IS: ' + result.data);
-          }
-        );
+        if (confirmedPassword !== undefined) {
+          this.apiUsersCrudService.resetPassword(user.username, confirmedPassword).subscribe(
+            (result) => {
+              this.notificationService.showSuccess('NEW PASSWORD FOR ' + user.username + ' IS: ' + result.data);
+            }
+          );
+        }
       }
     );
   }
