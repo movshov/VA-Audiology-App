@@ -98,6 +98,8 @@ import { CurrentUsersComponent } from './current-users/current-users.component';
 import ClearData from './common/clear-data';
 import { ClearDataModalComponent } from './common/clear-data-modal/clear-data-modal.component';
 import { AdminPasswordConfirm } from './admin-password-confirm/admin-password-confirm.component';
+import { AdminPasswordDisplay } from './admin-password-reset-display/admin-password-reset-display.component';
+
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -155,6 +157,7 @@ type StoreType = {
     PatientLoginComponent,
     ClearDataModalComponent,
     AdminPasswordConfirm,
+    AdminPasswordDisplay,
 
   ],
   exports: [
@@ -218,6 +221,7 @@ type StoreType = {
     AdminPatientListModalComponent,
     ClearDataModalComponent,
     AdminPasswordConfirm,
+    AdminPasswordDisplay,
   ]
 })
 export class AppModule {

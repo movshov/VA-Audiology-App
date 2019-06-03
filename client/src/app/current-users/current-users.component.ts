@@ -5,6 +5,7 @@ import { AdminPasswordConfirm } from '../admin-password-confirm/admin-password-c
 import { ApiUsersCrudService } from '../services/api-users-crud.service';
 import { NotificationService } from '../services/notification.service';
 import { MatDialog } from '@angular/material';
+import { AdminPasswordDisplay, DialogData } from '../admin-password-reset-display/admin-password-reset-display.component';
 
 const PAGE_COUNT: number = 10;
 
@@ -85,7 +86,7 @@ export class CurrentUsersComponent implements OnInit {
         if (confirmedPassword !== undefined) {
           this.apiUsersCrudService.resetPassword(user.username, confirmedPassword).subscribe(
             (result) => {
-              this.notificationService.showSuccess('NEW PASSWORD FOR ' + user.username + ' IS: ' + result.data);
+              this.passwordDialog.open(AdminPasswordDisplay, { data: { username: user.username, resetPassword: result.data} });
             }
           );
         }
