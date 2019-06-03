@@ -1,123 +1,147 @@
-<div style="text-align: center;">
-  <label class="title">
+<ng-template #audioResults let-side="side" let-title="title">
+    <div [ngClass]="{
+                leftEar: side === 'left',
+                rightEar: side === 'right',
+                ear: true,
+                col: true
+            }">
+        <h3>{{title}}</h3>
+        <div class="row">
+            <div [ngClass]="{
+                    freqColumn: true,
+                    freqCardRed: side === 'right',
+                    freqCardBlue: side === 'left'
+                }">
+                <h4>High Frequency</h4>
+                <p class="audio-tag">Severity</p>
+                <p class="txt-center">{{testRadioVars.get(side + 'HighSev')}}</p>
+                <p class="audio-tag">Configuration</p>
+                <div class="txt-center"><div class="txt-left">{{testCheckBoxVars.get(side + 'HighConfig')}}</div></div>
+            </div>
+            <div [ngClass]="{
+                    freqColumn: true,
+                    freqCardRed: side === 'right',
+                    freqCardBlue: side === 'left'
+                }">
+                <h4>Low Frequency</h4>
+                <p class="audio-tag">Severity</p>
+                <p class="txt-center">{{testRadioVars.get(side + 'LowSev')}}</p>
+                <p class="audio-tag">Configuration</p>
+                <div class="txt-center"><div class="txt-left">{{testCheckBoxVars.get(side + 'LowConfig')}}</div></div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<label class="section-title">
     Summary for patient ID: {{patientID}}
-  </label>
+</label>
+
+<div [ngClass]="{
+    row: tfiVars.get('overallTFI') !== 0,
+    margins: true
+}">
+    <div class="column">
+        <div>
+            <h2 class="title txt-center">Tinnitus Screener Type</h2>
+            <p class="txt-center">{{ts}}</p>
+        </div>
+
+        <div>
+            <h2 class="title txt-center">Tinnitus and Hearing Survey</h2>
+            <table class="ths-table">
+                <tbody>
+                    <tr>
+                        <td><span class="sub-title">Section A Tinnitus...</span></td>
+                        <td>{{thsScoreVars.get('thsA')}}</td>
+                    </tr>
+                    <tr>
+                        <td><span class="sub-title">Section B Hearing...</span></td>
+                        <td>{{thsScoreVars.get('thsB')}}</td>
+                    </tr>
+                    <tr>
+                        <td><span class="sub-title">Sounds are too loud or uncomfortable...</span></td>
+                        <td>{{thsTxtVars.get('thsCtxt')}}</td>
+                    </tr>
+                    <tr *ngIf="thsScoreVars.get('thsC') > 0">
+                        <td><span class="sub-title">Examples...</span></td>
+                        <td>{{thsTxtVars.get('thsCex')}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="tfiVars.get('overallTFI') !== 0">
+        <div>
+            <h2 class="title txt-center">Tinnitus Functional Index</h2>
+        </div>
+
+        <table class="tfi-table">
+            <tbody>
+                <tr>
+                    <td>Overall TFI score...</td>
+                    <td>{{tfiVars.get('overallTFI').toFixed(2)}}</td>
+                </tr>
+                <tr>
+                    <td>INTRUSIVE...</td>
+                    <td>{{tfiVars.get('intrusive').toFixed(2)}}</td>
+                </tr>
+                <tr>
+                    <td>SENSE OF CONTROL...</td>
+                    <td>{{tfiVars.get('sense').toFixed(2)}}</td>
+                </tr>
+                <tr>
+                    <td>COGNITIVE...</td>
+                    <td>{{tfiVars.get('cognitive').toFixed(2)}}</td>
+                </tr>
+                <tr>
+                    <td>SLEEP...</td>
+                    <td>{{tfiVars.get('sleep').toFixed(2)}}</td>
+                </tr>
+                <tr>
+                    <td>AUDITORY...</td>
+                    <td>{{tfiVars.get('auditory').toFixed(2)}}</td>
+                </tr>
+                <tr>
+                    <td>RELAXATION...</td>
+                    <td>{{tfiVars.get('relaxation').toFixed(2)}}</td>
+                </tr>
+                <tr>
+                    <td>QUALITY OF LIFE...</td>
+                    <td>{{tfiVars.get('quality').toFixed(2)}}</td>
+                </tr>
+                <tr>
+                    <td>EMOTIONAL...</td>
+                    <td>{{tfiVars.get('emotional').toFixed(2)}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<div class="margins">
-  <div class="left fifty">
-    <div>
-      <h2>Tinnitus Screener</h2>
-      <p>Type: {{ts}}</p>
-    </div>
-
-    <div>
-      <h2>Tinnitus and Hearing Survey</h2>
-      <p>Section A. Tinnitus: {{thsScoreVars.get('thsA')}}</p>
-      <p>Section B. Hearing: {{thsScoreVars.get('thsB')}}</p>
-      <p>Sounds are too loud or uncomfortable: {{thsTxtVars.get('thsCtxt')}}</p>
-      <p *ngIf="thsScoreVars.get('thsC') > 0">Examples: {{thsTxtVars.get('thsCex')}}</p>
-    </div>
-  </div>
-
-  <div class="left fifty">
-    <div>
-      <h2>Tinnitus Functional Index</h2>
-      <p>Overall TFI score: {{tfiVars.get('overallTFI')}}</p>
-    </div>
-
-    <div>
-      <table>
-        <tr>
-          <td>I (INTRUSIVE)</td>
-          <td>{{tfiVars.get('intrusive')}}</td>
-        </tr>
-        <tr>
-          <td>Sc (SENSE OF CONTROL)</td>
-          <td>{{tfiVars.get('sense')}}</td>
-        </tr>
-        <tr>
-          <td>C (COGNITIVE)</td>
-          <td>{{tfiVars.get('cognitive')}}</td>
-        </tr>
-        <tr>
-          <td>Sl (SLEEP)</td>
-          <td>{{tfiVars.get('sleep')}}</td>
-        </tr>
-        <tr>
-          <td>A (AUDITORY)</td>
-          <td>{{tfiVars.get('auditory')}}</td>
-        </tr>
-        <tr>
-          <td>R (RELAXATION)</td>
-          <td>{{tfiVars.get('relaxation')}}</td>
-        </tr>
-        <tr>
-          <td>Q (QUALITY OF LIFE)</td>
-          <td>{{tfiVars.get('quality')}}</td>
-        </tr>
-        <tr>
-          <td>E (EMOTIONAL)</td>
-          <td>{{tfiVars.get('emotional')}}</td>
-        </tr>
-      </table>
-    </div>
-  </div>
-</div>
-
-<div style="text-align: center;">
-  <label class="title">
+<label class="section-title">
     Test Results
-  </label>
+</label>
+
+<div>
+    <h2 class="title txt-center">Audiogram Type</h2>
+    <p class="txt-center">{{testRadioVars.get('audiogramType')}}</p>
 </div>
 
-<div class="margins row">
-  <div>
-    <h2>Audiogram</h2>
-    <p>Type: {{testRadioVars.get('audiogramType')}}</p>
-  </div>
-
-  <div class="leftEar left fifty">
-    <h3 class="title leftTitle">Left Ear</h3>
-    <div>
-      <div class="left fifty">
-        <h4 class="title leftTitle">High Frequency</h4>
-        <p>Severity: {{testRadioVars.get('leftHighSev')}}</p>
-        <p>Configuration: {{testCheckBoxVars.get('leftHighConfig')}}</p>
-      </div>
-      <div class="left fifty">
-        <h4 class="title leftTitle">Low Frequency</h4>
-        <p>Severity: {{testRadioVars.get('leftLowSev')}}</p>
-        <p>Configuration: {{testCheckBoxVars.get('leftLowConfig')}}</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="rightEar left fifty">
-    <h3 class="title rightTitle">Right Ear</h3>
-    <div>
-      <div class="left fifty">
-        <h4 class="title rightTitle">High Frequency</h4>
-        <p>Severity: {{testRadioVars.get('rightHighSev')}}</p>
-        <p>Configuration: {{testCheckBoxVars.get('rightHighConfig')}}</p>
-      </div>
-      <div class="left fifty">
-        <h4 class="title rightTitle">Low Frequency</h4>
-        <p>Severity: {{testRadioVars.get('rightLowSev')}}</p>
-        <p>Configuration: {{testCheckBoxVars.get('rightLowConfig')}}</p>
-      </div>
-    </div>
-  </div>
+<div class="row">
+    <ng-container *ngTemplateOutlet="audioResults;context:{side:'left',title:'Left Ear'}"></ng-container>
+    <ng-container *ngTemplateOutlet="audioResults;context:{side:'right',title:'Right Ear'}"></ng-container>
 </div>
 
-<div class="margins row">
-  <div class="left fifty">
-    <h2>Otoscopy</h2>
-    <p>Type: {{testRadioVars.get('otoscopyType')}}</p>
-  </div>
+<div class="row">
+    <div class="col">
+        <h2 class="title txt-center">Otoscopy Type</h2>
+        <p class="txt-center">{{testRadioVars.get('otoscopyType')}}</p>
+    </div>
 
-  <div class="left fifty">
-      <h2>Tympanometry</h2>
-      <p>Type: {{testRadioVars.get('tympanometryType')}}</p>
+    <div class="col">
+        <h2 class="title txt-center">Tympanometry Type</h2>
+        <p class="txt-center">{{testRadioVars.get('tympanometryType')}}</p>
     </div>
 </div>

@@ -1,53 +1,157 @@
-.left {
-    float: left;
-}
-
 .fullWidth {
     margin: auto;
     width: 100%;
 }
 
 .margins {
-    margin: 0 16px 16px;
+    margin: 0 1% 1%;
 }
 
-.title {
+.section-title {
     background-color: lightblue;
     padding: 10px;
     width: 100%;
-    margin-top: 0;
+    margin: 0 1%;
+    text-align: center;
+}
+
+.title {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.sub-title {
+    font-weight: bold;
+}
+
+.ths-table {
+    margin-left: auto;
+    margin-right: auto;
+}
+.ths-table tr td:first-child {
+    overflow: hidden;
+    position: relative;
+    vertical-align: top;
+}
+
+.ths-table tr td:first-child:after {
+    content: '....................................................';
+    position: absolute;
+    font-weight: bold;
+}
+
+.tfi-table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tfi-table tr:nth-child(even) {
+    background-color: lightblue;
+}
+
+.tfi-table tr td:first-child {
+    font-weight: bold;
+    overflow: hidden;
+    position: relative;
+}
+
+.tfi-table tr td:first-child:after {
+    content: '....................................................';
+    position: absolute;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.col {
+    width: 48%;
+    padding: 5px;
+}
+
+.freqColumn {
+    width: 48%;
+    padding: 5px;
+    height: 100%;
+}
+
+.ear {
+    border: 1px black solid;
+    box-shadow: 2px 2px 5px 1px #333;
+    padding: 0;
+}
+
+.ear h3, .ear h4 {
+    margin: 1px;
+    padding: 5px;
+    text-align: center;
+    color: white;
+}
+
+.audio-tag {
+    margin-bottom: 0;
+    font-weight: bold;
+    text-decoration: underline;
     text-align: center;
 }
 
 .leftEar {
     background-color: rgb(199, 219, 231);
-    border: 1px black solid;
-    box-shadow: 2px 2px 5px 1px #333;
 }
-.leftTitle {
+
+.leftEar h3, .leftEar h4 {
     background-color: rgb(25, 85, 153);
-    color: white;
 }
 
 .rightEar {
     background-color: rgb(240, 224, 224);
-    border: 1px black solid;
-    box-shadow: 2px 2px 5px 1px #333;
-}
-.rightTitle {
-    background-color: rgb(153, 25, 25);
-    color: white;
-}
-.fifty {
-    width: 46%;
-    margin: 2%;
 }
 
-@media only screen and (max-width: 1100px) {
-    .fifty {
-        width: 100%;
+.rightEar h3, .rightEar h4 {
+    background-color: rgb(153, 25, 25);
+}
+
+.freqCardBlue, .freqCardRed {
+    margin-top: 1%;
+    padding-top: 0;
+}
+
+.freqCardBlue {
+    border: 3px solid rgb(25, 85, 153);
+}
+
+.freqCardRed {
+    border: 3px solid rgb(153, 25, 25);
+}
+
+.freqCardBlue, .freqCardRed {
+    border-top: none;
+    box-shadow: 0 4px 5px 1px #333;
+}
+
+.txt-center {
+    text-align: center;
+}
+
+.txt-left {
+    display: inline-block;
+    text-align: left;
+}
+
+@media screen and (max-width: 1100px) {
+    .row {
+        display: block;
+        margin-left: 1%;
     }
-    .fifty > h4.title {
-        width: 96%;
+    .col, .freqColumn {
+        width: 100%;
     }
 }
