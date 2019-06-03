@@ -24,4 +24,7 @@ export class AdminPasswordConfirm implements OnInit {
   private onSubmit(): void {
     this.diaglogRef.close(this.data.password);
   }
+  private onCancel(): void {
+    this.diaglogRef.close(undefined);
+  }
 }
