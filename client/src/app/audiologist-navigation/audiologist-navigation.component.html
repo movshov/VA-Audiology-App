@@ -3,15 +3,15 @@
   then add the component tag toward the bottom.
 -->
 <div class="audio">
-    <div class="container">
-        <div class="{{active ? 'left-container' : 'left-container-hide'}}">
+  <div class="container">
+    <div class="{{active ? 'left-container' : 'left-container-hide'}}">
 
-            <div class="nav-head">
-                <button class="btn red" (click)="logout()">Logout</button>
-                <span *ngIf="patientID !== null">Patient ID: {{ patientID }}</span>
-            </div>
+      <div class="nav-head">
+        <button class="btn red" (click)="logout()">Logout</button>
+        <span *ngIf="patientID !== null">Patient ID: {{ patientID }}</span>
+      </div>
 
-            <!--
+      <!--
         Add tab/button
         Check if your component is one commented out below first.
         If not, then navigation-aids.ts will need to be modified to include
@@ -30,53 +30,54 @@
         <button class="btn main-tab" (click)="state.selectTab(TabsEnum.SEARCH)">Appointment Search</button>
       </div>
       <div *ngIf="state.tabIsAvailable(TabsEnum.CURRENT_USERS)" class="row">
-          <button class="btn main-tab" (click)="state.selectTab(TabsEnum.CURRENT_USERS)">Current Users</button>
-        </div>
-      <!--
-      <div *ngIf="state.tabIsAvailable(TabsEnum.USERS)" class="row">
-        <button class="btn main-tab" (click)="state.selectTab(TabsEnum.USERS)">Users</button>
+        <button class="btn main-tab" (click)="state.selectTab(TabsEnum.CURRENT_USERS)">Current Users</button>
       </div>
+      <!--
       <div *ngIf="state.tabIsAvailable(TabsEnum.QUERIES)" class="row">
         <button class="btn main-tab" (click)="state.selectTab(TabsEnum.QUERIES)">Queries</button>
       </div>
       -->
-            <div *ngIf="state.tabIsAvailable(TabsEnum.LIST_PATIENTS)" class="row">
-                <button class="btn main-tab" (click)="state.selectTab(TabsEnum.LIST_PATIENTS);adminPatientsList.loadPatients()">Patients</button>
-            </div>
-            <div *ngIf="state.tabIsAvailable(TabsEnum.ACCOUNT)" class="row">
-                <button class="btn main-tab" (click)="state.selectTab(TabsEnum.ACCOUNT)">My Account</button>
-            </div>
-            <div *ngIf="state.tabIsAvailable(TabsEnum.SUBMIT_BTN)" class="row">
-                <button id="submit" class="btn green main-nav" (click)="submitSurvey()">Submit</button>
-            </div>
-            <div *ngIf="state.tabIsAvailable(TabsEnum.DISCARD_BTN)" class="row">
-                <button id="discard" class="btn red main-nav" (click)="clearData(true)">Discard</button>
-            </div>
-            <div *ngIf="state.tabIsAvailable(TabsEnum.CLOSE_BTN)" class="row">
-                <button id="close" class="btn red main-nav" (click)="clearData(true)">Close</button>
-            </div>
-            <div *ngIf="state.tabIsAvailable(TabsEnum.SPREAD)" class="row">
-                <button class="btn green main-nav" (click)="downloadSpreadsheet()">Download Spreadsheet</button>
-            </div>
+      <div *ngIf="state.tabIsAvailable(TabsEnum.USERS)" class="row">
+        <button class="btn main-tab" (click)="state.selectTab(TabsEnum.USERS)">Create User</button>
+      </div>
+      <div *ngIf="state.tabIsAvailable(TabsEnum.LIST_PATIENTS)" class="row">
+        <button class="btn main-tab"
+          (click)="state.selectTab(TabsEnum.LIST_PATIENTS);adminPatientsList.loadPatients()">Patients</button>
+      </div>
+      <div *ngIf="state.tabIsAvailable(TabsEnum.ACCOUNT)" class="row">
+        <button class="btn main-tab" (click)="state.selectTab(TabsEnum.ACCOUNT)">My Account</button>
+      </div>
+      <div *ngIf="state.tabIsAvailable(TabsEnum.SUBMIT_BTN)" class="row">
+        <button id="submit" class="btn green main-nav" (click)="submitSurvey()">Submit</button>
+      </div>
+      <div *ngIf="state.tabIsAvailable(TabsEnum.DISCARD_BTN)" class="row">
+        <button id="discard" class="btn red main-nav" (click)="clearData(true)">Discard</button>
+      </div>
+      <div *ngIf="state.tabIsAvailable(TabsEnum.CLOSE_BTN)" class="row">
+        <button id="close" class="btn red main-nav" (click)="clearData(true)">Close</button>
+      </div>
+      <div *ngIf="state.tabIsAvailable(TabsEnum.SPREAD)" class="row">
+        <button class="btn green main-nav" (click)="downloadSpreadsheet()">Download Spreadsheet</button>
+      </div>
 
+    </div>
+    <div class="{{active ? 'right-container' : 'right-container-full'}}">
+      <div class="col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
+        <span class="icon-button"><i class="fa fa-reorder" (click)="onToggle()"></i></span>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3 col-lg-offset-9 col-md-offset-9 col-sm-offset-9"
+          style="text-align: right;">
+          <button class="pdf-btn" kendo-button (click)="pdf.saveAs('download.pdf')">Save As PDF</button>
         </div>
-        <div class="{{active ? 'right-container' : 'right-container-full'}}">
-            <div class="col-sm-2 col-md-2 col-lg-2" style="text-align: left;">
-                <span class="icon-button"><i class="fa fa-reorder" (click)="onToggle()"></i></span>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-3 col-md-3 col-lg-3 col-lg-offset-9 col-md-offset-9 col-sm-offset-9" style="text-align: right;">
-                    <button class="pdf-btn" kendo-button (click)="pdf.saveAs('download.pdf')">Save As PDF</button>
-                </div>
-                <kendo-pdf-export #pdf paperSize="A4" margin="2cm" [scale]="scale">
-                    <!--
+        <kendo-pdf-export #pdf paperSize="A4" margin="2cm" [scale]="scale">
+          <!--
             Add your component tag here, ensure that you use the same TabsEnum as above to check for display.
           -->
           <admin-patients-list
             class="{{state.tabIsSelected(TabsEnum.LIST_PATIENTS) ? 'main-right-container' : 'main-right-container-hidden' }}"
-            (patient)="onLoadPatientSearch($event)"
-            #adminPatientsList>
+            (patient)="onLoadPatientSearch($event)" #adminPatientsList>
           </admin-patients-list>
           <customer-search
             class="{{state.tabIsSelected(TabsEnum.SEARCH) ? 'main-right-container' : 'main-right-container-hidden' }}"
@@ -109,4 +110,4 @@
         </kendo-pdf-export>
       </div>
     </div>
-</div>
+  </div>

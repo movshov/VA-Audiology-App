@@ -20,7 +20,7 @@
     <tbody>
       <tr *ngFor="let row of resultsTable | slice:(currentPage * 10):(currentPage + 1) * 10">
         <td>{{row.patientid}}</td>
-        <td>{{row.appointmentdatetime}}</td>
+        <td>{{row.appointmentdatetime | date: 'hh:mm a - MMM dd, yyyy'}}</td>
         <td><button (click)="loadAppt(row)" class="loadBtn">Load</button></td>
       </tr>
     </tbody>
