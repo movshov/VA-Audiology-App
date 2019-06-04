@@ -7,7 +7,7 @@ import { Appointment } from '../../../../api-objects/Appointment';
 import { CustomerSearchService } from '../customer-search/customer-search.service';
 import { NotesComponent } from '../notes/notes.component';
 import { NotificationService } from '../services/notification.service';
-import GenericClearMemory from '../common/generic-clear-memory';
+import ClearData from '../common/clear-data';
 
 @Component({
   selector: 'audio-navigation',
@@ -30,7 +30,7 @@ export class AudiologistNavigationComponent implements OnInit {
   @ViewChild(NotesComponent) private notesComponent: NotesComponent;
 
   constructor(private router: Router, private customerSearchService: CustomerSearchService, private notificationService: NotificationService,
-    private clearMemory: GenericClearMemory) {
+    private clearMemory: ClearData) {
   }
 
   public ngOnInit() {
@@ -67,10 +67,16 @@ export class AudiologistNavigationComponent implements OnInit {
 
   public clearData(warn: boolean) {
     // clear all patient data in memory
-    this.clearMemory.clearMemory(warn, () => {
+    if(warn) {
+      this.clearMemory.askToClearData(() => {
+        this.patientID = null;
+        this.state.determineState(false);
+      });
+    } else {
+      this.clearMemory.clearData();
       this.patientID = null;
       this.state.determineState(false);
-    });
+    }
   }
 
   public logout() {
