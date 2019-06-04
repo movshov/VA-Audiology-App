@@ -69,13 +69,5 @@ describe('ThsComponent', () => {
         component.moveStateForward('hello');
         expect(navSpy).toHaveBeenCalledWith('/tfi');
     });
-
-    it('should route to thank you', () => {
-        let spy = spyOn(service, 'moveStateForward').and.returnValue(11);
-        let navSpy = spyOn(component.router, 'navigateByUrl');
-        Utilities.setSessionStorage('nextComponent', 'true');
-        component.moveStateForward('hello');
-        expect(navSpy).toHaveBeenCalledWith('/thank-you');
-    });
   });
 });
