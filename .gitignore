@@ -71,3 +71,7 @@ documentation/
 api/build/*
 api/build
 api/config.ts
+
+# SSL
+cert/server.crt
+cert/server.key
