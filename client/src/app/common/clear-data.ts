@@ -34,7 +34,7 @@ export default class ClearData {
 
     /**
      * Call this anytime you want to clear all patient/appointment data stored in client services or session memory.
-     * A warning will be displayed asking the user to confirm. 
+     * A warning will be displayed asking the user to confirm.
      * Exception: If there is no data to clear, this will call onSuccess() without warning dialog.
      * @param onSuccess Callback if memory is cleared, called if user selects 'continue'
      * @param onCancel Callback if user selected 'cancel' so memory was not cleared.

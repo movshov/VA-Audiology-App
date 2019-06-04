@@ -83,5 +83,4 @@ export class CurrentUsersComponent implements OnInit {
       }
     );
   }
-
 }

@@ -29,9 +29,12 @@ export class AudiologistNavigationComponent implements OnInit {
   @ViewChild(AudiologistSummaryComponent) private summaryComponent: AudiologistSummaryComponent;
   @ViewChild(NotesComponent) private notesComponent: NotesComponent;
 
-  constructor(private router: Router, private customerSearchService: CustomerSearchService, private notificationService: NotificationService,
-    private clearMemory: ClearData) {
-  }
+  constructor(
+    private router: Router,
+    private customerSearchService: CustomerSearchService,
+    private notificationService: NotificationService,
+    private clearMemory: ClearData
+  ) { }
 
   public ngOnInit() {
     if (this.summaryComponent.ts === '' || this.summaryComponent.ts === null) {
@@ -67,7 +70,7 @@ export class AudiologistNavigationComponent implements OnInit {
 
   public clearData(warn: boolean) {
     // clear all patient data in memory
-    if(warn) {
+    if (warn) {
       this.clearMemory.askToClearData(() => {
         this.patientID = null;
         this.state.determineState(false);

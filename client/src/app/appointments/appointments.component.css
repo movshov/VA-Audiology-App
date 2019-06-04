@@ -42,17 +42,13 @@
   background-repeat: no-repeat;
 }
 
-button {
-  height: 60%;
+.nav-button {
   background-color: #3a9202; /*Changed the original color #004273*/
   font-family: 'Roboto';
   font-size: 1em;
   color: white;
   border: 2px solid #93b9dd;
   border-radius: 8px;
-  margin-bottom: 10%;
-  padding: 4%;
-  display: inline-block;
 }
 
 button:hover {
@@ -61,8 +57,10 @@ button:hover {
   cursor: pointer;
 }
 
-nav{
-  margin-top: 1%;
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 1%;
 }
 
 a{
