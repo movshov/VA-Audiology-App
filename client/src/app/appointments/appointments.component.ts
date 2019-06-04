@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Utilities } from '../common/utlilities';
-import GenericClearMemory from '../common/generic-clear-memory';
+import ClearData from '../common/clear-data';
 
 @Component({
   selector: 'appointments',
@@ -11,7 +11,7 @@ import GenericClearMemory from '../common/generic-clear-memory';
 
 export class AppointmentsComponent {
 
-  constructor(private router: Router, private clearMemory: GenericClearMemory) {
+  constructor(private router: Router, private clearMemory: ClearData) {
   };
 
   /**
@@ -21,11 +21,9 @@ export class AppointmentsComponent {
    */
   public onInitialAssessment() {
     console.log('Initial Assessment');
-    this.clearMemory.clearMemory(true, () => {
+    this.clearMemory.askToClearData(() => {
       Utilities.setSessionStorage('appt', 'Initial Assessment');
       this.router.navigateByUrl('/ts');
-    }, () => {
-      this.router.navigateByUrl('/home');
     });
   }
   /**
@@ -35,11 +33,9 @@ export class AppointmentsComponent {
    */
   public onHearingAidsFitting() {
     console.log('Hearing Aids Fitting');
-    this.clearMemory.clearMemory(true, () => {
+    this.clearMemory.askToClearData(() => {
       Utilities.setSessionStorage('appt', 'Hearing Aids Fitting');
       this.router.navigateByUrl('/ts');
-    }, () => {
-      this.router.navigateByUrl('/home');
     });
   }
   /**
@@ -49,11 +45,9 @@ export class AppointmentsComponent {
    */
   public onHearingAidsEvaluation() {
     console.log('Hearing Aids Evaluation');
-    this.clearMemory.clearMemory(true, () => {
+    this.clearMemory.askToClearData(() => {
       Utilities.setSessionStorage('appt', 'Hearing Aids Evaluation');
       this.router.navigateByUrl('/ts');
-    }, () => {
-      this.router.navigateByUrl('/home');
     });
   }
 }
