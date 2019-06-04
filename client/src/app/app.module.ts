@@ -97,6 +97,8 @@ import { ReloginPopupComponent } from './relogin-popup/relogin-popup.component';
 import { ReloginPopupService } from './relogin-popup/relogin-popup.service';
 
 import { CurrentUsersComponent } from './current-users/current-users.component';
+import ClearData from './common/clear-data';
+import { ClearDataModalComponent } from './common/clear-data-modal/clear-data-modal.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -154,7 +156,7 @@ type StoreType = {
     AdminPatientsListComponent,
     AdminPatientListModalComponent,
     PatientLoginComponent,
-
+    ClearDataModalComponent,
   ],
   exports: [
     MatSliderModule,
@@ -210,10 +212,12 @@ type StoreType = {
     NotificationService,
     ErrorHandlingService,
     ReloginPopupService,
+    ClearData,
   ],
   entryComponents: [
     ReloginPopupComponent,
-    AdminPatientListModalComponent
+    AdminPatientListModalComponent,
+    ClearDataModalComponent,
   ]
 })
 export class AppModule {

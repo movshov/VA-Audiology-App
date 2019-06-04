@@ -7,6 +7,7 @@ import { Appointment } from '../../../../api-objects/Appointment';
 import { CustomerSearchService } from '../customer-search/customer-search.service';
 import { NotesComponent } from '../notes/notes.component';
 import { NotificationService } from '../services/notification.service';
+import ClearData from '../common/clear-data';
 
 @Component({
   selector: 'audio-navigation',
@@ -28,8 +29,12 @@ export class AudiologistNavigationComponent implements OnInit {
   @ViewChild(AudiologistSummaryComponent) private summaryComponent: AudiologistSummaryComponent;
   @ViewChild(NotesComponent) private notesComponent: NotesComponent;
 
-  constructor(private router: Router, private customerSearchService: CustomerSearchService, private notificationService: NotificationService) {
-  }
+  constructor(
+    private router: Router,
+    private customerSearchService: CustomerSearchService,
+    private notificationService: NotificationService,
+    private clearMemory: ClearData
+  ) { }
 
   public ngOnInit() {
     if (this.summaryComponent.ts === '' || this.summaryComponent.ts === null) {
@@ -63,27 +68,22 @@ export class AudiologistNavigationComponent implements OnInit {
     }
   }
 
-  public clearData() {
+  public clearData(warn: boolean) {
     // clear all patient data in memory
-    let sessionKeys: string[] = [
-      'patient-id',
-      'tests-data',
-      'tfi-dataRecord',
-      'ths-dataRecord',
-      'ths-history',
-      'ts-dataRecord',
-      'ts-history',
-      'appt'
-    ];
-    sessionKeys.forEach((value) => {
-      Utilities.removeItemFromSessionStorage(value);
-    });
-    this.patientID = null;
-    this.state.determineState(false);
+    if (warn) {
+      this.clearMemory.askToClearData(() => {
+        this.patientID = null;
+        this.state.determineState(false);
+      });
+    } else {
+      this.clearMemory.clearData();
+      this.patientID = null;
+      this.state.determineState(false);
+    }
   }
 
   public logout() {
-    this.clearData();
+    this.clearData(false);
     Utilities.removeItemFromSessionStorage('userId');
     Utilities.removeItemFromSessionStorage('sessionId');
     Utilities.removeItemFromSessionStorage('permissions');

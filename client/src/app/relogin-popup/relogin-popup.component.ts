@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
-import { Utilities } from '../common/utlilities';
 import { ReloginPopupService } from './relogin-popup.service';
+import ClearData from '../common/clear-data';
 
 export interface ReloginData {
   username: string;
@@ -16,38 +16,21 @@ export interface ReloginData {
 })
 export class ReloginPopupComponent implements OnInit {
   private loginFail: boolean = false;
-  private data: ReloginData = {username: '', password: ''};
+  private data: ReloginData = { username: '', password: '' };
 
   constructor(
     private diaglogRef: MatDialogRef<ReloginPopupComponent>,
     private router: Router,
-    private service: ReloginPopupService
-    ) { }
+    private service: ReloginPopupService,
+    private clearMemory: ClearData
+  ) { }
 
   public ngOnInit() {
   }
 
   private onLogout(): void {
     // clear all patient data in memory
-    let sessionKeys: string[] = [
-      'patient-id',
-      'tests-data',
-      'tfi-dataRecord',
-      'ths-dataRecord',
-      'ths-history',
-      'ts-dataRecord',
-      'ts-history',
-      'appt',
-      'last-name',
-      'ts-currentState',
-      'ths-currentState',
-      'email',
-      'first-name',
-      'tfi-currentState'
-    ];
-    sessionKeys.forEach((value) => {
-      Utilities.removeItemFromSessionStorage(value);
-    });
+    this.clearMemory.clearData();
     this.router.navigateByUrl('/home');
     this.diaglogRef.close();
   }

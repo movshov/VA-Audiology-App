@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Utilities } from '../common/utlilities';
+import ClearData from '../common/clear-data';
 
-@Component ({
+@Component({
   selector: 'appointments',
   styleUrls: ['./appointments.component.css'],
   templateUrl: './appointments.component.html'
@@ -11,7 +11,8 @@ import { Utilities } from '../common/utlilities';
 
 export class AppointmentsComponent {
 
-  constructor(private router: Router) {};
+  constructor(private router: Router, private clearMemory: ClearData) {
+  };
 
   /**
    * This function will be triggered when the "Initial Assessment" button is clicked
@@ -20,8 +21,10 @@ export class AppointmentsComponent {
    */
   public onInitialAssessment() {
     console.log('Initial Assessment');
-    Utilities.setSessionStorage('appt', 'Initial Assessment');
-    this.router.navigateByUrl('/ts');
+    this.clearMemory.askToClearData(() => {
+      Utilities.setSessionStorage('appt', 'Initial Assessment');
+      this.router.navigateByUrl('/ts');
+    });
   }
   /**
    * This function will be triggered when the "Hearing Aids Fitting" button is clicked
@@ -30,8 +33,10 @@ export class AppointmentsComponent {
    */
   public onHearingAidsFitting() {
     console.log('Hearing Aids Fitting');
-    Utilities.setSessionStorage('appt', 'Hearing Aids Fitting');
-    this.router.navigateByUrl('/ts');
+    this.clearMemory.askToClearData(() => {
+      Utilities.setSessionStorage('appt', 'Hearing Aids Fitting');
+      this.router.navigateByUrl('/ts');
+    });
   }
   /**
    * This function will be triggered when the "Hearing Aids Evaluation" button is clicked
@@ -40,7 +45,9 @@ export class AppointmentsComponent {
    */
   public onHearingAidsEvaluation() {
     console.log('Hearing Aids Evaluation');
-    Utilities.setSessionStorage('appt', 'Hearing Aids Evaluation');
-    this.router.navigateByUrl('/ts');
+    this.clearMemory.askToClearData(() => {
+      Utilities.setSessionStorage('appt', 'Hearing Aids Evaluation');
+      this.router.navigateByUrl('/ts');
+    });
   }
 }

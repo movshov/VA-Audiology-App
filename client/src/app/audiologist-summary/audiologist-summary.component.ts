@@ -36,9 +36,13 @@ export class AudiologistSummaryComponent implements OnInit {
    * @param tfiDataService the data service for tfi questionare
    * @param testsDataService the data service for the test results
    */
-  constructor(public thsDataService: ThsDataService, public tsDataService: TsScreenerDataService, public tfiDataService: TfiDataService,
+  constructor(
+    public thsDataService: ThsDataService,
+    public tsDataService: TsScreenerDataService,
+    public tfiDataService: TfiDataService,
     public testsDataService: TestsDataService,
-    private surveySubmitHandler: SurveySubmitHandler) {
+    private surveySubmitHandler: SurveySubmitHandler
+  ) {
     this.tsDataService.onInit();
     this.setTS();
     this.thsDataService.onInit();

@@ -1,51 +1,46 @@
 <html>
-<nav class="navbar navbar-fixed-top" id="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button (click)="this.router.navigateByUrl('/home')" type="button" class="btn btn-primary btn-sm">
-        <span class="glyphicon glyphicon-home"></span> Home
-      </button>
-    </div>
+<div class="nav-header">
+  <button (click)="this.router.navigateByUrl('/home')" type="button" class="btn btn-primary btn-sm nav-button">
+    <span class="glyphicon glyphicon-home"></span> Home
+  </button>
+  <button (click)="this.router.navigateByUrl('/aud-login')" type="button"
+    class="btn btn-primary btn-sm nav-button">Audiologist Log In</button>
+</div>
 
-    <!--<div class="aud-login" id="aud-button" style="float: right">
-          <button (click)="patientOnClick()" type="button" class="btn btn-primary btn-sm">Audiologist Log In</button>
-    </div>-->
-  </div>
-</nav>
-
-  <div class="container">
-      <div class="parent-container">
-        <div class="row">
-          <!--<div class="col-sm-6 col-md-6 col-lg-4" style="text-align: left;">
+<div class="container">
+  <div class="parent-container">
+    <div class="row">
+      <!--<div class="col-sm-6 col-md-6 col-lg-4" style="text-align: left;">
               <logo logoRouteOption="1"></logo>
           </div>-->
-        </div>
-      </div>
-
-    <div class="child-container">
-        <div class="row">
-          <div class="col-sm-10 col-md-8 col-lg-6 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
-              <button (click)="onInitialAssessment()" class="type-button">Initial Assessment</button>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-10 col-md-8 col-lg-6 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
-              <button (click)="onHearingAidsFitting()" class="type-button">Hearing Aids Fitting</button>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-10 col-md-8 col-lg-6 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
-              <button (click)="onHearingAidsEvaluation()" class="type-button">Hearing Aid Follow-Up Visit</button>
-          </div>
-        </div>
-
-      </div>
-
-    <footer class="navbar-fixed-bottom">
-      <logo></logo> <!--It will sometimes overlap with the patient button-->
-    </footer>
+    </div>
   </div>
+
+  <div class="child-container">
+    <div class="row">
+      <div class="col-sm-10 col-md-8 col-lg-6 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
+        <button (click)="onInitialAssessment()" class="type-button">Initial Assessment</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-10 col-md-8 col-lg-6 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
+        <button (click)="onHearingAidsFitting()" class="type-button">Hearing Aids Fitting</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-10 col-md-8 col-lg-6 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
+        <button (click)="onHearingAidsEvaluation()" class="type-button">Hearing Aid Follow-Up Visit</button>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="navbar-fixed-bottom">
+    <logo></logo>
+    <!--It will sometimes overlap with the patient button-->
+  </footer>
+</div>
 
 </html>
