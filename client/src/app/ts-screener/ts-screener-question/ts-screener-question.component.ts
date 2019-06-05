@@ -1,6 +1,12 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ContentChild, OnInit, AfterViewInit } from '@angular/core';
 import { TsScreenerDataService } from '../../services/ts-screener-data.service';
 
+export enum buttonState {
+  YES,
+  NO,
+  SOMETIMES
+};
+
 @Component({
   selector: 'screener-question',
   styleUrls: ['./ts-screener-question.component.css'],
@@ -9,9 +15,9 @@ import { TsScreenerDataService } from '../../services/ts-screener-data.service';
     <h2 style="color: white;" align="center">{{question}}</h2>
     <div class="btn2"  align="center" col-sm-4 col-sm-offset-4 col-xs-offset-4>
       <table>
-        <tr><td><button class="btn1" (click) = "answer_yes()">{{radio1}}</button></td></tr>
-        <tr><td><button class="btn1" (click)="answer_no()">{{radio2}}</button></td></tr>
-        <tr><td><span *ngIf="radio3"><button class="btn1" (click)="answer_sometimes()">{{radio3}}</button></span></td></tr>
+        <tr><td><button class="btn1" (click)="answer_yes()" [ngClass]="{green: buttonChoice === 0, white: buttonChocie !==0}">{{radio1}}</button></td></tr>
+        <tr><td><button class="btn1" (click)="answer_no()" [ngClass]="{green: buttonChoice === 1, white: buttonChocie !==1}">{{radio2}}</button></td></tr>
+        <tr><td><span *ngIf="radio3"><button class="btn1" (click)="answer_sometimes()" [ngClass]="{green: buttonChoice === 2, white: buttonChocie !==2}">{{radio3}}</button></span></td></tr>
       </table> 
     </div>
     <div class="row">
@@ -37,7 +43,8 @@ export class TsScreenerQuestionComponent implements OnInit {
   @Input() public radio2: string = 'NO';
   @Input() public radio3: string = null;
   @Input() public state: number = null;
-
+  public buttonChoice: buttonState;
+  
   @Output() public onClickedBack: EventEmitter<string> = new EventEmitter<string>();
   @Output() public onClickedNext: EventEmitter<string> = new EventEmitter<string>();
 
@@ -47,20 +54,26 @@ export class TsScreenerQuestionComponent implements OnInit {
     this.dataService.onInit();
   };
 
+  public setButton(button: buttonState): void {
+    this.buttonChoice = button;
+  }
+
   public ngOnInit() {
     this.selectedValue = this.dataService.populateAnswers(this.state);
   }
 
-  public answer_yes() {
+  public answer_yes():void {
+    this.setButton(buttonState.YES);
     this.selectedValue = this.radio1;
   }
 
-  public answer_no() {
-
+  public answer_no():void {
+    this.setButton(buttonState.NO);
     this.selectedValue = this.radio2;
   }
 
-  public answer_sometimes() {
+  public answer_sometimes():void {
+    this.setButton(buttonState.SOMETIMES);
     this.selectedValue = this.radio3;
   }
 }
