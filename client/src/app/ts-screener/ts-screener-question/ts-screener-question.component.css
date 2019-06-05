@@ -28,6 +28,15 @@ button {
 	width: 48%;
 	margin-right: -4px;
 }
+
+.green {
+  background-color: green !important; /* using !important here because one of these classes has to superseed the other in order for it to properly apply the color*/
+}
+
+.white{
+  background-color: white;
+}
+
 /*
 .radio-1 {
   padding-left: 10%;
@@ -216,9 +225,3 @@ table{
 
 }
 
-.btn1:hover, .btn1:active, .btn1:focus {
-color: white !important;
-background-color: green !important;
-/* border-color: yellow !important; */
-/* border: 5px solid yellow !important; */
-}

@@ -2,6 +2,14 @@ import { Component, Input, Output, EventEmitter, ViewChild, ContentChild, OnInit
 import { ThsAnswerStrings } from '../../common/custom-resource-strings';
 import { ThsDataService } from '../../services/ths-data.service';
 
+export enum buttonState {
+  NO,
+  SMALL_YES,
+  MODERATE_YES,
+  BIG_YES,
+  VERY_BIG_YES
+};
+
 @Component({
   selector: 'ths-question',
   styleUrls: ['./ths-question.component.css'],
@@ -20,11 +28,11 @@ import { ThsDataService } from '../../services/ths-data.service';
     <div *ngIf="question !== 'Please list two examples of sounds that are too loud or uncomfortable for you, but seem normal to others:'; else input_questions" class="row">
       <div class="btn2" align="center" col-sm-4 col-sm-offset-4 col-xs-offset-2>
            <table>
-             <tr><td><button class="btn1" (click)="answer_rad1()">{{radio1}}</button></td></tr>
-             <tr><td><button class="btn1" (click)="answer_rad2()">{{radio2}}</button></td></tr>
-             <tr><td><button class="btn1" (click)="answer_rad3()">{{radio3}}</button></td></tr>
-             <tr><td><button class="btn1" (click)="answer_rad4()">{{radio4}}</button></td></tr>
-             <tr><td><button class="btn1" (click)="answer_rad5()">{{radio5}}</button></td></tr>
+             <tr><td><button class="btn1" (click)="answer_rad1()" [ngClass]="{green: buttonChoice === 0, white: buttonChocie !==0}">{{radio1}}</button></td></tr>
+             <tr><td><button class="btn1" (click)="answer_rad2()" [ngClass]="{green: buttonChoice === 1, white: buttonChocie !==1}">{{radio2}}</button></td></tr>
+             <tr><td><button class="btn1" (click)="answer_rad3()" [ngClass]="{green: buttonChoice === 2, white: buttonChocie !==2}">{{radio3}}</button></td></tr>
+             <tr><td><button class="btn1" (click)="answer_rad4()" [ngClass]="{green: buttonChoice === 3, white: buttonChocie !==3}">{{radio4}}</button></td></tr>
+             <tr><td><button class="btn1" (click)="answer_rad5()" [ngClass]="{green: buttonChoice === 4, white: buttonChocie !==4}">{{radio5}}</button></td></tr>
            </table>
       </div>
     </div>
@@ -66,6 +74,7 @@ export class ThsQuestionComponent implements OnInit {
   @Input() public radio4: string = ThsAnswerStrings.BIG_YES;
   @Input() public radio5: string = ThsAnswerStrings.VERY_BIG_YES;
   @Input() public state: number = null;
+  public buttonChoice: buttonState;
 
   @Output() public onClickedBack: EventEmitter<string> = new EventEmitter<string>();
   @Output() public onClickedNext: EventEmitter<string> = new EventEmitter<string>();
@@ -80,28 +89,32 @@ export class ThsQuestionComponent implements OnInit {
     this.selectedValue = this.dataService.populateAnswers(this.state);
   }
 
-  public answer_rad1() {
+  public setButton(button:buttonState):void {
+    this.buttonChoice = button;
+  }
 
+  public answer_rad1():void {
+    this.setButton(buttonState.NO);
     this.selectedValue = this.radio1;
   }
 
-  public answer_rad2() {
-
+  public answer_rad2():void {
+    this.setButton(buttonState.SMALL_YES);
     this.selectedValue = this.radio2;
   }
 
-  public answer_rad3() {
-
+  public answer_rad3():void {
+    this.setButton(buttonState.MODERATE_YES);
     this.selectedValue = this.radio3;
   }
 
-  public answer_rad4() {
-
+  public answer_rad4():void {
+    this.setButton(buttonState.BIG_YES);
     this.selectedValue = this.radio4;
   }
 
   public answer_rad5() {
-
+    this.setButton(buttonState.VERY_BIG_YES);
     this.selectedValue = this.radio5;
   }
 

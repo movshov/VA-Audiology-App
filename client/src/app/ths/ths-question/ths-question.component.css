@@ -43,6 +43,14 @@ button:hover {
   float: left;
 }
 
+.green {
+  background-color: green !important;  /* using !important here because one of these classes has to superseed the other in order for it to properly apply the color*/
+}
+
+.white {
+  background-color: white;
+}
+
 .extra {
   text-align: center;
   color: white;
@@ -80,10 +88,4 @@ table{
 
 }
 
-.btn1:hover, .btn1:active, .btn1:focus {
-color: white !important;
-background-color: green !important;
-/* border-color: yellow !important; */
-/* border: 5px solid yellow !important; */
-}
 
