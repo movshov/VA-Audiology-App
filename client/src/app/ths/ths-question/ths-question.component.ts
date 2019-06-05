@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ContentChild, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { ThsAnswerStrings } from '../../common/custom-resource-strings';
 import { ThsDataService } from '../../services/ths-data.service';
 

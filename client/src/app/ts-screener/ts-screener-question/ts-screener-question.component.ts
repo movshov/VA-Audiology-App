@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ContentChild, OnInit, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import { TsScreenerDataService } from '../../services/ts-screener-data.service';
 
 export enum buttonState {
