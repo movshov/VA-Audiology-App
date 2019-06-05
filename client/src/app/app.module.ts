@@ -40,7 +40,6 @@ import { HomeComponent } from './home';
 import { NoContentComponent } from './no-content';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AudiologistNavigationComponent } from './audiologist-navigation/audiologist-navigation.component';
-//import { ThankYouComponent } from './thank-you/thank-you.component';
 import { PatientSummaryComponent } from './patient-summary/patient-summary.component';
 
 import { TfiComponent } from './tfi/tfi.component';
@@ -123,7 +122,6 @@ type StoreType = {
     LogoComponent,
     AppointmentsComponent,
     AudiologistNavigationComponent,
-   // ThankYouComponent,
     TsScreenerComponent,
     ThsComponent,
     ThsQuestionComponent,
