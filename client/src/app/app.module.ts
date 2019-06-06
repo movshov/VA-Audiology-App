@@ -38,7 +38,6 @@ import { AppComponent } from './app.component';
 import { LogoComponent } from './logo/logo.component';
 import { HomeComponent } from './home';
 import { NoContentComponent } from './no-content';
-import { CheckInComponent } from './check-in/check-in.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AudiologistNavigationComponent } from './audiologist-navigation/audiologist-navigation.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
@@ -122,7 +121,6 @@ type StoreType = {
     HomeComponent,
     NoContentComponent,
     LogoComponent,
-    CheckInComponent,
     AppointmentsComponent,
     AudiologistNavigationComponent,
     ThankYouComponent,

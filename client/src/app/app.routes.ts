@@ -1,6 +1,5 @@
 // tslint:disable-next-line:max-line-length
 import { AudiologistNavigationComponent } from './audiologist-navigation/audiologist-navigation.component';
-import { CheckInComponent } from './check-in/check-in.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home';
@@ -30,7 +29,6 @@ import { PatientLoginComponent } from './patient-login/patient-login.component';
 export const ROUTES: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'login', component: CheckInComponent },
     { path: 'appointments', component: AppointmentsComponent, canActivate: [RouterGuards] },
     { path: 'audiologist', component: AudiologistNavigationComponent, canActivate: [RouterGuards] },
     { path: 'thank-you', component: ThankYouComponent, canActivate: [RouterGuards] },
