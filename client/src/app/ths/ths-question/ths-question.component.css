@@ -44,7 +44,8 @@ button:hover {
 }
 
 .green {
-  background-color: green !important;  /* using !important here because one of these classes has to superseed the other in order for it to properly apply the color*/
+  background-color: green !important;  /* using !important here because one of these classes has to have a higher priority than the other in order for it to properly apply the color*/
+  color: white !important;
 }
 
 .white {
