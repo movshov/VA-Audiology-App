@@ -2,6 +2,7 @@ const helpers = require('./helpers');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 // const webpackMergeDll = webpackMerge.strategy({plugins: 'replace'});
 const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
+const fs = require('fs');
 
 /**
  * Webpack Plugins
@@ -240,7 +241,12 @@ module.exports = function (options) {
         // app.get('/some/path', function(req, res) {
         //   res.json({ custom: 'response' });
         // });
-      }
+      },
+
+      https: {
+        key: fs.readFileSync('../cert/server.key', 'utf8'),
+        cert: fs.readFileSync('../cert/server.crt', 'utf8'),
+      },
     },
 
     /**

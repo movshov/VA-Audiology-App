@@ -7,6 +7,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import fs from 'fs';
+import https from 'https';
 
 // Globals
 const app = express(); // Creates express app object
@@ -43,7 +45,6 @@ import appointmentsPostEndpoint from './appointmentsPOST';
 app.get('/appointments', appointmentsEndpoint);
 app.post('/appointments', appointmentsPostEndpoint);
 
-// -- CLIENT ENDPOINTS START --
 
 import patientGet from './patient/get';
 // Handles a single patient query
@@ -60,12 +61,19 @@ app.post('/patient/*/notes', patientUpdateNotes);
 import patientDelete from './patient/delete';
 app.delete('/patient/:patientId', patientDelete);
 
-// -- CLIENT ENDPOINTS END --
 
 import indexEndpoint from './index';
 app.get('/', indexEndpoint);
 
+
+// SSL Certificate
+const privateKey = fs.readFileSync('../cert/server.key', 'utf8');
+const certificate = fs.readFileSync('../cert/server.crt', 'utf8');
+
+const credentials = {key: privateKey, cert: certificate};
+
 // Set app to listen on a given port
-app.listen(port, () => {
+const server = https.createServer(credentials, app);
+server.listen(port, () => {
     console.log(`Starting VA App on port ${port}.`)
 })
