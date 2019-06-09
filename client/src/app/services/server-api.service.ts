@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular
 import { Observable } from 'rxjs';
 
 import { Response } from '../../../../api-objects/GenericResponse';
-import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Utilities } from '../common/utlilities';
 import { ErrorHandlingService } from './error-handling.service';

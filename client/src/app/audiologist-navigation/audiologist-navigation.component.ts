@@ -11,7 +11,7 @@ import ClearData from '../common/clear-data';
 
 @Component({
   selector: 'audio-navigation',
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
   styleUrls: ['./audiologist-navigation.component.css'],
   templateUrl: './audiologist-navigation.component.html',
 })
@@ -26,8 +26,8 @@ export class AudiologistNavigationComponent implements OnInit {
   public active: boolean = true;
   public scale: number = 0.55;
   public state: State = new State();
-  @ViewChild(AudiologistSummaryComponent) private summaryComponent: AudiologistSummaryComponent;
-  @ViewChild(NotesComponent) private notesComponent: NotesComponent;
+  @ViewChild(AudiologistSummaryComponent, {static: true}) private summaryComponent: AudiologistSummaryComponent;
+  @ViewChild(NotesComponent, {static: true}) private notesComponent: NotesComponent;
 
   constructor(
     private router: Router,

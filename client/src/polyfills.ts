@@ -22,27 +22,27 @@
 import 'ie-shim';
 
 // IE9, IE10 and IE11 requires all of the following polyfills.
-import 'core-js/es6/symbol';
-import 'core-js/es6/object';
-import 'core-js/es6/function';
-import 'core-js/es6/parse-int';
-import 'core-js/es6/parse-float';
-import 'core-js/es6/number';
-import 'core-js/es6/math';
-import 'core-js/es6/string';
-import 'core-js/es6/date';
-import 'core-js/es6/array';
-import 'core-js/es6/regexp';
-import 'core-js/es6/map';
-import 'core-js/es6/weak-map';
-import 'core-js/es6/set';
+import 'core-js/es/symbol';
+import 'core-js/es/object';
+import 'core-js/es/function';
+import 'core-js/es/parse-int';
+import 'core-js/es/parse-float';
+import 'core-js/es/number';
+import 'core-js/es/math';
+import 'core-js/es/string';
+import 'core-js/es/date';
+import 'core-js/es/array';
+import 'core-js/es/regexp';
+import 'core-js/es/map';
+import 'core-js/es/weak-map';
+import 'core-js/es/set';
 
 /** IE10 and IE11 requires the following for NgClass support on SVG elements */
 import 'classlist.js';  // Run `npm install --save classlist.js`.
 
 // Evergreen browsers require these.
-import 'core-js/es6/reflect';
-import 'core-js/es7/reflect';
+import 'core-js/es/reflect';
+import 'core-js/es/reflect';
 
 /**
  * Required to support Web Animations `@angular/animation`.
@@ -65,20 +65,20 @@ import 'zone.js/dist/long-stack-trace-zone'; // async stack traces with zone.js 
  * Date, currency, decimal and percent pipes.
  * Needed for: All but Chrome, Firefox, Edge, IE11 and Safari 10
  */
-import 'intl';  // Run `npm install --save intl`.
+//import 'intl';  // Run `npm install --save intl`.
 /**
  * Need to import at least one locale-data with intl.
  */
-import 'intl/locale-data/jsonp/en';
-if ('production' === ENV) {
-  // Production
+// import 'intl/locale-data/jsonp/en';
+// if ('production' === ENV) {
+//   // Production
 
-} else {
+// } else {
 
-  // Development
-  Error.stackTraceLimit = Infinity;
+//   // Development
+//   Error.stackTraceLimit = Infinity;
 
-  /* tslint:disable no-var-requires */
-  require('zone.js/dist/long-stack-trace-zone');
+//   /* tslint:disable no-var-requires */
+//   require('zone.js/dist/long-stack-trace-zone');
 
-}
+// }

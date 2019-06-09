@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Utilities } from '../common/utlilities';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { stringify } from 'querystring';
 
 // Holds test results entered

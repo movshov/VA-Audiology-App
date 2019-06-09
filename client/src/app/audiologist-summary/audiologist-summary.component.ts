@@ -5,7 +5,7 @@ import { TsScreenerDataService } from '../services/ts-screener-data.service';
 import { TfiDataService } from '../services/tfi-data.service';
 import { TsScreenerAnswerStrings, ThsAnswerStrings } from '../common/custom-resource-strings';
 import { TestsDataService } from '../services/tests-data.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { SurveySubmitHandler } from '../services/api-survey.submit.service';
 import { Appointment } from '../../../../api-objects/Appointment';
 
@@ -37,11 +37,11 @@ export class AudiologistSummaryComponent implements OnInit {
    * @param testsDataService the data service for the test results
    */
   constructor(
-    public thsDataService: ThsDataService,
-    public tsDataService: TsScreenerDataService,
-    public tfiDataService: TfiDataService,
-    public testsDataService: TestsDataService,
-    private surveySubmitHandler: SurveySubmitHandler
+    public thsDataService?: ThsDataService,
+    public tsDataService?: TsScreenerDataService,
+    public tfiDataService?: TfiDataService,
+    public testsDataService?: TestsDataService,
+    private surveySubmitHandler?: SurveySubmitHandler
   ) {
     this.tsDataService.onInit();
     this.setTS();
