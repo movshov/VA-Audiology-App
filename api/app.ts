@@ -50,7 +50,7 @@ app.get('/patient', patientGet);
 import patientPost from './patient/create';
 app.post('/patient', patientPost);
 
-import patientUpdateNotes from './patient/updateNotes';
+import patientUpdateNotes from './patient/notes/update';
 app.post('/patient/*/notes', patientUpdateNotes);
 
 import patientDelete from './patient/delete';
