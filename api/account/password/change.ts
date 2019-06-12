@@ -1,7 +1,7 @@
-import handler from './handler';
-import withConnection from './db';
-import * as auth from './authenticate';
-import * as errors from './errors';
+import handler from '../../handler';
+import withConnection from '../../db';
+import * as auth from '../../authenticate';
+import * as errors from '../../errors';
 import { Client } from 'pg';
 
 // Expects oldPassword and newPassword
