@@ -7,6 +7,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import * as account from './account'
+import * as appointment from './appointment'
+import * as patient from './patient'
 
 // Globals
 const app = express(); // Creates express app object
@@ -24,41 +27,28 @@ import heartbeatEndpoint from './heartbeat';
 app.get('/heartbeat', heartbeatEndpoint);
 import loginEndpoint from './login';
 app.post('/login', loginEndpoint);
-import changePasswordEndpoint from './changePassword';
+import changePasswordEndpoint from './account/password/change';
 app.post('/changePassword', changePasswordEndpoint);
 
 // -- ACCOUNTS --
-import accountsGetEndpoint from './accountsGET';
-app.get('/accounts', accountsGetEndpoint);
-import accountCreate from './accounts/create';
-app.post('/accounts/create', accountCreate);
-import resetPassword from './accounts/resetPassword';
-app.post('/accounts/resetPassword', resetPassword);
+app.get('/accounts', account.get);
+app.post('/accounts/create', account.create);
+app.post('/accounts/resetPassword', account.resetPassword);
+app.post('/accounts/changeUsername', account.changeUsername);
 
-import changeUsername from './accounts/changeUsername';
-app.post('/accounts/changeUsername', changeUsername);
-
-import appointmentsEndpoint from './appointments';
-import appointmentsPostEndpoint from './appointmentsPOST';
-app.get('/appointments', appointmentsEndpoint);
-app.post('/appointments', appointmentsPostEndpoint);
+// -- APPOINTMENTS --
+app.get('/appointments', appointment.get);
+app.post('/appointments', appointment.create);
 
 // -- CLIENT ENDPOINTS START --
 
-import patientGet from './patient/get';
 // Handles a single patient query
-app.get('/patient/:patientId', patientGet);
+app.get('/patient/:patientId', patient.get);
 // Handles select all patients query
-app.get('/patient', patientGet);
-
-import patientPost from './patient/create';
-app.post('/patient', patientPost);
-
-import patientUpdateNotes from './patient/updateNotes';
-app.post('/patient/*/notes', patientUpdateNotes);
-
-import patientDelete from './patient/delete';
-app.delete('/patient/:patientId', patientDelete);
+app.get('/patient', patient.get);
+app.post('/patient', patient.create);
+app.post('/patient/*/notes', patient.updateNotes);
+app.delete('/patient/:patientId', patient.delete);
 
 // -- CLIENT ENDPOINTS END --
 
